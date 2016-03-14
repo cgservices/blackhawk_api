@@ -1,49 +1,66 @@
 require "blackhawk_api/version"
-require 'httpi-ntlm'
-require 'inifile'
+require 'httpi'
+require 'yaml'
+require 'pry'
+require 'json'
+
+require 'openssl'
+require 'base64'
+require 'active_resource'
 
 module BlackhawkApi
-  class Client
+  class RESTResource
+    @@config = YAML.load(File.open("./config/config.yml"))
     REQUESTOR_ID = "ZPZB7DDS20PNHALMZCBX14RVCM"
+    CONTRACT_ID = ""
+    @@error_handler = ApiErrorHandler.new
+  
+    def self.setup_request uri
+      uri = "#{@@config['resourcelocation']['base_url']}/#{uri}"
     
-    def initialize(args)
-      # config = IniFile.new("../config.ini")
-      # @request = HTTPI::Request.new(config["request"]["uri"])
+      @request = HTTPI::Request.new(uri)
+      setup_authentication
+      setup_idempotency
+      setup_content_types
       
-      # if args.include?("-p")
-      #   if args.include?("-n")
-      #     @request.auth.ntlm(
-      #       config["proxysettings"]["proxy_userName"], config["proxysettings"]["proxy_password"])
-      #   end
-      #   if args.include?("-u")
-      #     @request.auth.basic(
-      #       config["proxysettings"]["proxy_userName"], config["proxysettings"]["proxy_password"])
-      #   end
-      # end
-      # @request.auth.ssl.cert_key_file = config["certificate"]["pem_key"]
-      # @request.auth.sll.cert_file = config["certificate"]["pem_cert"]
+      @request
+    end
+    
+    def self.print_response response
+      json = JSON.parse(response.raw_body)
+      puts JSON.pretty_generate(json)
+      response
+    end
+    
+    def self.parse_response response
+      print_response response
+      result = JSON.parse(response.raw_body, object_class: OpenStruct)
+      @@error_handler.inspect response, result
+      result
+    end
+    
+    protected
+    def self.default_pagination
+      return { :ascending => ascending, :first => first, :maximum => maximum }
+    end
+    
+    private
+    def self.setup_authentication
+      @request.auth.ssl.cert_key_file = @@config["certificate"]["key"]
+      @request.auth.ssl.cert_file = @@config["certificate"]["cert"]
+      @request.auth.ssl.verify_mode = :peer
+      @request.auth.ssl.ssl_version = :TLSv1_2
+    end
+    
+    def self.setup_idempotency
       # @request.headers["requestorId"] = REQUESTOR_ID
-      # @request.headers["Content-Type"] = "application/json; charset=UTF-8"
-      # @request.headers["Accept"] = "application/json; charset=UTF-8"
-      puts 'OK!'
+      # @request.headers["requestId"] = REQUEST_ID
+      # @request.headers["previousAttempts"] = PREVIOUS_ATTEMPTS
     end
     
-    def get
-      @response = HTTPI.get @request
-    end
-    
-    def delete
-      @response = HTTPI.delete @request
-    end
-    
-    def post body
-      @request.body = body
-      @response = HTTPI.post @request
-    end
-    
-    def put body
-      @request.body = body
-      @response = HTTPI.put @request
+    def self.setup_content_types
+      @request.headers["Content-Type"] = "application/json; charset=UTF-8"
+      @request.headers["Accept"] = "application/json; charset=UTF-8"
     end
   end
 end

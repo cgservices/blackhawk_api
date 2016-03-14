@@ -8,3 +8,5 @@
 /spec/reports/
 /tmp/
 /config/config.ini
+/config/config.yml
+/config/certificates/

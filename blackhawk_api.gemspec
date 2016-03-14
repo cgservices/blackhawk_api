@@ -37,6 +37,9 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "pry-remote"
   spec.add_development_dependency "pry-nav"
   
-  spec.add_runtime_dependency 'httpi-ntlm', '~> 0.9.6'
+  spec.add_dependency 'rubyntlm', '~> 0.3.2'
+  spec.add_dependency "httpi", '~> 2.4.1'
+  spec.add_dependency 'activeresource'
+  # spec.add_runtime_dependency 'httpi-ntlm', '~> 0.9.6'
   spec.add_runtime_dependency 'inifile', '~> 3.0'
 end
