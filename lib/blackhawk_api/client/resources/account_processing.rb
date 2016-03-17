@@ -22,8 +22,7 @@ module BlackhawkApi
         :storeNumber => store_number, :terminalNumber => terminal_number,
         :baseTransactionId => base_transaction_id, :messageReasonCode => message_reason_code }
       @request.body = hash.to_json
-      
-      parse_response HTTPI.post @request
+      @request
     end
     
     # This operation uses an accountId to retrieve account information. This operation can be 
@@ -35,7 +34,7 @@ module BlackhawkApi
     def self.find account_id
       @request = self.setup_request "#{@@resource_url}/readAccount"
       @request.query = { :accountId => account_id }
-      parse_response HTTPI.get @request
+      @request
     end
     
     # This operation uses an accountId to retrieve account information, including the current balance.
@@ -54,7 +53,7 @@ module BlackhawkApi
       @request = self.setup_request "#{@@resource_url}/getAccount"
       # TODO: @request.headers["contractId"] =
       @request.query = { :accountId => account_id }
-      parse_response HTTPI.get @request
+      @request
     end
     
     # This operation queries an account using Account Number, Product Line ID and Account Type.
@@ -67,8 +66,7 @@ module BlackhawkApi
       # TODO: @request.headers["contractId"] =
       @request.query = { :accountNumber => account_number, :productLineId => product_line_id,
         :accountType => account_type }
-      
-      parse_response HTTPI.get @request
+      @request
     end
   end
 end

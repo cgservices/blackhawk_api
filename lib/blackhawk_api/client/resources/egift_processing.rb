@@ -3,11 +3,13 @@ require "blackhawk_api/client/base"
 require 'httpi'
 
 module BlackhawkApi
+  # The EGift Processing API enables client applications to create wrappers around a card created by
+  # Blackhawk Network so that the card can function as an eGift.
   class EGiftProcessing < RESTResource
     @@resource_url = 'eGiftProcessing/v1'
     
     # This operation generates an eGift for any given product configuration. The generate operation
-    #  creates an account and wraps it in an eGift object, returning the fuly initialized, newly created eGift.
+    #  creates an account and wraps it in an eGift object, returning the fully initialized, newly created eGift.
     # @param giftFrom EGift sender details.
     # @param giftTo EGift receiver details.
     # @param giftMessage Gift message.
@@ -25,7 +27,7 @@ module BlackhawkApi
       @request = self.setup_request "#{@@resource_url}/generateEGift"
       # TODO: @request.headers["contractId"] =
       # TODO: Set body @request.body = 
-      parse_response HTTPI.post @request
+      @request
     end
   end
 end

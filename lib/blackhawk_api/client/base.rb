@@ -6,7 +6,8 @@ require 'json'
 
 require 'openssl'
 require 'base64'
-require 'active_resource'
+require "blackhawk_api/client/requests/base_request"
+require "blackhawk_api/client/errors/blackhawk_api_error"
 
 module BlackhawkApi
   class RESTResource
@@ -17,8 +18,7 @@ module BlackhawkApi
   
     def self.setup_request uri
       uri = "#{@@config['resourcelocation']['base_url']}/#{uri}"
-    
-      @request = HTTPI::Request.new(uri)
+      @request = Request.new(uri)
       setup_authentication
       setup_idempotency
       setup_content_types
@@ -34,14 +34,9 @@ module BlackhawkApi
     
     def self.parse_response response
       print_response response
-      result = JSON.parse(response.raw_body, object_class: OpenStruct)
+      result = JSON.parse(response.raw_body, object_class: Struct)
       @@error_handler.inspect response, result
       result
-    end
-    
-    protected
-    def self.default_pagination
-      return { :ascending => ascending, :first => first, :maximum => maximum }
     end
     
     private

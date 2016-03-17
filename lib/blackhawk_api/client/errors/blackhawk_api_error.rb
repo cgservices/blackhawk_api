@@ -1,4 +1,5 @@
 require 'blackhawk_api/version'
+require 'pry'
 
 module BlackhawkApi
   # Represents an error that has occurred in the BlackHawk API request. 
@@ -18,9 +19,9 @@ module BlackhawkApi
   # Class to handle API request errors.
   class ApiErrorHandler
     # Inspects the result retrieved from the API call.
-    def inspect response, result
+    def _inspect response, result
       return if response.code == 200
-      
+
       raise ApiError.new(response.code, result.errorCode, result.message)
     end
   end

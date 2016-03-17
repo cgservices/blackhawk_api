@@ -14,8 +14,7 @@ module BlackhawkApi
     # @return Retrieves the requested product.
     # @raise 404 - attempt.to.retrieve.nonexistent.entity - Nonexistent entity
     def self.find product_id
-      @request = self.setup_request "#{@@resource_url}/#{product_id}"
-      parse_response HTTPI.get @request
+      self.setup_request "#{@@resource_url}/#{product_id}"
     end
     
     # This API retrieves a list of summary information about a subset of the products
@@ -23,10 +22,10 @@ module BlackhawkApi
     # @param productline_id The internal identifier for the product line.
     # @return Retrieves a list of matching product summary entities and the total number of 
     #  entities existing in the system matching the given product line ID.
-    def self.find_by_productline(productline_id)
+    def self.find_by_productline productline_id
       @request = self.setup_request "#{@@resource_url}s"
       @request.query = { :productLineId => productline_id }
-      parse_response HTTPI.get @request
+      @request
     end
     
     # This API returns a list of product summary information for the given product IDs.
@@ -35,8 +34,8 @@ module BlackhawkApi
     #  entities existing in the system matching the given product IDs.
     def self.find_by_ids ids
       @request = self.setup_request "#{@@resource_url}s"
-      @request.query = { :productIds => ids.reject(&:empty).join(';') }
-      parse_response HTTPI.get @request
+      @request.query = { :productIds => ids }
+      @request
     end
     
     # This API returns a list of product summary entities matching the given search keyword.
@@ -48,15 +47,13 @@ module BlackhawkApi
     # @param first The index of the first entity in this cursor view of the list. The default first index is zero referring to the first entity in the full list.
     # @param maximum The maximum number of entities to be shown in this cursor view of the list.
     # @return Retrieves a list of matching product summary entities and the total count returned from the query and the request elements specified in the request.
-    def self.find_by_keyword (keyword, exact_match = true, 
-      case_sensistive = true, sortKey = :productName, ascending = true, first = 0, maximum = 100)
-      
+    def self.find_by_keyword (keyword, exact_match = true, case_sensistive = true)
       @request = self.setup_request "#{@@resource_url}s"
       @request.query = {
-        :keyword => keyword, :exactMatch => exact_match, :caseSensistive => case_sensistive,
-        :sortKey => sortkey, :ascending => ascending, :first => first, :maximum => maximum
+        :keyword => keyword, :exactMatch => exact_match, :caseSensistive => case_sensistive #,
+        #:sortKey => sortKey, :ascending => ascending, :first => first, :maximum => maximum
       }
-      parse_response HTTPI.get @request
+      @request
     end
     
     # This operation returns a list of summary information about a subset
@@ -67,19 +64,18 @@ module BlackhawkApi
     def self.find_by_configuration configuration_id
       @request = self.setup_request "#{@@resource_url}s"
       @request.query = { :configurationId => configuration_id }
-      parse_response HTTPI.get @request
+      @request
     end
     
     # This operation returns a list of summary information for the subset of products
     #  matching a given provisioning type.
     # @param provisioning_type PHYSICAL or DIGITAL
     # @return Retrieves a list of ProductSummary entities and the total number of entities
-    #  ecisting in the system matching the given provisioning type.
+    #  existing in the system matching the given provisioning type.
     def self.find_by_provisioning_type provisioning_type
       @request = self.setup_request "#{@@resource_url}s"
-      query = { :provisioningType => provisioning_type }
-      @request.query = self.default_pagination.merge(query)      
-      parse_response HTTPI.get @request
+      @request.query = { :provisioningType => provisioning_type }       
+      @request
     end
   end
 end

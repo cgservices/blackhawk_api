@@ -16,7 +16,7 @@ module BlackhawkApi
     def self.create account_transaction
       @request = self.setup_request "#{@@resource_url}"
       @request.body = account_transaction.to_json
-      parse_response HTTPI.post @request
+      @request
     end
     
     # This operation retrieves full account transaction information for the specified account transaction identifier.
@@ -24,8 +24,7 @@ module BlackhawkApi
     # @return Retrieves the requested account transaction.
     # @raise 404 - EntityNotFoundException - The requested entity is not found by the service
     def self.find account_transaction_id
-      @request = self.setup_request "#{@@resource_url}/#{account_transaction_id}"
-      parse_response HTTPI.get @request
+      self.setup_request "#{@@resource_url}/#{account_transaction_id}"
     end
     
     # This operation queries account transactions by transaction ids.
@@ -35,7 +34,7 @@ module BlackhawkApi
     def self.find_by_ids transaction_ids
       @request = self.setup_request "#{@@resource_url}s"
       @request.query = { :accountTransactionIds => transaction_ids.reject(&:empty).join(';') }
-      parse_response HTTPI.get @request
+      @request
     end
     
     # This operation queries account transactions associated with the given account ID.
@@ -45,7 +44,7 @@ module BlackhawkApi
     def self.find_by_account_id account_id
       @request = self.setup_request "#{@@resource_url}s"
       @request.query = { :accountId => account_id }
-      parse_response HTTPI.get @request
+      @request
     end
     
     # This operation queries account transactions associated with the given correlation ID.
@@ -55,7 +54,7 @@ module BlackhawkApi
     def self.find_by_correlation_id correlation_id
       @request = self.setup_request "#{@@resource_url}s"
       @request.query = { :correlationId => correlation_id }
-      parse_response HTTPI.get @request
+      @request
     end
     
     # This operation groups a set of account transactions using a correlation ID.
@@ -65,7 +64,8 @@ module BlackhawkApi
     # @raise 400 - atleast.two.guids.needed.to.correlate - GUIDs to correlate is not enough
     def self.correlate transaction_ids
       @request = self.setup_request "#{@@correlation_url}/correlate"
-      parse_response HTTPI.put @request
+      # TODO: Request.body = ...
+      @request
     end
   end
 end

@@ -12,8 +12,7 @@ module BlackhawkApi
     # This operation queries all product catalog summaries.
     # @return List of product catalog summary with the total number of product catalog summaries existing in the system.
     def self.all
-      @request = self.setup_request "#{@@resource_url}s"
-      parse_response HTTPI.get @request
+      self.setup_request "#{@@resource_url}s"      
     end
 
     # This operation reads product catalog information based on a specified product catalog identifier.
@@ -21,18 +20,17 @@ module BlackhawkApi
     # @return Retrieves the ProductCatalog for the given catalog_id.
     # @raise 404 - attempts.to.retrieve.nonexistent.entity - Nonexistent entity.
     def self.find catalog_id
-      @request = self.setup_request "#{@@resource_url}/#{catalog_id}"
-      parse_response HTTPI.get @request
+      self.setup_request "#{@@resource_url}/#{catalog_id}"      
     end
     
-    # This operation queries the names from product catalog summary information for a catalog.
+    # This operation queries product catalog summary information for a catalog by name.
     # @param catalog_name The name of the product catalog.
     # @return Retrieves a list of matching ProductCatalogSummary and the total number of entities
     #  existing in the system matching the given catalog name.
     def self.find_by_name catalog_name
       @request = self.setup_request "#{@@resource_url}s"
       @request.query = { :catalogName => catalog_name }
-      parse_response HTTPI.get @request
+      @request
     end
     
     # This operation queries product catalog summary information by catalog IDs.
@@ -41,8 +39,8 @@ module BlackhawkApi
     #  matching the given catalog IDs.
     def self.find_by_ids catalog_ids
       @request = self.setup_request "#{@@resource_url}s"
-      @request.query = { :catalogIds => catalog_ids.reject(&:empty).join(';') }
-      parse_response HTTPI.get @request
+      @request.query = { :catalogIds => catalog_ids.join(';') }
+      @request
     end
     
     # This API returns a list of summaries for a given product ID from a catalog.
@@ -51,15 +49,14 @@ module BlackhawkApi
     def self.find_product_catalogs_for_product product_id
       @request = self.setup_request "#{@@resource_url}s"
       @request.query = { :productId => product_id }
-      parse_response HTTPI.get @request
+      @request
     end
 
     # This operation retrieves the version for a specified product catalog identifier.
     # @param catalog_id The internal identifier of the product catalog.
     # @raise 403 - query.all.product.catalogs.by.product.unauthorized - Not authorized.
     def self.get_version catalog_id
-      @request = self.setup_request "#{@@resource_url}/#{catalog_id}/version"
-      parse_response HTTPI.get @request
+      self.setup_request "#{@@resource_url}/#{catalog_id}/version"      
     end
   end
 end
