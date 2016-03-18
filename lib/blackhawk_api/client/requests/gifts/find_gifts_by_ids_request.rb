@@ -7,6 +7,7 @@ module BlackhawkApi
     attr_reader :gift_ids
     
     # Creates a new request object.
+    # @param egift_ids An array of giftcard identifiers to retrieve.
     def initialize(egift_ids)
       @gift_ids = BlackhawkIdentityArray.new(egift_ids) 
     end

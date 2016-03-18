@@ -64,6 +64,7 @@ module BlackhawkApi
     # @raise 400 - atleast.two.guids.needed.to.correlate - GUIDs to correlate is not enough
     def self.correlate transaction_ids
       @request = self.setup_request "#{@@correlation_url}/correlate"
+      @request.body = transaction_ids.to_s
       # TODO: Request.body = ...
       @request
     end

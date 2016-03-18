@@ -1,7 +1,6 @@
 require 'blackhawk_api/client/requests/base_request'
 
 module BlackhawkApi
-  
   class FindProductByProvisioningTypeRequest < PaginatedRequest
     attr_reader :provisioning_type
     

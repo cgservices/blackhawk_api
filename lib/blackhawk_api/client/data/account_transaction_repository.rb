@@ -5,7 +5,7 @@ module BlackhawkApi
   class AccountTransactionRepository < Client
     # This operation creates a new account transaction 
     def create request
-      # TODO: implementation 
+      # TODO: post AccountTransaction.create 
     end
     
     # This operation retrieves full account transaction information for the specified transaction ID.
@@ -30,7 +30,7 @@ module BlackhawkApi
     
     # This operation groups a set of account transactions using a correlation ID.
     def correlate request
-      # TODO: implementation
+      post AccountTransaction.correlate request.transaction_ids
     end
   end
 end

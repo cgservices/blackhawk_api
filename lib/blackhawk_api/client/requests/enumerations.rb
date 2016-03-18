@@ -1,0 +1,6 @@
+module BlackhawkApi
+  module Enums
+    VALID_ACCOUNT_TYPES = [:CREDIT_CARD, :GIFT_CARD, :LOYALTY_CARD, :PHONE_CARD]
+    SUPPORTED_ACCOUNT_TYPES = [:GIFT_CARD]
+  end
+end

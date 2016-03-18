@@ -7,6 +7,7 @@ module BlackhawkApi
     attr_reader :account_id
     
     # Creates a new request object.
+    # @param account_id The identifier for the account.
     def initialize account_id
       @account_id = BlackhawkIdentity.new(account_id)
     end

@@ -1,7 +1,7 @@
 require "blackhawk_api/version"
 require "blackhawk_api/client/base"
 require "blackhawk_api/client/errors/blackhawk_api_error"
-require "blackhawk_api/client/responses/product_response"
+require "blackhawk_api/client/responses/product_responses"
 require 'json'
 require "blackhawk_api/client/services/service_base"
 
@@ -81,17 +81,6 @@ module BlackhawkApi
       return if !validate request
       response = yield
       return inspected response
-    end
-    
-    private    
-    def as_product_response result
-      # TODO: Implementation
-      return ProductResponse.new(result.total, result.parameters)
-    end
-    
-    def as_product_summary_response result
-      # TODO: Implementation
-      raise :NotImplementedError
     end
   end
 end

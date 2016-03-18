@@ -17,6 +17,8 @@ describe BlackhawkApi do
     end
     
     context 'Generate' do
+      # This operation generates an eGift for a product configuration.
+      # POST: https://api.blackhawknetwork.com/eGiftProcessing/v1/generateEGift
       it 'should generate a new giftcard' do
         # Arrange
         sut = BlackhawkApi::GiftService.new

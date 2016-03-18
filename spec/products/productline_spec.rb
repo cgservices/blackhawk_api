@@ -22,16 +22,19 @@ describe BlackhawkApi do
     
     context 'Find By Brand' do
       context 'with invalid identity' do
+        INVALID_BRAND_ID = '123456789123456789123456790123456789'
+        EMPTY_BRAND_ID = ''
+        
         it 'should raise ArgumentError on no identity' do
           # Arrange 
-          brand = ''
+          brand = EMPTY_BRAND_ID
           # Act / Assert
           expect { BlackhawkApi::FindProductLinesByBrandRequest.new(brand) }.to raise_error(ArgumentError)
         end
         
         it 'should raise ArgumentError on invalid identity' do
           # Arrange 
-          brand = '123456789123456789123456790123456789'
+          brand = INVALID_BRAND_ID
           # Act / Assert
           expect { BlackhawkApi::FindProductLinesByBrandRequest.new(brand) }.to raise_error(ArgumentError)
         end
