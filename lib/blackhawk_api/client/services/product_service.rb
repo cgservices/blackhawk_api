@@ -20,7 +20,7 @@ module BlackhawkApi
     # @param product_id The internal identifier for the product.
     # @return Retrieves the requested product.
     def find product_id
-      @products.find(product_id)
+      ProductDetails.new(@products.find(product_id))
     end
     
     # Retrieve a list of product summary entities matching the given search keyword.
@@ -28,9 +28,10 @@ module BlackhawkApi
     # @return Retrieves a list of matching product summary entities and the total count returned
     #  from the query and the request elements specified in the request.
     def find_by_keyword request
-      perform request do
+      web_response = perform request do
         @products.find_by_keyword(request)
       end
+      ProductResponse.new(web_response[0])
     end
     
     # This operation returns a list of summary information for the subset of products matching
@@ -39,11 +40,10 @@ module BlackhawkApi
     # @return Retrieves a list of product summary entities and the total number of entities
     #  existing in the system matching the given provisioning type.
     def find_by_provisioning_type request
-      result = perform request do
+      web_response = perform request do
         return @products.find_by_provisioning_type(request)
       end
-      
-      result.as_product_response
+      ProductResponse.new(web_response[0])
     end
     
     # Retrieve a list of summary information about a subset of the products matching a given product_line_id
@@ -51,9 +51,10 @@ module BlackhawkApi
     # @return Retrieves a list of matching product summary entities and the total number of entities
     # existing in the system matching the given product line ID.
     def find_by_productline request
-      perform request do
+      web_response = perform request do
         @products.find_by_productline(request)
       end
+      ProductResponse.new(web_response[0])
     end
     
     # Retrieves a list of product summary information for the given product IDs.
@@ -61,9 +62,10 @@ module BlackhawkApi
     # @return Retrieves a list of matching product summary entities and the total number of entities
     #  existing in the system matching the given product IDs.
     def find_by_ids request
-      perform request do
+      web_response = perform request do
         @products.find_by_ids(request)
       end
+      ProductResponse.new(web_response[0])
     end
     
     # Retrieves a list of product summary information for the given product configuration ID.
@@ -71,9 +73,10 @@ module BlackhawkApi
     # @return Retrieves a list of product summary entities and the total number of entities existing
     # in the sustem matching the given configuration ID.
     def find_by_configuration request
-      perform request do
+      web_response = perform request do
         @products.find_by_configuration(request)
       end
+      ProductResponse.new(web_response[0])
     end
     
    protected    
