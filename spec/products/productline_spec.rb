@@ -21,9 +21,26 @@ describe BlackhawkApi do
     end
     
     context 'Find By Brand' do
-      it 'should product summaries' do
-        # Arrange 
-        brand = ''
+      context 'with invalid identity' do
+        it 'should raise ArgumentError on no identity' do
+          # Arrange 
+          brand = ''
+          # Act / Assert
+          expect { BlackhawkApi::FindProductLinesByBrandRequest.new(brand) }.to raise_error(ArgumentError)
+        end
+        
+        it 'should raise ArgumentError on invalid identity' do
+          # Arrange 
+          brand = '123456789123456789123456790123456789'
+          # Act / Assert
+          expect { BlackhawkApi::FindProductLinesByBrandRequest.new(brand) }.to raise_error(ArgumentError)
+        end
+      end
+      
+      it 'should show product summaries' do
+        # Arrange
+        VALID_BRAND_ID = '1234567890123456789012345'
+        brand = VALID_BRAND_ID
         sut = BlackhawkApi::ProductLineService.new
         request = BlackhawkApi::FindProductLinesByBrandRequest.new(brand)
         # Act

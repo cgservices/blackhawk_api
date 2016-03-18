@@ -39,7 +39,7 @@ module BlackhawkApi
     #  matching the given catalog IDs.
     def self.find_by_ids catalog_ids
       @request = self.setup_request "#{@@resource_url}s"
-      @request.query = { :catalogIds => catalog_ids.join(';') }
+      @request.query = { :catalogIds => catalog_ids.to_s }
       @request
     end
     

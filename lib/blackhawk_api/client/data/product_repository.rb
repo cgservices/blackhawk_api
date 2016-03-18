@@ -29,7 +29,7 @@ module BlackhawkApi
     
     # This operation returns a list of product summary information for the given product identifiers.
     def find_by_ids request
-      get Product.find_by_ids (request.product_ids.join(';'))
+      get Product.find_by_ids (request.product_ids.to_s)
     end
     
     # This operation returns a list of product summary information for the given configuration ID. 

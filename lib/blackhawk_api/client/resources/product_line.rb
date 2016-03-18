@@ -32,7 +32,7 @@ module BlackhawkApi
     #  existing in the system matching the given product line IDs.
     def self.find_summaries_by_ids ids
       @request = self.setup_request "#{@@resource_url}s"
-      @request.query = { :productLineIds => ids.join(';') }
+      @request.query = { :productLineIds => ids.to_s }
       @request
     end
   end

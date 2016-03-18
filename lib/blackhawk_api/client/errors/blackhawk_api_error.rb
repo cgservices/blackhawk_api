@@ -2,7 +2,7 @@ require 'blackhawk_api/version'
 require 'pry'
 
 module BlackhawkApi
-  # Represents an error that has occurred in the BlackHawk API request. 
+  # Represents an error that has occurred in the BlackHawk API. 
   class ApiError < RuntimeError
     attr_reader :http_code
     attr_reader :error_code

@@ -23,7 +23,7 @@ describe BlackhawkApi do
     end
     
     context 'Find By Provisioning Type' do
-      it 'should show product details by provisioning type' do
+      it 'should show product details by provisioning type as symbol' do
         # Arrange
         index = 0
         max_amount = 10
@@ -44,13 +44,13 @@ describe BlackhawkApi do
         expect(result[:parameters][:maximum]).to eq(max_amount)
       end
       
-      it 'should return an error with invalid provisioning types' do
+      it 'should show product details by provisioning type as string' do
         # Arrange
         index = 0
         max_amount = 10
         sut = BlackhawkApi::ProductService.new
         request = BlackhawkApi::FindProductByProvisioningTypeRequest.new(
-          :invalid_product_type)
+          'DIGITAL')
         
         # Act
         response = sut.find_by_provisioning_type request
@@ -58,10 +58,20 @@ describe BlackhawkApi do
         
         # Assert
         expect(response).not_to eq(nil)
-        expect(response.code).to eq(400)
-        expect(result).not_to eq(nil)
-        expect(result.errorCode).to eq('com.bhn.general.invalid.argument')
-        expect(result.message).to eq('Illegal argument supplied in the request')
+        expect(response.code).to eq(200)
+        expect(result[:parameters]).not_to eq(nil)
+        expect(result[:parameters][:first]).to eq(index)
+        expect(result[:parameters][:ascending]).to eq(true)
+        expect(result[:parameters][:maximum]).to eq(max_amount)
+      end
+      
+      it 'should return an error with invalid provisioning types' do
+        # Arrange
+        invalid_param = :invalid_product_type 
+        # Act / Assert
+        expect { 
+          BlackhawkApi::FindProductByProvisioningTypeRequest.new(invalid_param)
+        }.to raise_error(ArgumentError)
       end
     end
     
