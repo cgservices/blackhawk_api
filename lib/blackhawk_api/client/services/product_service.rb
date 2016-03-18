@@ -20,6 +20,7 @@ module BlackhawkApi
     # @param product_id The internal identifier for the product.
     # @return Retrieves the requested product.
     def find product_id
+      # TODO: Fix response 
       ProductDetails.new(@products.find(product_id))
     end
     

@@ -1,4 +1,4 @@
-require 'blackhawk_api/client/dto/product_details'
+require 'blackhawk_api/client/dto/product_summary'
 
 module BlackhawkApi
   class ProductResponse < BaseResponse
