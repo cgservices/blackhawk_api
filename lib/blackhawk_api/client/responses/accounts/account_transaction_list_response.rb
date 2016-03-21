@@ -1,5 +1,5 @@
 module BlackhawkApi
-  class AccountTransactionListResponse
+  class AccountTransactionListResponse < BaseResponse
     attr_reader :total, :results
       
     def initialize(http_response)

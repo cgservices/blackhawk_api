@@ -21,5 +21,12 @@ module BlackhawkApi
       @handler._inspect(response, result)
       return [response, result]
     end
+    
+    def perform request, &block
+      return if !validate request
+
+      response = yield
+      return inspected response
+    end
   end
 end

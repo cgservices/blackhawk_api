@@ -10,7 +10,7 @@ module BlackhawkApi
     
     # This operation creates an account transaction.
     def create request
-      web_response = perform request do
+      web_response, results = perform request do
         @transactions.create request.transaction
       end
       AccountTransactionResponse.new(web_response)
@@ -19,7 +19,7 @@ module BlackhawkApi
     # This operation retrieves full account transaction information for the
     # specified account transaction identifier.
     def find transaction_id
-      web_response = perform request do
+      web_response, results = perform request do
         @transactions.find transaction_id
       end
       AccountTransactionResponse.new(web_response)
@@ -27,7 +27,7 @@ module BlackhawkApi
     
     # This operation queries account transactions by IDs
     def find_by_ids request
-      web_response = perform request do
+      web_response, results = perform request do
         @transactions.find_by_ids request.transaction_ids
       end
       AccountTransactionListResponse.new(web_response)
@@ -35,7 +35,7 @@ module BlackhawkApi
     
     # This operation queries account transactions associated witht he given account ID.
     def find_by_account_id request
-      web_response = perform request do
+      web_response, results = perform request do
         @transactions.find_by_account_id request.account_id
       end
       AccountTransactionListResponse.new(web_response)
@@ -43,7 +43,7 @@ module BlackhawkApi
     
     # This operation queries account transactions associated with the given correlation ID.
     def find_by_correlation_id request
-      web_response = perform request do
+      web_response, results = perform request do
         @transactions.find_by_correlation_id request.correlation_id
       end
       AccountTransactionListResponse.new(web_response)
@@ -51,18 +51,10 @@ module BlackhawkApi
     
     # This operation groups a set of account transactions using a correlation ID.
     def correlate request
-      web_response = perform request do
+      web_response, results = perform request do
         @transactions.correlate request.transaction_ids
       end
       AccountTransactionCorrelationResponse.new(web_response)
-    end
-    
-    protected
-    def perform request, &block
-      return if !validate request
-
-      response = yield
-      return inspected response
     end
   end
 end

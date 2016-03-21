@@ -1,4 +1,5 @@
 require "blackhawk_api/client/services/service_base"
+require 'pry'
 
 module BlackhawkApi
   class ProductLineService < BlackhawkService
@@ -14,7 +15,8 @@ module BlackhawkApi
     # @param productline_id The internal identifier for the product line.
     # @return Retrieves the requested productline
     def find productline_id
-      @productlines.find productline_id
+      result = @productlines.find productline_id
+      ProductLineDetailsResponse.new(result)
     end
     
     # This operation retrieves product line summary information about a subset of the product lines
@@ -22,26 +24,20 @@ module BlackhawkApi
     # @param request
     # @return
     def find_summaries_by_brand request
-      perform request do
+      web_response, results = perform request do
         @productlines.find_summaries_by_brand request
       end
+      ProductLinesResponse.new(web_response)
     end
     
     # This operation returns product line summary information for the given product line IDs.
     # @param request
     # @return
     def find_summaries_by_ids request
-      perform request do
+      web_response, results = perform request do
         @productlines.find_summaries_by_ids request
       end
-    end
-    
-    protected
-    def perform request, &block
-      return if !validate request
-
-      response = yield
-      return inspected response
+      ProductLinesResponse.new(web_response)
     end
   end
 end

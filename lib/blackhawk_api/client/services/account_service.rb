@@ -44,13 +44,5 @@ module BlackhawkApi
       end
       AccountLocationResponse.new(web_response)
     end
-    
-    protected
-    def perform request, &block
-      return if !validate request
-
-      response = yield
-      return inspected response
-    end
   end
 end

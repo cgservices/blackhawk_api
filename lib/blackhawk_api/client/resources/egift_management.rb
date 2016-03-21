@@ -32,7 +32,6 @@ module BlackhawkApi
     # @return The list of matching eGift entries and the total number of entities existing in the system matching the 
     #  given eGift ID (or multiple IDs)
     def self.find_by_egift_ids egift_ids
-      binding.pry
       @request = self.setup_request "#{@@resource_url}"
       @request.query = { :eGiftIds => egift_ids.join(';') }
       @request

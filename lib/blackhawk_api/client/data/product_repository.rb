@@ -3,8 +3,7 @@ require 'blackhawk_api/client/client'
 require 'pry'
 
 module BlackhawkApi
-  class ProductRepository < Client
-    
+  class ProductRepository < Client    
     # This operation retrieves product information for the specified product identifier.
     def find product_id
       get Product.find product_id

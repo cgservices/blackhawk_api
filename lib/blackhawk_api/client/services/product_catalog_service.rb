@@ -45,38 +45,30 @@ module BlackhawkApi
     # @param request
     # @return
     def find_by_name request
-      web_responses = perform request do
+      web_response, results = perform request do
         @catalogs.find_by_name(request)
       end
-      ProductCatalogsResponse.new(web_responses[0])
+      ProductCatalogsResponse.new(web_response)
     end
     
     # This operation queries product catalog summary information by catalog Ids.
     # @param request
     # @return
     def find_by_ids request
-      web_responses = perform request do
+      web_response, results = perform request do
         @catalogs.find_by_ids(request)
       end
-      ProductCatalogsResponse.new(web_responses[0])
+      ProductCatalogsResponse.new(web_response)
     end
     
     # This operation returns a list of summaries for a given product ID from a catalog.
     # @param request
     # @return
     def find_product_catalogs_for_product request
-      web_responses = perform request do
+      web_response, results = perform request do
         @catalogs.find_product_catalogs_for_product(request)
       end
-      ProductCatalogsResponse.new(web_responses[0])
-    end
-    
-    protected
-    def perform request, &block
-      return if !validate request
-
-      response = yield
-      return inspected response
+      ProductCatalogsResponse.new(web_response)
     end
   end
 end

@@ -5,7 +5,7 @@ module BlackhawkApi
   class AccountTransactionRepository < Client
     # This operation creates a new account transaction 
     def create request
-      # TODO: post AccountTransaction.create 
+      # TODO: post AccountTransaction.create request 
     end
     
     # This operation retrieves full account transaction information for the specified transaction ID.

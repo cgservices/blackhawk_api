@@ -24,7 +24,7 @@ module BlackhawkApi
     # @param request 
     # @return
     def generate request
-      web_response = perform request do
+      web_response, results = perform request do
         @gifts.generate request
       end
       GiftDetailsResponse.new(web_response)
@@ -34,7 +34,7 @@ module BlackhawkApi
     # @param request
     # @return
     def find_by_account_id request
-      web_response = perform request do
+      web_response, results = perform request do
         @gifts.find_by_account_id request.account_id
       end
       GiftListResponse.new(web_response)
@@ -44,18 +44,10 @@ module BlackhawkApi
     # @param request
     # @return
     def find_by_egift_ids request
-      web_response = perform request do
+      web_response, results = perform request do
         @gifts.find_by_gift_ids request.gift_ids
       end
       GiftListResponse.new(web_response)
-    end
-    
-    protected
-    def perform request, &block
-      return if !validate request
-
-      response = yield
-      return inspected response
     end
   end
 end
