@@ -89,7 +89,6 @@ describe BlackhawkApi do
       it 'should find an existing account' do
         # arrange
         account_number = ''
-        pin = ''
         product_line_id = ''
         account_type = ''
         sut = BlackhawkApi::AccountService.new

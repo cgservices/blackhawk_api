@@ -20,7 +20,7 @@ module BlackhawkApi
     
     # This operation generates an eGift for any given product configuration.
     def generate request
-      # TODO: post EGiftProcessing.generate request.params 
+      post EGiftProcessing.generate request.to_json 
     end
   end
 end

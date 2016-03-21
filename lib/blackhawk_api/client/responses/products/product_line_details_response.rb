@@ -2,7 +2,7 @@ require 'blackhawk_api/client/dto/product_line_details'
 
 module BlackhawkApi  
   class ProductLineDetailsResponse < BaseResponse
-    attr_reader :information
+    attr_reader :details, :summary
     
     def initialize(http_response)
       super(http_response.code, http_response.headers, http_response.raw_body)
@@ -10,7 +10,8 @@ module BlackhawkApi
     
     protected 
     def parse object
-      @information = ProductLineDetails.new(object)
+      @details = ProductLineDetails.new(object.details)
+      @summary = ProductLineSummary.new(object.summary)
     end
   end
 end

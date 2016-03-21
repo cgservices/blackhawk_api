@@ -21,12 +21,10 @@ module BlackhawkApi
     # @param productConfigurationId The product configuration ID of any of the configurations tied to the egift product.
     # @param notes Any notes associated with the last time the entity was updated.
     # @return Returns the fully initialized, newly created EGift.
-    def self.generate (gift_from, gift_to, gift_message, gift_amount,
-      purchaser_id, recipient_id, retrievalReferenceNumber, messageReasonCode, 
-      productConfigurationId, notes, correlationId)
+    def self.generate (gift_data)
       @request = self.setup_request "#{@@resource_url}/generateEGift"
-      # TODO: @request.headers["contractId"] =
-      # TODO: Set body @request.body = 
+      @request.headers['contractId'] = 'CASXGFK4FLXP4B6W1L482TN56M'
+      @request.body = gift_data
       @request
     end
   end

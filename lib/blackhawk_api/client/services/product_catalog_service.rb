@@ -20,10 +20,10 @@ module BlackhawkApi
     # @param request
     # @return
     def all request
-      web_responses = perform request do
+      web_response, results = perform request do
         @catalogs.all(request)
       end
-      ProductCatalogsResponse.new(web_responses[0])
+      ProductCatalogsResponse.new(web_response)
     end
     
     # This operation retrieves the version for a specified product catalog identifier.

@@ -17,13 +17,29 @@ module BlackhawkApi
       @gift_to = to
       @gift_message = message
       @gift_amount = amount
-      @purchaser_id = BlackhawkIdentity.new(purchaser_id)
-      @recipient_id = BlackhawkIdentity.new(recipient_id)
+      @purchaser_id = BlackhawkIdentity.new(purchaser_id) unless purchaser_id.nil?
+      @recipient_id = BlackhawkIdentity.new(recipient_id) unless recipient_id.nil?
       @retrieval_reference = retrieval_reference
       @message_reason_code = message_reason_code
       @product_configuration_id = BlackhawkIdentity.new(product_configuration_id)
       @notes = notes
-      @correlation_id = BlackhawkIdentity.new(correlation_id)
+      @correlation_id = BlackhawkIdentity.new(correlation_id) unless correlation_id.nil?
+    end
+    
+    def to_json
+      json_object = {}
+      json_object[:giftFrom] = @gift_from unless @gift_from.nil?
+      json_object[:giftTo] = @gift_to unless @gift_to.nil?
+      json_object[:giftMessage] = @gift_message unless @gift_message.nil?
+      json_object[:giftAmount] = @gift_amount
+      json_object[:purchaserId] = @purchaser_id.to_s unless @purchaser_id.nil?
+      json_object[:recipientId] = @recipient_id.to_s unless @recipient_id.nil?
+      json_object[:retrievalReferenceNumber] = @retrieval_reference
+      json_object[:messageReasonCode] = @message_reason_code unless @message_reason_code.nil?
+      json_object[:productConfigurationId] = @product_configuration_id.to_s
+      json_object[:notes] = @notes unless @notes.nil?
+      json_object[:correlation_id] = @correlation_id.to_s unless @correlation_id.nil?
+      JSON.generate(json_object)
     end
   end
 end
