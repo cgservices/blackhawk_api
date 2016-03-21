@@ -1,3 +1,4 @@
+require 'blackhawk_api/client/requests/accounts/find_account_request'
 require 'blackhawk_api/client/requests/accounts/account_lookup_request'
 require 'blackhawk_api/client/requests/accounts/correlate_account_transactions_request'
 require 'blackhawk_api/client/requests/accounts/create_account_request'

@@ -14,7 +14,7 @@ module BlackhawkApi
       @created_timestamp = details.createdTimestamp
       @updated_timestamp = details.updatedTimestamp
       @product_description = details.productDescription
-      @default_product_configuration_id = BlackhawkIdentity.new(details.defaultProductConfigurationId)
+      @default_product_configuration_id = details.defaultProductConfigurationId
       @is_taxable = details.isTaxable
       @search_keywords = details.searchKeywords
       @activation_characteristics = details.activationCharacteristics

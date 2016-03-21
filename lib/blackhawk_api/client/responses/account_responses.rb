@@ -1,0 +1,6 @@
+require 'blackhawk_api/client/responses/accounts/account_created_response'
+require 'blackhawk_api/client/responses/accounts/account_details_response'
+require 'blackhawk_api/client/responses/accounts/account_location_response'
+require 'blackhawk_api/client/responses/accounts/account_transaction_correlation_response'
+require 'blackhawk_api/client/responses/accounts/account_transaction_list_response'
+require 'blackhawk_api/client/responses/accounts/account_transaction_response'

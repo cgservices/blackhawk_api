@@ -12,6 +12,8 @@ require 'blackhawk_api/client/requests/product_requests'
 
 # Include response objects
 require 'blackhawk_api/client/responses/base_response'
+require 'blackhawk_api/client/responses/account_responses'
+require 'blackhawk_api/client/responses/gift_responses'
 require 'blackhawk_api/client/responses/product_responses'
 
 # Include REST Resources
