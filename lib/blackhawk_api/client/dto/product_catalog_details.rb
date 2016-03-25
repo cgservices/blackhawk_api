@@ -1,4 +1,4 @@
-require 'blackhawk_api/client/requests/blackhawk_identity'
+require 'blackhawk_api/client/values/blackhawk_identity'
 
 module BlackhawkApi
   class ProductCatalogDetails

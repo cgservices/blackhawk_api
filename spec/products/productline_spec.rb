@@ -42,7 +42,7 @@ describe BlackhawkApi do
       
       it 'should show product summaries' do
         # Arrange
-        VALID_BRAND_ID = '1234567890123456789012345'
+        VALID_BRAND_ID = 'TQVGSJAH2DL4G8BSR4J9M7HJVH'
         brand = VALID_BRAND_ID
         sut = BlackhawkApi::ProductLineService.new
         request = BlackhawkApi::FindProductLinesByBrandRequest.new(brand)

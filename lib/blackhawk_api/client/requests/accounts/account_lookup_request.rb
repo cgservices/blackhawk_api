@@ -1,6 +1,6 @@
 require 'blackhawk_api/client/requests/base_request'
-require 'blackhawk_api/client/requests/enumerations'
-require 'blackhawk_api/client/requests/blackhawk_identity'
+require 'blackhawk_api/client/values/enumerations'
+require 'blackhawk_api/client/values/blackhawk_identity'
 
 module BlackhawkApi
   class AccountLookupRequest < Request

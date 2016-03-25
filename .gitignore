@@ -8,5 +8,5 @@
 /spec/reports/
 /tmp/
 /config/config.ini
-/config/config.yml
+/config/bhn_config.yml
 /config/certificates/

@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'pry'
+require 'blackhawk_api/client/helpers/identity_extractor'
 
 describe BlackhawkApi do
   describe 'Read Products' do
@@ -8,7 +8,7 @@ describe BlackhawkApi do
     # 3. Call read product for every productId in 2
     # 4. foreach product call Read Product Line for additional brand information
     
-    xit 'should read all products' do
+    it 'should read all products' do
       catalog_service = BlackhawkApi::CatalogService.new()
       product_service = BlackhawkApi::ProductService.new()
       productline_service = BlackhawkApi::ProductLineService.new()
@@ -20,17 +20,17 @@ describe BlackhawkApi do
         catalog_details = catalog_service.find c.entity_id
         ids = []
         catalog_details.details.product_urls.each do |details|
-          ids << URI(details).path.split('/').last
+          ids << BlackhawkApi::IdentityExtractor.to_identity(details).to_s
         end
         step_3 = BlackhawkApi::FindProductsByIdsRequest.new(ids)
         summaries = product_service.find_by_ids step_3
         product_lines = []
-        product_lines << summaries.results.map { |v| URI(v.product_line_url).path.split('/').last }.flatten
+        product_lines << summaries.results.map { |v| BlackhawkApi::IdentityExtractor.to_identity(v.product_line_url).to_s }.flatten
         puts '---- Retrieving Product Details ---'
         ids.each do |id|
           product = product_service.find id
           puts "#{product.summary.product_name} #{product.summary.currency} #{product.details.activation_characteristics.baseValueAmount}"
-          product_line = productline_service.find URI(product.summary.product_line_url).path.split('/').last
+          product_line = productline_service.find BlackhawkApi::IdentityExtractor.to_identity(product.summary.product_line_url).to_s
           puts product_line.summary.brand_name
         end
       end

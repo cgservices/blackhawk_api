@@ -3,6 +3,13 @@ require "blackhawk_api/version"
 # Include error values
 require 'blackhawk_api/client/errors/blackhawk_api_error'
 
+# Include value objects
+require 'blackhawk_api/client/values/enumerations'
+require 'blackhawk_api/client/values/blackhawk_identity'
+
+# Include helper methods
+require 'blackhawk_api/client/helpers/identity_extractor'
+
 # Include request objects
 require 'blackhawk_api/client/requests/base_request'
 require 'blackhawk_api/client/requests/account_requests'
