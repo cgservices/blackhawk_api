@@ -88,13 +88,12 @@ describe BlackhawkApi do
     
     it 'should trigger validations' do
     gift_service = BlackhawkApi::GiftService.new()
-      amount = 10
-      ref = rand.to_s[2..13]
+      amount = 0
+      ref = rand.to_s[2..12]
       request = BlackhawkApi::GenerateGiftCardRequest.new(nil, nil, nil, amount, nil, nil, ref,
         nil, VALID_CONFIG_ID, nil, nil)
       
-      response = gift_service.generate request
-      expect(request.valid?).to be(false)
+      expect { response = gift_service.generate request }.to raise_error(Veto::InvalidEntity)
     end
   end
 end
