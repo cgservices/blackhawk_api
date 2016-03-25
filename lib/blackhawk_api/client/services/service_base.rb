@@ -1,4 +1,5 @@
 require 'json'
+# require 'blackhawk_api/client/validators/product_validator'
 
 module BlackhawkApi
   # Base class for application services.
@@ -11,7 +12,12 @@ module BlackhawkApi
     
     protected
     def validate request
-      return true
+      validator_class_name = request.class.name.split('::').last + 'Validator'
+      validator ||= Object.const_get("BlackhawkApi")
+        .const_get(validator_class_name).new rescue nil
+
+      return validator.validate!(request) unless validator.nil?
+      return true # Skip validation if no validator is found.
     end
     
     def inspected response

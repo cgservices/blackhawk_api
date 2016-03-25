@@ -8,7 +8,7 @@ describe BlackhawkApi do
     # 3. Call read product for every productId in 2
     # 4. foreach product call Read Product Line for additional brand information
     
-    it 'should read all products' do
+    xit 'should read all products' do
       catalog_service = BlackhawkApi::CatalogService.new()
       product_service = BlackhawkApi::ProductService.new()
       productline_service = BlackhawkApi::ProductLineService.new()
@@ -35,6 +35,21 @@ describe BlackhawkApi do
         end
       end
     end
+    
+    xit 'should be able to be called paginated' do
+      product_service = BlackhawkApi::ProductService.new()
+      request = BlackhawkApi::FindProductByProvisioningTypeRequest.new(:DIGITAL)
+
+      puts 'requesting number of products'
+      products = product_service.find_by_provisioning_type request, 1, 0
+      result = JSON.parse(products.raw_body, object_class: OpenStruct)
+      expect(result.results.count).to be(1)
+      puts " found #{result.total} products"
+      
+      products = product_service.find_by_provisioning_type request, result.total, 0
+      result = JSON.parse(products.raw_body, object_class: OpenStruct)
+      expect(result.results.count).to be(result.total)
+    end
   end
   
   describe 'Create Gift Card' do
@@ -57,7 +72,7 @@ describe BlackhawkApi do
   # 5. Present EGift
     VALID_PRODUCT_ID = '0K37ZQFK8WTNVJM1AVTKV1C3Z8'
     VALID_CONFIG_ID = 'JRSXXV9CFKJQ2Y2G78XT0QN9VM'
-    it 'should create a gift card' do
+    xit 'should create a gift card' do
       gift_service = BlackhawkApi::GiftService.new()
       amount = 10
       ref = rand.to_s[2..13]
@@ -66,10 +81,20 @@ describe BlackhawkApi do
       
       step_2 = BlackhawkApi::GenerateGiftCardRequest.new(nil, nil, nil, amount, nil, nil, ref,
         nil, VALID_CONFIG_ID, nil, nil)
-        binding.pry
       response = gift_service.generate step_2
       
       puts response
+    end
+    
+    it 'should trigger validations' do
+    gift_service = BlackhawkApi::GiftService.new()
+      amount = 10
+      ref = rand.to_s[2..13]
+      request = BlackhawkApi::GenerateGiftCardRequest.new(nil, nil, nil, amount, nil, nil, ref,
+        nil, VALID_CONFIG_ID, nil, nil)
+      
+      response = gift_service.generate request
+      expect(request.valid?).to be(false)
     end
   end
 end

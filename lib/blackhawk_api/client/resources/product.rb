@@ -72,10 +72,10 @@ module BlackhawkApi
     # @param provisioning_type PHYSICAL or DIGITAL
     # @return Retrieves a list of ProductSummary entities and the total number of entities
     #  existing in the system matching the given provisioning type.
-    def self.find_by_provisioning_type provisioning_type
+    def self.find_by_provisioning_type provisioning_type, size = 10, index = 1
       @request = self.setup_request "#{@@resource_url}s"
-      @request.query = { :provisioningType => provisioning_type }       
-      @request
+      @request.query = { :provisioningType => provisioning_type }
+      @request.take(size).skip(index * size)
     end
   end
 end

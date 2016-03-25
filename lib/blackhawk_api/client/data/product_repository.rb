@@ -11,8 +11,8 @@ module BlackhawkApi
     
     # This operation returns a list of product summary information for the subset of products
     # matching a given provisioning type.
-    def find_by_provisioning_type request
-      get Product.find_by_provisioning_type(request.provisioning_type)
+    def find_by_provisioning_type request, size = 10, index = 0
+      get Product.find_by_provisioning_type(request.provisioning_type, size, index)
     end
     
     # This operation returns a list of product summary entitities matching the given search keyword.

@@ -5,29 +5,48 @@ require 'json'
 module BlackhawkApi
   # Base class for BlackHawk requests.
   class Request < HTTPI::Request
-    # attr_reader :page_size, :page_index, :sort_key
+    attr_accessor :page_size, :page_index, :sort_key
     
+    # Creates a new Request object for the specified url.
+    # @param url The url to create a request object for.
+    # @return Returns a new request.
     def self.create(url)
       request = self.new(url)
       request
     end
     
-    def skip items
-      self.query = { :first => items }.merge(CGI::parse(self.query))
+    # Skips the amount of items given.
+    # @param items Skips this amount of items.
+    # @return Returns the request with a modified QueryString. 
+    def skip amount
+      parsed = CGI::parse(self.query) rescue {}
+      self.query = { :first => amount }.merge(parsed)
       return self
     end
     
+    # Takes this amount of items from the resource url.
+    # @param count The maximum number of items to retrieve from the API.
+    # @return Returns the request with a modified QueryString.
     def take count
-      self.query = { :maximum => count }.merge(CGI::parse(self.query))      
+      parsed = CGI::parse(self.query) rescue {}
+      self.query = { :maximum => count }.merge(parsed)      
       return self
     end
     
+    # Requests a sorted resultset from the resource url.
+    # @param sortkey The name of the parameter to sort_key
+    # @param ascending Determines if the returned dataset should be sorted ascending or descending.
+    # @return Returns the request with a modified QueryString.
     def orderby sortkey, ascending = true
+      parsed = CGI::parse(self.query) rescue {} 
       self.query = { :sortKey => sortkey, :ascending => ascending }
-        .merge(CGI::parse(self.query))
+        .merge(parsed)
       return self
     end
     
+    # Paginates the request with the defaults on the request.
+    # @param request The request object to take the index, size and sortkey parameters from.
+    # @return Returns the request with a modified QueryString.
     def paginate request
       return self
         .skip(request.page_index * request.page_size)

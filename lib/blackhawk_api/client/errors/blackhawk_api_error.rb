@@ -8,7 +8,10 @@ module BlackhawkApi
     attr_reader :error_code
     attr_reader :description
     
-    # Initializes a new Error object
+    # Initializes a new Error object.
+    # @param code The HTTP STATUS code.
+    # @param error The error that occurred.
+    # @param description A description about the error that occurred.
     def initialize(code, error, description)
       @http_code = code
       @error_code = error
@@ -19,6 +22,9 @@ module BlackhawkApi
   # Class to handle API request errors.
   class ApiErrorHandler
     # Inspects the result retrieved from the API call.
+    # @param response The raw response from the API call.
+    # @param result The parsed result object from the API call.
+    # @raise ApiError instance with the result code and description message.
     def _inspect response, result
       return if response.code == 200
 

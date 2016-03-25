@@ -39,9 +39,9 @@ module BlackhawkApi
     # @param request The FindProductByProvisioningTypeRequest
     # @return Retrieves a list of product summary entities and the total number of entities
     #  existing in the system matching the given provisioning type.
-    def find_by_provisioning_type request
+    def find_by_provisioning_type request, index, size
       web_response, results = perform request do
-        return @products.find_by_provisioning_type(request)
+        return @products.find_by_provisioning_type(request, index, size)
       end
       ProductResponse.new(web_response)
     end

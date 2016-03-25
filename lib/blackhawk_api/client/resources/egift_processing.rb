@@ -1,6 +1,7 @@
 require "blackhawk_api/version"
 require "blackhawk_api/client/base"
 require 'httpi'
+require 'pry'
 
 module BlackhawkApi
   # The EGift Processing API enables client applications to create wrappers around a card created by
@@ -23,7 +24,7 @@ module BlackhawkApi
     # @return Returns the fully initialized, newly created EGift.
     def self.generate (gift_data)
       @request = self.setup_request "#{@@resource_url}/generateEGift"
-      @request.headers['contractId'] = 'CASXGFK4FLXP4B6W1L482TN56M'
+      @request.headers['contractId'] = '7JAC21WTR6XSRAGNHRL1XDZ2PC'
       @request.body = gift_data
       @request
     end

@@ -17,6 +17,11 @@ require 'blackhawk_api/client/requests/catalog_requests'
 require 'blackhawk_api/client/requests/gift_requests'
 require 'blackhawk_api/client/requests/product_requests'
 
+# Include validations
+require 'blackhawk_api/client/validators/account_validators'
+require 'blackhawk_api/client/validators/catalog_validators'
+require 'blackhawk_api/client/validators/gift_validators'
+
 # Include response objects
 require 'blackhawk_api/client/responses/base_response'
 require 'blackhawk_api/client/responses/account_responses'
