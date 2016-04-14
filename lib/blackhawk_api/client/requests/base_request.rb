@@ -19,7 +19,7 @@ module BlackhawkApi
     # @param items Skips this amount of items.
     # @return Returns the request with a modified QueryString. 
     def skip(amount)
-      parsed = CGI::parse(self.query) rescue {}
+      parsed = CGI.parse(query) rescue {}
       self.query = { first: amount }.merge(parsed)
       self
     end
@@ -28,7 +28,7 @@ module BlackhawkApi
     # @param count The maximum number of items to retrieve from the API.
     # @return Returns the request with a modified QueryString.
     def take(count)
-      parsed = CGI::parse(self.query) rescue {}
+      parsed = CGI.parse(query) rescue {}
       self.query = { maximum: count }.merge(parsed)
       self
     end
@@ -38,7 +38,7 @@ module BlackhawkApi
     # @param ascending Determines if the returned dataset should be sorted ascending or descending.
     # @return Returns the request with a modified QueryString.
     def orderby(sortkey, ascending = true)
-      parsed = CGI::parse(self.query) rescue {} 
+      parsed = CGI.parse(query) rescue {}
       self.query = { sortKey: sortkey, ascending: ascending }
                    .merge(parsed)
       self

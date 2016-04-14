@@ -21,7 +21,7 @@ module BlackhawkApi
     # This operation generates an eGift for any given product configuration.
     # The generate operation creates an account and wraps it in an eGift object, returning the fully initialized,
     # newly created eGift.
-    # @param request 
+    # @param request
     # @return
     def generate(request)
       web_response, results = perform request do
@@ -30,7 +30,7 @@ module BlackhawkApi
       GiftDetailsResponse.new(web_response)
     end
 
-    # This operation reverses an eGift for the given product configuration 
+    # This operation reverses an eGift for the given product configuration
     # when a timeout occurs during egift activation.
     # @param request
     # @return

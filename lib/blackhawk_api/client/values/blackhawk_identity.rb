@@ -19,7 +19,7 @@ module BlackhawkApi
     protected
 
     def id=(value)
-      raise ArgumentError, 'No identity specified' if value.nil? || value.length == 0
+      raise ArgumentError, 'No identity specified' if value.nil? || value.empty?
       raise ArgumentError, 'Invalid identity specified' if value.length > 26
       @id = value
     end

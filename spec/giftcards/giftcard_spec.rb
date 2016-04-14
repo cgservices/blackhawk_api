@@ -2,8 +2,8 @@ require 'spec_helper'
 require 'pry'
 
 describe BlackhawkApi do
-  TEST_GIFT_ID = ''
-  TEST_ACCOUNT_ID = ''
+  TEST_GIFT_ID = ''.freeze
+  TEST_ACCOUNT_ID = ''.freeze
   describe 'GiftCard Application Service' do
     context 'Find' do
       it 'should read single gift details' do
@@ -15,7 +15,7 @@ describe BlackhawkApi do
         expect(response).not_to eq(nil)
       end
     end
-    
+
     context 'Generate' do
       # This operation generates an eGift for a product configuration.
       # POST: https://api.blackhawknetwork.com/eGiftProcessing/v1/generateEGift
@@ -29,7 +29,7 @@ describe BlackhawkApi do
         expect(response).not_to eq(nil)
       end
     end
-    
+
     context 'Find By Account Id' do
       it 'should show gift details for the current account' do
         # Arrange
@@ -42,7 +42,7 @@ describe BlackhawkApi do
         expect(response).not_to eq(nil)
       end
     end
-    
+
     context 'Find By IDs' do
       it 'should show gift details for the given ids' do
         # Arrange

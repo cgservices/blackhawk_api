@@ -2,7 +2,7 @@ require 'blackhawk_api/client/requests/base_request'
 require 'blackhawk_api/client/values/blackhawk_identity'
 
 module BlackhawkApi
-  # Request object to query a list of eGift entities for the given account_id. 
+  # Request object to query a list of eGift entities for the given account_id.
   class FindGiftsByAccountRequest < PaginatedRequest
     attr_reader :account_id
 

@@ -8,8 +8,8 @@ module BlackhawkApi
     # This operation queries all product catalog summaries.
     # @param request The request object to get all product catalogs.
     # @return Returns the HTTP response of the GET request with all catalogs.
-    def all
-      get ProductCatalog.all
+    def all(request)
+      get ProductCatalog.all request
     end
 
     # This operation reads product catalog information based on a specified product catalog identifier.

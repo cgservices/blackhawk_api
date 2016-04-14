@@ -12,7 +12,7 @@ module BlackhawkApi
     # This operation queries all product catalog summaries.
     # @return List of product catalog summary with the total number of product catalog summaries existing in the system.
     def self.all
-      setup_request "#{@@resource_url}s"
+      self.setup_request "#{@@resource_url}s"
     end
 
     # This operation reads product catalog information based on a specified product catalog identifier.
@@ -20,7 +20,7 @@ module BlackhawkApi
     # @return Retrieves the ProductCatalog for the given catalog_id.
     # @raise 404 - attempts.to.retrieve.nonexistent.entity - Nonexistent entity.
     def self.find(catalog_id)
-      setup_request "#{@@resource_url}/#{catalog_id}"
+      self.setup_request "#{@@resource_url}/#{catalog_id}"
     end
 
     # This operation queries product catalog summary information for a catalog by name.
@@ -28,7 +28,7 @@ module BlackhawkApi
     # @return Retrieves a list of matching ProductCatalogSummary and the total number of entities
     #  existing in the system matching the given catalog name.
     def self.find_by_name(catalog_name)
-      @request = setup_request "#{@@resource_url}s"
+      @request = self.setup_request "#{@@resource_url}s"
       @request.query = { catalogName: catalog_name }
       @request
     end
@@ -38,7 +38,7 @@ module BlackhawkApi
     # @return Retrieves a list of matching ProductCatalogSummary and the total number of entities
     #  matching the given catalog IDs.
     def self.find_by_ids(catalog_ids)
-      @request = setup_request "#{@@resource_url}s"
+      @request = self.setup_request "#{@@resource_url}s"
       @request.query = { catalogIds: catalog_ids.to_s }
       @request
     end
@@ -47,7 +47,7 @@ module BlackhawkApi
     # @param product_id The internal identifier of the product.
     # @return Retrieves a list of ProductCatalogSummary matching the given product_id.
     def self.find_product_catalogs_for_product(product_id)
-      @request = setup_request "#{@@resource_url}s"
+      @request = self.setup_request "#{@@resource_url}s"
       @request.query = { productId: product_id }
       @request
     end
@@ -56,7 +56,7 @@ module BlackhawkApi
     # @param catalog_id The internal identifier of the product catalog.
     # @raise 403 - query.all.product.catalogs.by.product.unauthorized - Not authorized.
     def self.get_version(catalog_id)
-      setup_request "#{@@resource_url}/#{catalog_id}/version"
+      self.setup_request "#{@@resource_url}/#{catalog_id}/version"
     end
   end
 end

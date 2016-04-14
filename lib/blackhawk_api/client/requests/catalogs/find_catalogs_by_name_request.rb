@@ -12,7 +12,7 @@ module BlackhawkApi
     protected
 
     def name=(value)
-      raise ArgumentError, 'Invalid name specified' if value.nil? || value.length == 0
+      raise ArgumentError, 'Invalid name specified' if value.nil? || value.empty?
       raise ArgumentError, 'No name specified' if value > 255
       @name = value
     end

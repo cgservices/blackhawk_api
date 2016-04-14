@@ -1,4 +1,4 @@
-require "blackhawk_api/version"
+require 'blackhawk_api/version'
 
 # Include error values
 require 'blackhawk_api/client/errors/blackhawk_api_error'

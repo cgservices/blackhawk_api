@@ -2,13 +2,13 @@ require 'spec_helper'
 require 'pry'
 
 describe BlackhawkApi do
-  TEST_PRODUCTLINE_ID = 'HGX7DA56YAZQK69K3FJNHT4G70'
-  
+  TEST_PRODUCTLINE_ID = 'HGX7DA56YAZQK69K3FJNHT4G70'.freeze
+
   describe 'ProductLine Application Service' do
     context 'Find' do
       # This operation should read product detail information based on a specified product dentifier.
       # GET: https://api.blackhawknetwork.com/productManagement/v1/product/{productId}
-        
+
       # Fails: 404 - NonExistent
       it 'should read single product details' do
         # Arrange
@@ -19,30 +19,30 @@ describe BlackhawkApi do
         expect(response).not_to eq(nil)
       end
     end
-    
+
     context 'Find By Brand' do
       context 'with invalid identity' do
-        INVALID_BRAND_ID = '123456789123456789123456790123456789'
-        EMPTY_BRAND_ID = ''
-        
+        INVALID_BRAND_ID = '123456789123456789123456790123456789'.freeze
+        EMPTY_BRAND_ID = ''.freeze
+
         it 'should raise ArgumentError on no identity' do
-          # Arrange 
+          # Arrange
           brand = EMPTY_BRAND_ID
           # Act / Assert
           expect { BlackhawkApi::FindProductLinesByBrandRequest.new(brand) }.to raise_error(ArgumentError)
         end
-        
+
         it 'should raise ArgumentError on invalid identity' do
-          # Arrange 
+          # Arrange
           brand = INVALID_BRAND_ID
           # Act / Assert
           expect { BlackhawkApi::FindProductLinesByBrandRequest.new(brand) }.to raise_error(ArgumentError)
         end
       end
-      
+
       it 'should show product summaries' do
         # Arrange
-        VALID_BRAND_ID = 'TQVGSJAH2DL4G8BSR4J9M7HJVH'
+        VALID_BRAND_ID = 'TQVGSJAH2DL4G8BSR4J9M7HJVH'.freeze
         brand = VALID_BRAND_ID
         sut = BlackhawkApi::ProductLineService.new
         request = BlackhawkApi::FindProductLinesByBrandRequest.new(brand)
@@ -52,7 +52,7 @@ describe BlackhawkApi do
         expect(response).not_to eq(nil)
       end
     end
-    
+
     context 'Find By IDs' do
       it 'should read product summaries' do
         # Arrange

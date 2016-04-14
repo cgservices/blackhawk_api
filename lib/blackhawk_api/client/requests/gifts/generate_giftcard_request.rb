@@ -9,7 +9,8 @@ module BlackhawkApi
                 :product_configuration_id, :notes, :correlation_id
 
     # Creates a new request object.
-    def initialize(from, to, message, amount, purchaser_id, recipient_id,
+    def initialize(
+      from, to, message, amount, purchaser_id, recipient_id,
       retrieval_reference, message_reason_code, product_configuration_id,
       notes, correlation_id)
 

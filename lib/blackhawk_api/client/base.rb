@@ -12,8 +12,8 @@ module BlackhawkApi
   # Base class for rest resources.
   class RESTResource
     @@config = YAML.load(File.open('./config/bhn_config.certification.yml'))
-    REQUESTOR_ID = "ZPZB7DDS20PNHALMZCBX14RVCM"
-    CONTRACT_ID = "7JAC21WTR6X" #SRAGNHRL1XDZ2PC"
+    REQUESTOR_ID = 'ZPZB7DDS20PNHALMZCBX14RVCM'.freeze
+    CONTRACT_ID = '7JAC21WTR6X'.freeze # SRAGNHRL1XDZ2PC"
     @@error_handler = ApiErrorHandler.new
 
     def self.setup_request(uri)

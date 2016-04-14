@@ -2,8 +2,8 @@ require 'spec_helper'
 require 'pry'
 
 describe BlackhawkApi do
-  TEST_CATALOG_ID = 'R7N2G9WKC9CKHJ5FSS37T41RMH'
-  TEST_PRODUCT_ID = 'H0MM0RLHRZX2KD3S78G3YHHCA9'
+  TEST_CATALOG_ID = 'R7N2G9WKC9CKHJ5FSS37T41RMH'.freeze
+  TEST_PRODUCT_ID = 'H0MM0RLHRZX2KD3S78G3YHHCA9'.freeze
 
   describe 'ProductCatalog Application Service' do
     context 'Query Catalogs' do

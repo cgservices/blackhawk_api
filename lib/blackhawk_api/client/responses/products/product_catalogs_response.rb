@@ -13,7 +13,7 @@ module BlackhawkApi
 
     def parse(object)
       @total = object.total
-      @results = object.results.map { |v| ProductCatalogSummary.new(v) } 
+      @results = object.results.map { |v| ProductCatalogSummary.new(v) }
     end
   end
 end
