@@ -49,7 +49,6 @@ describe BlackhawkApi do
         gift_ids = TEST_GIFT_ID
         sut = BlackhawkApi::GiftService.new
         request = BlackhawkApi::FindGiftsByIdsRequest.new(gift_ids)
-        binding.pry
         # Act
         response = sut.find_by_egift_ids request
         # Assert

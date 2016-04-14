@@ -13,7 +13,6 @@ module BlackhawkApi
 
     def parse(object)
       # TODO: Check url
-      binding.pry
       @account_url = object
     end
   end

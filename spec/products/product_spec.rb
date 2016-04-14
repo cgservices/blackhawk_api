@@ -17,7 +17,7 @@ describe BlackhawkApi do
         sut = BlackhawkApi::ProductService.new
         # Act
         response = sut.find TEST_PRODUCT_1
-        #  Assert
+        # Assert
         expect(response).not_to eq(nil)
       end
     end
@@ -36,7 +36,6 @@ describe BlackhawkApi do
         result = JSON.parse(response.raw_body, object_class: OpenStruct)
 
         # Assert
-        binding.pry
         expect(response).not_to eq(nil)
         expect(response.code).to eq(200)
         expect(result[:parameters]).not_to eq(nil)
@@ -58,7 +57,6 @@ describe BlackhawkApi do
         result = JSON.parse(response.raw_body, object_class: OpenStruct)
 
         # Assert
-        binding.pry
         expect(response).not_to eq(nil)
         expect(response.code).to eq(200)
         expect(result[:parameters]).not_to eq(nil)
@@ -93,9 +91,9 @@ describe BlackhawkApi do
         # Arrange
         index = 0
         max_amount = 15
-        productline_id = 'SYKY6RM2AZ06DNYFW18CSM6MS0' 
+        PRODUCTLINE_ID = 'FY9GWP49A84S6HKMFXHQ76HDCD'.freeze
         sut = BlackhawkApi::ProductService.new
-        request = BlackhawkApi::FindProductByProductLineRequest.new(productline_id)
+        request = BlackhawkApi::FindProductByProductLineRequest.new(PRODUCTLINE_ID)
         # Act
         response = sut.find_by_productline request
         # result = JSON.parse(response.raw_body, object_class: OpenStruct)
@@ -105,7 +103,7 @@ describe BlackhawkApi do
         # expect(result[:parameters]).not_to eq(nil)
         # expect(result[:parameters][:first]).to eq(index)
         # expect(result[:parameters][:ascending]).to eq(true)
-        # expect(result[:parameters][:maximum]).to eq(max_amount)        
+        # expect(result[:parameters][:maximum]).to eq(max_amount)
       end
     end
 

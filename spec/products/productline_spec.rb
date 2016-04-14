@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'pry'
 
 describe BlackhawkApi do
-  TEST_PRODUCTLINE_ID = 'HGX7DA56YAZQK69K3FJNHT4G70'.freeze
+  TEST_PRODUCTLINE_ID = 'FY9GWP49A84S6HKMFXHQ76HDCD'.freeze
 
   describe 'ProductLine Application Service' do
     context 'Find' do
