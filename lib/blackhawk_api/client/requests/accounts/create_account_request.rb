@@ -4,9 +4,9 @@ require 'blackhawk_api/client/values/blackhawk_identity'
 module BlackhawkApi
   class CreateAccountRequest < Request
     attr_reader :product_id, :amount, :currency, :transaction_time,
-      :reference_number, :store_number, :terminal_number, 
-      :base_transaction_id, :message_reason_code
-    
+                :reference_number, :store_number, :terminal_number, 
+                :base_transaction_id, :message_reason_code
+
     def initialize(product_id, amount, currency, transaction_time,
       reference_number, store_number, terminal_number, base_transaction_id)
       

@@ -9,7 +9,7 @@ module BlackhawkApi
     # @return Returns a validated BlackhawkIdentity object.
     def self.to_identity(url)
       value = URI(url).path.split('/').last
-      return BlackhawkApi::BlackhawkIdentity.new(value)
+      BlackhawkApi::BlackhawkIdentity.new(value)
     end
   end
-end 
+end

@@ -5,11 +5,11 @@ module BlackhawkApi
   # Request object to query egift entities for the given eGift IDs.
   class FindGiftsByIdsRequest < PaginatedRequest
     attr_reader :gift_ids
-    
+
     # Creates a new request object.
     # @param egift_ids An array of giftcard identifiers to retrieve.
     def initialize(egift_ids)
-      @gift_ids = BlackhawkIdentityArray.new(egift_ids) 
+      @gift_ids = BlackhawkIdentityArray.new(egift_ids)
     end
   end
 end

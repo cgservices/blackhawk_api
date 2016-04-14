@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'blackhawk_api/client/helpers/identity_extractor'
+require 'pry'
 
 describe BlackhawkApi do
   describe 'Read Products' do
@@ -8,7 +9,7 @@ describe BlackhawkApi do
     # 3. Call read product for every productId in 2
     # 4. foreach product call Read Product Line for additional brand information
     
-    xit 'should read all products' do
+    it 'should read all products' do
       catalog_service = BlackhawkApi::CatalogService.new()
       product_service = BlackhawkApi::ProductService.new()
       productline_service = BlackhawkApi::ProductLineService.new()
@@ -86,8 +87,8 @@ describe BlackhawkApi do
       puts response
     end
     
-    it 'should trigger validations' do
-    gift_service = BlackhawkApi::GiftService.new()
+    xit 'should trigger validations' do
+      gift_service = BlackhawkApi::GiftService.new()
       amount = 0
       ref = rand.to_s[2..12]
       request = BlackhawkApi::GenerateGiftCardRequest.new(nil, nil, nil, amount, nil, nil, ref,

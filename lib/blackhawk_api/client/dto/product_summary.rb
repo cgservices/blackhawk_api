@@ -1,10 +1,12 @@
 require 'blackhawk_api/client/values/blackhawk_identity'
 
 module BlackhawkApi
+  # Data class for product summary.
   class ProductSummary
     attr_reader :entity_url, :product_name, :currency, :universal_product_code,
-      :product_line_url, :start_date, :end_date, :locale
-      
+                :product_line_url, :start_date, :end_date, :locale
+
+    # Initializes a new instance of a product summary.
     def initialize(summary)
       @entity_url = summary.entityId
       @product_name = summary.productName

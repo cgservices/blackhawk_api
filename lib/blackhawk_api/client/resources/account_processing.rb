@@ -1,5 +1,5 @@
-require "blackhawk_api/version"
-require "blackhawk_api/client/base"
+require 'blackhawk_api/version'
+require 'blackhawk_api/client/base'
 require 'httpi'
 require 'json'
 
@@ -10,33 +10,35 @@ module BlackhawkApi
   #  Additionaly, Account Processing enables card owners to look up card balance and redeem and reload the card.
   class AccountProcessingInformation < RESTResource
     @@resource_url = 'accountProcessing/v1'
-    
+
     # This operation is used to get an account number for the given product and amount.
     def self.create(product_id, amount, currency, transaction_time, reference_number,
-      store_number, terminal_number, base_transaction_id, message_reason_code)
-      
-      @request = self.setup_request "#{@@resource_url}/createAccount"
+                    store_number, terminal_number, base_transaction_id, message_reason_code)
+
+      @request = setup_request "#{@@resource_url}/createAccount"
       # TODO: @request.headers["contractId"] =
-      hash = { :productId => product_id, :amount => amount, :currency => currency,
-        :transactionTime => transaction_time, :retrievalReferenceNumber => reference_number,
-        :storeNumber => store_number, :terminalNumber => terminal_number,
-        :baseTransactionId => base_transaction_id, :messageReasonCode => message_reason_code }
+      hash = {
+        productId: product_id, amount: amount, currency: currency,
+        transactionTime: transaction_time, retrievalReferenceNumber: reference_number,
+        storeNumber: store_number, terminalNumber: terminal_number,
+        baseTransactionId: base_transaction_id, messageReasonCode: message_reason_code 
+      }
       @request.body = hash.to_json
       @request
     end
-    
+
     # This operation uses an accountId to retrieve account information. This operation can be 
     # used instead of find_with_balance if the current balance is not required.
     # @param account_id The internal identifier of an account.
     # @return Retrieves the requested account information.
     # @raise 400 - accountId.null - Account ID is null in request
     # @raise 409 - account.does.not.exist - No account found for account ID
-    def self.find account_id
-      @request = self.setup_request "#{@@resource_url}/readAccount"
-      @request.query = { :accountId => account_id }
+    def self.find(account_id)
+      @request = setup_request "#{@@resource_url}/readAccount"
+      @request.query = { accountId: account_id }
       @request
     end
-    
+
     # This operation uses an accountId to retrieve account information, including the current balance.
     # Updates are reflected in the current balance.
     # @param account_id The internal identifier of an account.
@@ -49,23 +51,26 @@ module BlackhawkApi
     # @raise 409 - product.not.found - Product ID associated to the product line is not found in the system
     # @raise 409 - balance.inquiry.not.supported - The product line passed in the request does not support balance inquiry
     # @raise 400 - invalid.contract.id - Invalid contractId
-    def self.find_with_balance account_id
-      @request = self.setup_request "#{@@resource_url}/getAccount"
+    def self.find_with_balance(account_id)
+      @request = setup_request "#{@@resource_url}/getAccount"
       # TODO: @request.headers["contractId"] =
-      @request.query = { :accountId => account_id }
+      @request.query = { accountId: account_id }
       @request
     end
-    
+
     # This operation queries an account using Account Number, Product Line ID and Account Type.
     # If the account is not found, it returns no content.
     # @param account_number Account number of the account.
     # @param product_line_id Internal identifier of the product line.
     # @param account_type Type of the account.
-    def self.lookup account_number, product_line_id, account_type
-      @request = self.setup_request "#{@@resource_url}/lookupAccount"
+    def self.lookup(account_number, product_line_id, account_type)
+      @request = setup_request "#{@@resource_url}/lookupAccount"
       # TODO: @request.headers["contractId"] =
-      @request.query = { :accountNumber => account_number, :productLineId => product_line_id,
-        :accountType => account_type }
+      @request.query = {
+        accountNumber: account_number,
+        productLineId: product_line_id,
+        accountType: account_type
+      }
       @request
     end
   end

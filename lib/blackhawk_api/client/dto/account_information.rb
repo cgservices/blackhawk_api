@@ -1,12 +1,16 @@
 module BlackhawkApi
+  # Data class for account information
   class AccountInformation
     attr_reader :entity_id, :updated_timestamp, :type, :account_number,
-      :security_code, :product_line_id, :product_id, :balance,
-      :balance_as_of, :is_balance_stale, :currency, :activation_account_number,
-      :activation_amount, :activation_timestamp, :activation_location,
-      :expiration_day, :expiration_month, :expiration_year, :additional_redemption_data, 
-      :status, :bar_code_value, :balance_response
-      
+                :security_code, :product_line_id, :product_id, :balance,
+                :balance_as_of, :is_balance_stale, :currency, :activation_account_number,
+                :activation_amount, :activation_timestamp, :activation_location,
+                :expiration_day, :expiration_month, :expiration_year, :additional_redemption_data,
+                :status, :bar_code_value, :balance_response
+
+    # Initialize a new instance of AccountInformation
+    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/MethodLength
     def initialize(account_data)
       @entity_id = account_data.entityId
       @updated_timestamp = account_data.updatedTimestamp
@@ -26,5 +30,7 @@ module BlackhawkApi
       @expiration_year = account_data.expirationYear
       @expiration_day = account_data.expirationDay
     end
+    # rubocop:enable Metrics/MethodLength
+    # rubocop:enable Metrics/AbcSize
   end
 end

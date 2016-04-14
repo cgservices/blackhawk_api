@@ -29,10 +29,24 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.11"
   spec.add_development_dependency "rake", "~> 10.0"
+  # Testing
   spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_development_dependency "rspec-nc"
   spec.add_development_dependency "guard"
   spec.add_development_dependency "guard-rspec"
+  spec.add_development_dependency "brakeman"
+  spec.add_development_dependency "simplecov"
+  spec.add_development_dependency "simplecov-rcov"
+  spec.add_development_dependency "rspec_junit_formatter"
+  # Cyclomatic Complexity
+  spec.add_development_dependency "flog", "~> 4.3", ">= 4.3.2"
+  # Code duplication
+  spec.add_development_dependency "flay", "~> 2.6", ">= 2.6.1"
+    # Static Code Analyzer
+  spec.add_development_dependency "rubocop"
+  spec.add_development_dependency "rubocop-checkstyle_formatter"
+  
+  # Debugging
   spec.add_development_dependency "pry"
   spec.add_development_dependency "pry-remote"
   spec.add_development_dependency "pry-nav"
