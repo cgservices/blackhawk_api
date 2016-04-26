@@ -29,14 +29,14 @@ describe BlackhawkApi do
           # Arrange
           brand = EMPTY_BRAND_ID
           # Act / Assert
-          expect { BlackhawkApi::FindProductLinesByBrandRequest.new(brand) }.to raise_error(ArgumentError)
+          expect { BlackhawkApi::Requests::FindProductLinesByBrandRequest.new(brand) }.to raise_error(ArgumentError)
         end
 
         it 'should raise ArgumentError on invalid identity' do
           # Arrange
           brand = INVALID_BRAND_ID
           # Act / Assert
-          expect { BlackhawkApi::FindProductLinesByBrandRequest.new(brand) }.to raise_error(ArgumentError)
+          expect { BlackhawkApi::Requests::FindProductLinesByBrandRequest.new(brand) }.to raise_error(ArgumentError)
         end
       end
 
@@ -45,7 +45,7 @@ describe BlackhawkApi do
         VALID_BRAND_ID = 'TQVGSJAH2DL4G8BSR4J9M7HJVH'.freeze
         brand = VALID_BRAND_ID
         sut = BlackhawkApi::ProductLineService.new
-        request = BlackhawkApi::FindProductLinesByBrandRequest.new(brand)
+        request = BlackhawkApi::Requests::FindProductLinesByBrandRequest.new(brand)
         # Act
         response = sut.find_summaries_by_brand request
         # Assert
@@ -57,7 +57,7 @@ describe BlackhawkApi do
       it 'should read product summaries' do
         # Arrange
         sut = BlackhawkApi::ProductLineService.new
-        request = BlackhawkApi::FindProductLinesByIdsRequest.new([TEST_PRODUCTLINE_ID])
+        request = BlackhawkApi::Requests::FindProductLinesByIdsRequest.new([TEST_PRODUCTLINE_ID])
         # Act
         response = sut.find_summaries_by_ids request
         # Assert

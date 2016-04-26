@@ -4,6 +4,16 @@ source 'https://rubygems.org'
 
 group :development, :test do
   gem "turbulence", github: 'cgservices/turbulence'
+  
+  gem 'pry'
+  gem 'pry-nav'
+  gem 'pry-rescue'
+  gem 'pry-coolline'
+  gem 'pry-rails'
+  gem 'pry-stack_explorer'
+  gem 'pry-remote'
+  
+  gem 'yard'
 end
 
 gemspec

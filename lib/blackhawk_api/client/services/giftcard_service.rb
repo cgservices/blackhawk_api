@@ -15,7 +15,7 @@ module BlackhawkApi
     # @param gift_id The internal identifier of the eGift.
     # @return
     def find(gift_id)
-      GiftDetailsResponse.new(@gifts.find(gift_id))
+      Responses::GiftDetailsResponse.new(@gifts.find(gift_id))
     end
 
     # This operation generates an eGift for any given product configuration.
@@ -25,9 +25,9 @@ module BlackhawkApi
     # @return
     def generate(request)
       web_response, results = perform request do
-        @gifts.generate request
+        @gifts.generate(request)
       end
-      GiftDetailsResponse.new(web_response)
+      Responses::GiftDetailsResponse.new(web_response)
     end
 
     # This operation reverses an eGift for the given product configuration
@@ -38,7 +38,7 @@ module BlackhawkApi
       web_response, results = perform request do
         @gifts.reverse request
       end
-      AccountTransactionResponse.new(web_response)
+      Responses::AccountTransactionResponse.new(web_response)
     end
 
     # This operation queries a list of eGift entities for the given account_id
@@ -58,7 +58,7 @@ module BlackhawkApi
       web_response, results = perform request do
         @gifts.find_by_gift_ids request.gift_ids
       end
-      GiftListResponse.new(web_response)
+      Responses::GiftListResponse.new(web_response)
     end
   end
 end

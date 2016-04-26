@@ -12,15 +12,13 @@ module BlackhawkApi
   # Base class for rest resources.
   class RESTResource
     @@config = YAML.load(File.open('./config/bhn_config.certification.yml'))
-    REQUESTOR_ID = 'ZPZB7DDS20PNHALMZCBX14RVCM'.freeze
-    CONTRACT_ID = '7JAC21WTR6X'.freeze # SRAGNHRL1XDZ2PC"
     @@error_handler = ApiErrorHandler.new
 
-    def self.setup_request(uri)
+    def self.setup_request(uri, request_id = nil, idempotent = false, attempts = 0)
       uri = "#{@@config['resourcelocation']['base_url']}/#{uri}"
       @request = Request.new(uri)
       setup_authentication
-      setup_idempotency
+      setup_idempotency(request_id, attempts) if idempotent
       setup_content_types
 
       @request
@@ -44,12 +42,14 @@ module BlackhawkApi
       @request.auth.ssl.cert_file = @@config['certificate']['cert']
       @request.auth.ssl.verify_mode = :peer
       @request.auth.ssl.ssl_version = :TLSv1_2
+      
+      @request.headers["requestorId"] = @@config['identifiers']['requestor_id']
+      @request.headers['contractId'] = @@config['identifiers']['contract_id'].to_s
     end
 
-    def self.setup_idempotency
-      # @request.headers["requestorId"] = REQUESTOR_ID
-      # @request.headers["requestId"] = REQUEST_ID
-      # @request.headers["previousAttempts"] = PREVIOUS_ATTEMPTS
+    def self.setup_idempotency(request_id, attempts)
+      @request.headers["requestId"] = request_id
+      @request.headers["previousAttempts"] = attempts unless attempts == 0
     end
 
     def self.setup_content_types

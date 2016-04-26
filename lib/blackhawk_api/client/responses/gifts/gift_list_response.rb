@@ -1,19 +1,21 @@
-require 'blackhawk_api/client/dto/gift_details'
+require 'blackhawk_api/client/entities/gift_details'
 
 module BlackhawkApi
-  # Response object after retrieving a gift list
-  class GiftListResponse < BaseResponse
-    attr_reader :total, :results
+  module Responses
+    # Response object after retrieving a gift list
+    class GiftListResponse < BaseResponse
+      attr_reader :total, :results
 
-    def initialize(http_response)
-      super(http_response.code, http_response.headers, http_response.raw_body)
-    end
+      def initialize(http_response)
+        super(http_response.code, http_response.headers, http_response.raw_body)
+      end
 
-    protected
+      protected
 
-    def parse(object)
-      @total = object.total
-      @results = object.results.map { |v| GiftDetails.new(v) }
+      def parse(object)
+        @total = object.total
+        @results = object.results.map { |v| GiftDetails.new(v) }
+      end
     end
   end
 end

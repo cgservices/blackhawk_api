@@ -25,7 +25,7 @@ describe BlackhawkApi do
         base_transaction_id = ''
 
         sut = BlackhawkApi::AccountService.new
-        request = BlackhawkApi::CreateAccountRequest.new(
+        request = BlackhawkApi::Requests::CreateAccountRequest.new(
           product_id, amount, currency, transaction_time,
           reference_nr, store_nr, terminal_nr, base_transaction_id)
         # Act
@@ -42,7 +42,7 @@ describe BlackhawkApi do
         # Arrange
         invalid_account_id = ''
         sut = BlackhawkApi::AccountService.new
-        request = BlackhawkApi::FindAccountRequest.new(invalid_account_id)
+        request = BlackhawkApi::Requests::FindAccountRequest.new(invalid_account_id)
         # Act
         response = sut.find request
         # Assert
@@ -53,7 +53,7 @@ describe BlackhawkApi do
         # Arrange
         valid_account_id = ''
         sut = BlackhawkApi::AccountService.new
-        request = BlackhawkApi::FindAccountRequest.new(valid_account_id)
+        request = BlackhawkApi::Requests::FindAccountRequest.new(valid_account_id)
         # Act
         response = sut.find request
         # Assert
@@ -66,7 +66,7 @@ describe BlackhawkApi do
         # Arrange
         invalid_account_id = ''
         sut = BlackhawkApi::AccountService.new
-        request = BlackhawkApi::FindAccountRequest.new(invalid_account_id)
+        request = BlackhawkApi::Requests::FindAccountRequest.new(invalid_account_id)
         # Act
         response = sut.find_with_balance request
         # Assert
@@ -77,7 +77,7 @@ describe BlackhawkApi do
         # Arrange
         valid_account_id = ''
         sut = BlackhawkApi::AccountService.new
-        request = BlackhawkApi::FindAccountRequest.new(valid_account_id)
+        request = BlackhawkApi::Requests::FindAccountRequest.new(valid_account_id)
         # Act
         response = sut.find_with_balance request
         # Assert
@@ -92,7 +92,7 @@ describe BlackhawkApi do
         product_line_id = ''
         account_type = ''
         sut = BlackhawkApi::AccountService.new
-        request = BlackhawkApi::AccountLookupRequest.new(
+        request = BlackhawkApi::Requests::AccountLookupRequest.new(
           account_number, product_line_id, account_type)
         # Act
         response = sut.lookup request

@@ -8,11 +8,13 @@ describe BlackhawkApi do
     context 'Find' do
       it 'should read single gift details' do
         # Arrange
+        INVALID_GIFT_ID = '123456789654'.freeze
         sut = BlackhawkApi::GiftService.new
         # Act
-        response = sut.find TEST_GIFT_ID
+        response = sut.find INVALID_GIFT_ID
         #  Assert
         expect(response).not_to eq(nil)
+        expect(response.code).to be(400)
       end
     end
 
@@ -22,7 +24,7 @@ describe BlackhawkApi do
       it 'should generate a new giftcard' do
         # Arrange
         sut = BlackhawkApi::GiftService.new
-        request = BlackhawkApi::GenerateGiftCardRequest.new
+        request = BlackhawkApi::Requests::GenerateGiftCardRequest.new
         # Act
         response = sut.generate request
         # Assert
@@ -35,7 +37,7 @@ describe BlackhawkApi do
         # Arrange
         account_id = TEST_ACCOUNT_ID
         sut = BlackhawkApi::GiftService.new
-        request = BlackhawkApi::FindGiftsByAccountRequest.new account_id
+        request = BlackhawkApi::Requests::FindGiftsByAccountRequest.new account_id
         # Act
         response = sut.find_by_account_id request
         # Assert
@@ -48,7 +50,7 @@ describe BlackhawkApi do
         # Arrange
         gift_ids = TEST_GIFT_ID
         sut = BlackhawkApi::GiftService.new
-        request = BlackhawkApi::FindGiftsByIdsRequest.new(gift_ids)
+        request = BlackhawkApi::Requests::FindGiftsByIdsRequest.new(gift_ids)
         # Act
         response = sut.find_by_egift_ids request
         # Assert

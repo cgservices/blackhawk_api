@@ -16,7 +16,7 @@ module BlackhawkApi
     # @return Retrieves the requested productline
     def find(productline_id)
       result = @productlines.find productline_id
-      ProductLineDetailsResponse.new(result)
+      Responses::ProductLineDetailsResponse.new(result)
     end
 
     # This operation retrieves product line summary information about a subset of the product lines
@@ -27,7 +27,7 @@ module BlackhawkApi
       web_response, results = perform request do
         @productlines.find_summaries_by_brand request
       end
-      ProductLinesResponse.new(web_response)
+      Responses::ProductLinesResponse.new(web_response)
     end
 
     # This operation returns product line summary information for the given product line IDs.
@@ -37,7 +37,7 @@ module BlackhawkApi
       web_response, results = perform request do
         @productlines.find_summaries_by_ids request
       end
-      ProductLinesResponse.new(web_response)
+      Responses::ProductLinesResponse.new(web_response)
     end
   end
 end

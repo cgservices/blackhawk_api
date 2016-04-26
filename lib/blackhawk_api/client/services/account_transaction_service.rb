@@ -13,7 +13,7 @@ module BlackhawkApi
       web_response, results = perform request do
         @transactions.create request.transaction
       end
-      AccountTransactionResponse.new(web_response)
+      Responses::AccountTransactionResponse.new(web_response)
     end
 
     # This operation retrieves full account transaction information for the
@@ -22,7 +22,7 @@ module BlackhawkApi
       web_response, results = perform request do
         @transactions.find transaction_id
       end
-      AccountTransactionResponse.new(web_response)
+      Responses::AccountTransactionResponse.new(web_response)
     end
 
     # This operation queries account transactions by IDs
@@ -30,7 +30,7 @@ module BlackhawkApi
       web_response, results = perform request do
         @transactions.find_by_ids request.transaction_ids
       end
-      AccountTransactionListResponse.new(web_response)
+      Responses::AccountTransactionListResponse.new(web_response)
     end
 
     # This operation queries account transactions associated witht he given account ID.
@@ -38,7 +38,7 @@ module BlackhawkApi
       web_response, results = perform request do
         @transactions.find_by_account_id request.account_id
       end
-      AccountTransactionListResponse.new(web_response)
+      Responses::AccountTransactionListResponse.new(web_response)
     end
 
     # This operation queries account transactions associated with the given correlation ID.
@@ -46,7 +46,7 @@ module BlackhawkApi
       web_response, results = perform request do
         @transactions.find_by_correlation_id request.correlation_id
       end
-      AccountTransactionListResponse.new(web_response)
+      Responses::AccountTransactionListResponse.new(web_response)
     end
 
     # This operation groups a set of account transactions using a correlation ID.
@@ -54,7 +54,7 @@ module BlackhawkApi
       web_response, results = perform request do
         @transactions.correlate request.transaction_ids
       end
-      AccountTransactionCorrelationResponse.new(web_response)
+      Responses::AccountTransactionCorrelationResponse.new(web_response)
     end
   end
 end

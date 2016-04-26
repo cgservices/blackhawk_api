@@ -28,7 +28,7 @@ describe BlackhawkApi do
         index = 0
         max_size = 10
         sut = BlackhawkApi::ProductService.new
-        request = BlackhawkApi::FindProductByProvisioningTypeRequest.new(
+        request = BlackhawkApi::Requests::FindProductByProvisioningTypeRequest.new(
           :DIGITAL)
 
         # Act
@@ -49,7 +49,7 @@ describe BlackhawkApi do
         index = 0
         max_size = 10
         sut = BlackhawkApi::ProductService.new
-        request = BlackhawkApi::FindProductByProvisioningTypeRequest.new(
+        request = BlackhawkApi::Requests::FindProductByProvisioningTypeRequest.new(
           'DIGITAL')
 
         # Act
@@ -69,7 +69,7 @@ describe BlackhawkApi do
         # Arrange
         invalid_param = :invalid_product_type
         # Act / Assert
-        expect { BlackhawkApi::FindProductByProvisioningTypeRequest.new(invalid_param) }.to raise_error(ArgumentError)
+        expect { BlackhawkApi::Requests::FindProductByProvisioningTypeRequest.new(invalid_param) }.to raise_error(ArgumentError)
       end
     end
 
@@ -78,7 +78,7 @@ describe BlackhawkApi do
         # Arrange
         keyword = 'test'
         sut = BlackhawkApi::ProductService.new
-        request = BlackhawkApi::FindProductByKeywordRequest.new(keyword)
+        request = BlackhawkApi::Requests::FindProductByKeywordRequest.new(keyword)
         # Act
         response = sut.find_by_keyword request
         # Assert
@@ -93,7 +93,7 @@ describe BlackhawkApi do
         max_amount = 15
         PRODUCTLINE_ID = 'FY9GWP49A84S6HKMFXHQ76HDCD'.freeze
         sut = BlackhawkApi::ProductService.new
-        request = BlackhawkApi::FindProductByProductLineRequest.new(PRODUCTLINE_ID)
+        request = BlackhawkApi::Requests::FindProductByProductLineRequest.new(PRODUCTLINE_ID)
         # Act
         response = sut.find_by_productline request
         # result = JSON.parse(response.raw_body, object_class: OpenStruct)
@@ -111,7 +111,7 @@ describe BlackhawkApi do
       it 'should read single product details' do
         # Arrange
         sut = BlackhawkApi::ProductService.new
-        request = BlackhawkApi::FindProductsByIdsRequest.new([TEST_PRODUCT_1, TEST_PRODUCT_2])
+        request = BlackhawkApi::Requests::FindProductsByIdsRequest.new([TEST_PRODUCT_1, TEST_PRODUCT_2])
         # Act
         response = sut.find_by_ids request
         # Assert
@@ -123,7 +123,7 @@ describe BlackhawkApi do
       it 'should read single product details' do
         # Arrange
         sut = BlackhawkApi::ProductService.new
-        request = BlackhawkApi::FindProductByConfigurationRequest.new(TEST_CONFIGURATION_ID)
+        request = BlackhawkApi::Requests::FindProductByConfigurationRequest.new(TEST_CONFIGURATION_ID)
         # Act
         response = sut.find_by_configuration request
         # Assert

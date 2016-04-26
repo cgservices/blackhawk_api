@@ -16,22 +16,22 @@ module BlackhawkApi
     # @param request A request object with headers, body etc.
     # @return Returns the parsed response.
     def post(request)
-      parse_response HTTPI.post request
+      HTTPI.post request
     end
 
     # Performs a PUT request.
     # @param request A PUT request object with headers, body etc.
     # @return Returns the parsed response.
     def put(request)
-      parse_response HTTPI.put request
+      HTTPI.put request
     end
 
-    private
+    # private
 
-    def parse_response(response)
-      json = JSON.parse(response.raw_body)
-      puts JSON.pretty_generate(json)
-      JSON.parse(response.raw_body, object_class: OpenStruct)
-    end
+    # def parse_response(response)
+    #   json = JSON.parse(response.raw_body)
+    #   puts JSON.pretty_generate(json)
+    #   JSON.parse(response.raw_body, object_class: OpenStruct)
+    # end
   end
 end

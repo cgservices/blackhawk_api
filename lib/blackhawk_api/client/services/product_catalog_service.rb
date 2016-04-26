@@ -23,7 +23,7 @@ module BlackhawkApi
       web_response, results = perform request do
         @catalogs.all(request)
       end
-      ProductCatalogsResponse.new(web_response)
+      Responses::ProductCatalogsResponse.new(web_response)
     end
 
     # This operation retrieves the version for a specified product catalog identifier.
@@ -31,14 +31,14 @@ module BlackhawkApi
     # @return
     def get_version(catalog_id)
       web_response = @catalogs.get_version catalog_id
-      ProductCatalogVersionResponse.new(web_response)
+      Responses::ProductCatalogVersionResponse.new(web_response)
     end
 
     # This operation reads product catalog information based on a specified product catalog identifier.
     # @param catalog_id The internal identifier of the product catalog.
     # @return
     def find(catalog_id)
-      ProductCatalogDetailsResponse.new(@catalogs.find(catalog_id))
+      Responses::ProductCatalogDetailsResponse.new(@catalogs.find(catalog_id))
     end
 
     # This operation queries the name from product catalog summary information for a catalog.
@@ -48,7 +48,7 @@ module BlackhawkApi
       web_response, results = perform request do
         @catalogs.find_by_name(request)
       end
-      ProductCatalogsResponse.new(web_response)
+      Responses::ProductCatalogsResponse.new(web_response)
     end
 
     # This operation queries product catalog summary information by catalog Ids.
@@ -58,7 +58,7 @@ module BlackhawkApi
       web_response, results = perform request do
         @catalogs.find_by_ids(request)
       end
-      ProductCatalogsResponse.new(web_response)
+      Responses::ProductCatalogsResponse.new(web_response)
     end
 
     # This operation returns a list of summaries for a given product ID from a catalog.
@@ -68,7 +68,7 @@ module BlackhawkApi
       web_response, results = perform request do
         @catalogs.find_product_catalogs_for_product(request)
       end
-      ProductCatalogsResponse.new(web_response)
+      Responses::ProductCatalogsResponse.new(web_response)
     end
   end
 end

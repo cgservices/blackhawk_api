@@ -42,10 +42,6 @@ module BlackhawkApi
     # @param keyword Search keyword.
     # @param exact_match Flag to exactly match the given criteria, the default is true.
     # @param case_sensistive Flag to exactly match the case of the given criteria, the default is true.
-    # @param sortKey The name of the attribute that should be used for ordering the results.
-    # @param ascending Whether or not the results are sorted in ascending order.
-    # @param first The index of the first entity in this cursor view of the list. The default first index is zero referring to the first entity in the full list.
-    # @param maximum The maximum number of entities to be shown in this cursor view of the list.
     # @return Retrieves a list of matching product summary entities and the total count returned from the query and the request elements specified in the request.
     def self.find_by_keyword(keyword, exact_match = true, case_sensistive = true)
       @request = setup_request "#{@@resource_url}s"

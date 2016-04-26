@@ -1,4 +1,4 @@
-require 'blackhawk_api/client/dto/offer_details'
+require 'blackhawk_api/client/entities/offer_details'
 
 module BlackhawkApi
   # Data class for gift details

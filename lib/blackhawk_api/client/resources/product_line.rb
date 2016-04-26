@@ -17,7 +17,7 @@ module BlackhawkApi
 
     # This API returns ProductLineSummary information about a subset of the product lines
     #  associated with the brand_id in the request.
-    # @param brandId The internal identifier for the brand.
+    # @param brand_id The internal identifier for the brand.
     # @return A list of matching ProductLineSummary entities and the total number of entities
     #  existing in the system matching the given brandId.
     def self.find_summaries_by_brand(brand_id)

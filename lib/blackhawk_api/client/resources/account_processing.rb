@@ -16,7 +16,6 @@ module BlackhawkApi
                     store_number, terminal_number, base_transaction_id, message_reason_code)
 
       @request = setup_request "#{@@resource_url}/createAccount"
-      # TODO: @request.headers["contractId"] =
       hash = {
         productId: product_id, amount: amount, currency: currency,
         transactionTime: transaction_time, retrievalReferenceNumber: reference_number,
@@ -53,7 +52,6 @@ module BlackhawkApi
     # @raise 400 - invalid.contract.id - Invalid contractId
     def self.find_with_balance(account_id)
       @request = setup_request "#{@@resource_url}/getAccount"
-      # TODO: @request.headers["contractId"] =
       @request.query = { accountId: account_id }
       @request
     end
@@ -65,11 +63,29 @@ module BlackhawkApi
     # @param account_type Type of the account.
     def self.lookup(account_number, product_line_id, account_type)
       @request = setup_request "#{@@resource_url}/lookupAccount"
-      # TODO: @request.headers["contractId"] =
       @request.query = {
         accountNumber: account_number,
         productLineId: product_line_id,
         accountType: account_type
+      }
+      @request
+    end
+    
+    # This operation is used to reverse an account transaction. When the client did not receive the response (timeout)
+    # because of various reasons, the client sends the reversal using this operation.
+    # @param reversal_transaction_request_id This is the ID used for idempotency of the original transaction.
+    # @raise 400 - bhn.com.service.request.missing.parameter
+    # @raise 400 - account.reversalTxnRequestId.blank
+    # @raise 409 - accountTransaction.not.found
+    # @raise 409 - account.does.not.exist
+    # @raise 409 - max.reversal.time.elapsed
+    # @raise 409 - original.transaction.not.found
+    # @raise 409 - account.unsupported.transaction.type
+    # @raise 409 - secondary.account.missing
+    def self.reverse(reversal_transaction_request_id)
+      @request = setup_request "#{@@resource_url}/reverseTransaction"
+      @request.query = {
+        reversalTxnRequestId: reversal_transaction_request_id
       }
       @request
     end

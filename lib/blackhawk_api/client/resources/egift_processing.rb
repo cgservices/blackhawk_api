@@ -10,20 +10,20 @@ module BlackhawkApi
 
     # This operation generates an eGift for any given product configuration. The generate operation
     #  creates an account and wraps it in an eGift object, returning the fully initialized, newly created eGift.
-    # @param giftFrom EGift sender details.
-    # @param giftTo EGift receiver details.
-    # @param giftMessage Gift message.
-    # @param giftAmount The amount associated with the egift.
-    # @param purchaserId A reference to the URI of the person who is purchasing the egift.
-    # @param recipientId A reference to the URI for the recipient person.
-    # @param retrievalReferenceNumber Retrieval reference number for the egift transaction, as 12 numeric numbers.
-    # @param messageReasonCode Enables client to enter reason why egift is being created.
-    # @param productConfigurationId The product configuration ID of any of the configurations tied to the egift product.
-    # @param notes Any notes associated with the last time the entity was updated.
+    # @param gift_data The EGift to generate.
     # @return Returns the fully initialized, newly created EGift.
-    def self.generate(gift_data)
-      @request = setup_request "#{@@resource_url}/generateEGift"
-      @request.headers['contractId'] = '7JAC21WTR6XSRAGNHRL1XDZ2PC'
+    def self.generate(gift_data, request_id, attempts = 0)
+      @request = setup_request "#{@@resource_url}/generateEGift", request_id, true, attempts
+      @request.body = gift_data
+      @request
+    end
+    
+    # This operation reverses an eGift activation for the given product configuration
+    #  when a timeout occurs during egift activation.
+    # @param gift_data The EGift to reverse
+    # @return Returns the account transaction object.
+    def self.reverse(gift_data, request_id, attempts = 0)
+      @request = setup_request "#{@@resource_url}/reverseEGift", request_id, true, attempts
       @request.body = gift_data
       @request
     end

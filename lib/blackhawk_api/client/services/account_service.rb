@@ -13,7 +13,7 @@ module BlackhawkApi
       web_response, results = perform request do
         @accounts.create request
       end
-      AccountCreatedResponse.new(web_response)
+      Responses::AccountCreatedResponse.new(web_response)
     end
 
     # This operation uses an account_id to retrieve account information.
@@ -23,7 +23,7 @@ module BlackhawkApi
       web_response, results = perform request do
         @accounts.find request.account_id
       end
-      AccountDetailsResponse.new(web_response)
+      Responses::AccountDetailsResponse.new(web_response)
     end
 
     # This API operation uses an account_id to retrieve account information,
@@ -32,7 +32,7 @@ module BlackhawkApi
       web_response, results = perform request do
         @accounts.find_with_balance request.account_id
       end
-      AccountDetailsResponse.new(web_response)
+      Responses::AccountDetailsResponse.new(web_response)
     end
 
     # This API operation queries an account using Account Number,
@@ -42,7 +42,7 @@ module BlackhawkApi
       web_response, results = perform request do
         @accounts.lookup request
       end
-      AccountLocationResponse.new(web_response)
+      Responses::AccountLocationResponse.new(web_response)
     end
   end
 end

@@ -16,7 +16,7 @@ module BlackhawkApi
     end
 
     # Skips the amount of items given.
-    # @param items Skips this amount of items.
+    # @param amount Skips this amount of items.
     # @return Returns the request with a modified QueryString. 
     def skip(amount)
       parsed = CGI.parse(query) rescue {}
@@ -40,7 +40,7 @@ module BlackhawkApi
     def orderby(sortkey, ascending = true)
       parsed = CGI.parse(query) rescue {}
       self.query = { sortKey: sortkey, ascending: ascending }
-                   .merge(parsed)
+                  .merge(parsed)
       self
     end
 

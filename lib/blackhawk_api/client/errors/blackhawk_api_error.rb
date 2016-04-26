@@ -1,5 +1,3 @@
-require 'blackhawk_api/version'
-
 module BlackhawkApi
   # Represents an error that has occurred in the BlackHawk API. 
   class ApiError < RuntimeError

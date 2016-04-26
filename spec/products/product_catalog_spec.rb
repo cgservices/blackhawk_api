@@ -6,17 +6,6 @@ describe BlackhawkApi do
   TEST_PRODUCT_ID = 'H0MM0RLHRZX2KD3S78G3YHHCA9'.freeze
 
   describe 'ProductCatalog Application Service' do
-    context 'Query Catalogs' do
-      it 'should query all product catalog summaries' do
-        # Arrange
-        sut = BlackhawkApi::CatalogService.new
-        # Act
-        response = sut.all
-        # Assert
-        expect(response.code).to eq(200)
-        expect(response.results.length).to be(1)
-      end
-    end
 
     context 'Get Version' do
       it 'should read product catalog version' do
@@ -52,11 +41,12 @@ describe BlackhawkApi do
 
         # Arrange
         sut = BlackhawkApi::CatalogService.new
-        request = BlackhawkApi::GetAllCatalogsRequest.new
         # Act
+        request = BlackhawkApi::Requests::GetAllCatalogsRequest.new
         response = sut.all request
         # Assert
-        expect(response).not_to eq(nil)
+        expect(response.code).to eq(200)
+        expect(response.results.length).to eq(1)
       end
     end
 
@@ -79,7 +69,7 @@ describe BlackhawkApi do
       it 'should read product catalogs' do
         # Arrange
         sut = BlackhawkApi::CatalogService.new
-        request = BlackhawkApi::FindCatalogsForProductRequest.new(TEST_PRODUCT_ID)
+        request = BlackhawkApi::Requests::FindCatalogsForProductRequest.new(TEST_PRODUCT_ID)
         # Act
         response = sut.find_product_catalogs_for_product request
         # Assert
@@ -91,7 +81,7 @@ describe BlackhawkApi do
       it 'should read product catalogs' do
         # Arrange
         sut = BlackhawkApi::CatalogService.new
-        request = BlackhawkApi::FindCatalogsByNameRequest.new('Halfords eGift')
+        request = BlackhawkApi::Requests::FindCatalogsByNameRequest.new('Halfords eGift')
         # Act
         response = sut.find_by_name request
         # Assert
@@ -103,7 +93,7 @@ describe BlackhawkApi do
       it 'should read product catalogs' do
         # Arrange
         sut = BlackhawkApi::CatalogService.new
-        request = BlackhawkApi::FindCatalogsByIdsRequest.new([TEST_PRODUCT_ID])
+        request = BlackhawkApi::Requests::FindCatalogsByIdsRequest.new([TEST_PRODUCT_ID])
         # Act
         response = sut.find_by_ids request
         # Assert

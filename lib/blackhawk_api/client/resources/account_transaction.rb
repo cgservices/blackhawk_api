@@ -13,8 +13,8 @@ module BlackhawkApi
     # @return The newly created Account Transaction.
     # @raise 400 - account.txn.merchantId.blank - Merchant Id involved in this transaction is blank
     # TODO: Update errors -> https://developer.blackhawknetwork.com/documentation/apiReference/Service+-+Account+Transaction+Management/Operation+-+Create+Account+Transaction 
-    def self.create(account_transaction)
-      @request = setup_request @@resource_url.to_s
+    def self.create(account_transaction, request_id, attempts = 0)
+      @request = setup_request @@resource_url.to_s, request_id, true, attempts
       @request.body = account_transaction.to_json
       @request
     end
@@ -62,8 +62,8 @@ module BlackhawkApi
     # @return Returns a correlation ID.
     # @raise 400 - ids.to.correlate.null - GUIDs to correlate is null
     # @raise 400 - atleast.two.guids.needed.to.correlate - GUIDs to correlate is not enough
-    def self.correlate(transaction_ids)
-      @request = setup_request "#{@@correlation_url}/correlate"
+    def self.correlate(transaction_ids, request_id, attempts = 1)
+      @request = setup_request "#{@@correlation_url}/correlate", request_id, true, attempts
       @request.body = transaction_ids.to_s
       @request
     end

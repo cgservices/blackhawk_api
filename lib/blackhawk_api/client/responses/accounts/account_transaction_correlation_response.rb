@@ -1,17 +1,19 @@
 module BlackhawkApi
-  # Response object after correlate transactions call.
-  class AccountTransactionCorrelationResponse < BaseResponse
-    attr_reader :correlation_id
+  module Responses
+    # Response object after correlate transactions call.
+    class AccountTransactionCorrelationResponse < BaseResponse
+      attr_reader :correlation_id
 
-    def initialize(http_response)
-      super(http_response.code, http_response.headers, http_response.raw_body)
-    end
+      def initialize(http_response)
+        super(http_response.code, http_response.headers, http_response.raw_body)
+      end
 
-    protected
+      protected
 
-    def parse(object)
-      # TODO: Parse correlation id
-      @correlation_id = object
+      def parse(object)
+        # TODO: Parse correlation id
+        @correlation_id = object
+      end
     end
   end
 end

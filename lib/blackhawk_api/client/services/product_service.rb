@@ -20,7 +20,7 @@ module BlackhawkApi
     # @param product_id The internal identifier for the product.
     # @return Retrieves the requested product.
     def find(product_id)
-      ProductDetailsResponse.new(@products.find(product_id))
+      Responses::ProductDetailsResponse.new(@products.find(product_id))
     end
 
     # Retrieve a list of product summary entities matching the given search keyword.
@@ -31,7 +31,7 @@ module BlackhawkApi
       web_response, results = perform request do
         @products.find_by_keyword(request)
       end
-      ProductResponse.new(web_response)
+      Responses::ProductResponse.new(web_response)
     end
 
     # This operation returns a list of summary information for the subset of products matching
@@ -43,7 +43,7 @@ module BlackhawkApi
       web_response, results = perform request do
         return @products.find_by_provisioning_type(request, index, size)
       end
-      ProductResponse.new(web_response)
+      Responses::ProductResponse.new(web_response)
     end
 
     # Retrieve a list of summary information about a subset of the products matching a given product_line_id
@@ -54,7 +54,7 @@ module BlackhawkApi
       web_response, results = perform request do
         @products.find_by_productline(request)
       end
-      ProductResponse.new(web_response)
+      Responses::ProductResponse.new(web_response)
     end
 
     # Retrieves a list of product summary information for the given product IDs.
@@ -65,7 +65,7 @@ module BlackhawkApi
       web_response, results = perform request do
         @products.find_by_ids(request)
       end
-      ProductResponse.new(web_response)
+      Responses::ProductResponse.new(web_response)
     end
 
     # Retrieves a list of product summary information for the given product configuration ID.
@@ -76,7 +76,7 @@ module BlackhawkApi
       web_response, results = perform request do
         @products.find_by_configuration(request)
       end
-      ProductResponse.new(web_response)
+      Responses::ProductResponse.new(web_response)
     end
   end
 end

@@ -1,19 +1,21 @@
-require 'blackhawk_api/client/dto/product_catalog_summary'
+require 'blackhawk_api/client/entities/product_catalog_summary'
 
 module BlackhawkApi
-  # Response object with multiple catalog summaries
-  class ProductCatalogsResponse < BaseResponse
-    attr_reader :total, :results
+  module Responses
+    # Response object with multiple catalog summaries
+    class ProductCatalogsResponse < BaseResponse
+      attr_reader :total, :results
 
-    def initialize(http_response)
-      super(http_response.code, http_response.headers, http_response.raw_body)
-    end
+      def initialize(http_response)
+        super(http_response.code, http_response.headers, http_response.raw_body)
+      end
 
-    protected
+      protected
 
-    def parse(object)
-      @total = object.total
-      @results = object.results.map { |v| ProductCatalogSummary.new(v) }
+      def parse(object)
+        @total = object.total
+        @results = object.results.map { |v| ProductCatalogSummary.new(v) }
+      end
     end
   end
 end

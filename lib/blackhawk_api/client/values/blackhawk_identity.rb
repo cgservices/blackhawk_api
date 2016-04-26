@@ -24,28 +24,4 @@ module BlackhawkApi
       @id = value
     end
   end
-
-  # Identity array which converts multiple strings to valid identity objects.
-  class BlackhawkIdentityArray
-    attr_reader :ids
-
-    def initialize(ids)
-      self.ids = ids
-    end
-
-    def to_s
-      ids.map(&:id).join(';')
-    end
-
-    protected
-
-    def ids=(value)
-      raise ArgumentError, 'No identities specified' if value.nil? || value.empty?
-      @ids = if value.respond_to?(:map)
-               value.map { |v| BlackhawkIdentity.new(v) }
-             else # single value
-               [value]
-             end
-    end
-  end
 end

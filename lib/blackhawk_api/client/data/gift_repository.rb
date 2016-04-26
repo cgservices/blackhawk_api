@@ -29,7 +29,8 @@ module BlackhawkApi
     # @param request The request object to generate an eGift.
     # @return Returns the HTTP response of the POST request.
     def generate(request)
-      post EGiftProcessing.generate request.to_json
+      # TODO: Request ID
+      post EGiftProcessing.generate request.to_json, 'FWVJKCH8TM6V284GM2RC8QR3FC'
     end
 
     # This operation reverses an eGift activation for the given product configuration
