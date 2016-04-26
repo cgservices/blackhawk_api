@@ -34,15 +34,15 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec-nc"
   spec.add_development_dependency "guard"
   spec.add_development_dependency "guard-rspec"
-  spec.add_development_dependency "brakeman"
+  # spec.add_development_dependency "brakeman"
   spec.add_development_dependency "simplecov"
   spec.add_development_dependency "simplecov-rcov"
   spec.add_development_dependency "rspec_junit_formatter"
   # Cyclomatic Complexity
-  spec.add_development_dependency "flog", "~> 4.3", ">= 4.3.2"
+  # spec.add_development_dependency "flog", "~> 4.3", ">= 4.3.2"
   # Code duplication
-  spec.add_development_dependency "flay", "~> 2.6", ">= 2.6.1"
-    # Static Code Analyzer
+  # spec.add_development_dependency "flay", "~> 2.6", ">= 2.6.1"
+  # Static Code Analyzer
   spec.add_development_dependency "rubocop"
   spec.add_development_dependency "rubocop-checkstyle_formatter"
   
