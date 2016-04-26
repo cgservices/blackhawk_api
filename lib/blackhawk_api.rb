@@ -1,7 +1,8 @@
 require 'blackhawk_api/version'
 
 # Include error values
-require 'blackhawk_api/client/errors/blackhawk_api_error'
+require 'blackhawk_api/client/errors/api_error'
+require 'blackhawk_api/client/errors/api_error_handler'
 
 # Include value objects
 require 'blackhawk_api/client/values/enumerations'

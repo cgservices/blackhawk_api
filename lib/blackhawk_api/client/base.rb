@@ -6,7 +6,7 @@ require 'json'
 require 'openssl'
 require 'base64'
 require 'blackhawk_api/client/requests/base_request'
-require 'blackhawk_api/client/errors/blackhawk_api_error'
+require 'blackhawk_api/client/errors/api_error'
 
 module BlackhawkApi
   # Base class for rest resources.

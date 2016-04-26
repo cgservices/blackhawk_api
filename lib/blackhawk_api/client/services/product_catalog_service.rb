@@ -1,5 +1,5 @@
 require 'blackhawk_api/version'
-require 'blackhawk_api/client/errors/blackhawk_api_error'
+require 'blackhawk_api/client/errors/api_error'
 require 'blackhawk_api/client/base'
 require 'blackhawk_api/client/services/service_base'
 require 'blackhawk_api/client/responses/product_responses'
