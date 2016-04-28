@@ -28,17 +28,18 @@ module BlackhawkApi
     # This operation generates an eGift for any given product configuration.
     # @param request The request object to generate an eGift.
     # @return Returns the HTTP response of the POST request.
-    def generate(request)
-      # TODO: Request ID
-      post EGiftProcessing.generate request.to_json, 'FWVJKCH8TM6V284GM2RC8QR3FC'
+    def generate(request, request_id = nil)
+      req_id = request_id || rand.to_s[2..13]
+      post EGiftProcessing.generate request.to_json, req_id
     end
 
     # This operation reverses an eGift activation for the given product configuration
     # when a timeout occurs during egift activation.
     # @param request The request object to reverse an eGift.
     # @return Returns the HTTP response of the POST request.
-    def reverse(request)
-      post EGiftProcessing.reverse request.to_json
+    def reverse(request, request_id = nil)
+      req_id = request_id || rand.to_s[2..13]
+      post EGiftProcessing.reverse request.to_json, req_id
     end
   end
 end

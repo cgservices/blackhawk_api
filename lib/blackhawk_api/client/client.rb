@@ -1,5 +1,6 @@
 require 'blackhawk_api/client/requests/base_request'
 require 'httpi'
+require 'httplog'
 require 'json'
 
 module BlackhawkApi

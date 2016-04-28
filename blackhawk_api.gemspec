@@ -53,5 +53,6 @@ Gem::Specification.new do |spec|
   
   spec.add_dependency 'rubyntlm', '~> 0.3.2'
   spec.add_dependency "httpi", '~> 2.4.1'
+  spec.add_development_dependency 'httplog'
   spec.add_dependency 'veto'
 end

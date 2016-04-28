@@ -23,9 +23,9 @@ module BlackhawkApi
     # newly created eGift.
     # @param request
     # @return
-    def generate(request)
+    def generate(request, request_id = nil)
       web_response, results = perform request do
-        @gifts.generate(request)
+        @gifts.generate(request, request_id)
       end
       Responses::GiftDetailsResponse.new(web_response)
     end
@@ -34,9 +34,9 @@ module BlackhawkApi
     # when a timeout occurs during egift activation.
     # @param request
     # @return
-    def reverse(request)
+    def reverse(request, request_id = nil)
       web_response, results = perform request do
-        @gifts.reverse request
+        @gifts.reverse request, request_id
       end
       Responses::AccountTransactionResponse.new(web_response)
     end

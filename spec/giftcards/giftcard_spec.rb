@@ -23,10 +23,16 @@ describe BlackhawkApi do
       # POST: https://api.blackhawknetwork.com/eGiftProcessing/v1/generateEGift
       it 'should generate a new giftcard' do
         # Arrange
+        amount = 5
+        ref = rand.to_s[2..13]
         sut = BlackhawkApi::GiftService.new
-        request = BlackhawkApi::Requests::GenerateGiftCardRequest.new
+        request = BlackhawkApi::Requests::GenerateGiftCardRequest.new(
+          nil, nil, nil, amount, nil, nil, nil, ref,
+          nil, CONFIG_ID, nil, nil)
+        
         # Act
         response = sut.generate request
+        
         # Assert
         expect(response).not_to eq(nil)
       end

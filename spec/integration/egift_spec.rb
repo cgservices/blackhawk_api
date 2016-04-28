@@ -1,8 +1,19 @@
 require 'spec_helper'
 require 'logger'
 
-describe BlackhawkApi do
 
+HttpLog.options[:logger]        = Logger.new($stdout)
+HttpLog.options[:severity]      = Logger::Severity::INFO
+HttpLog.options[:log_connect]   = true
+HttpLog.options[:log_request]   = true
+HttpLog.options[:log_headers]   = true
+HttpLog.options[:log_data]      = true
+HttpLog.options[:log_status]    = true
+HttpLog.options[:log_response]  = true
+HttpLog.options[:log_benchmark] = true
+
+describe BlackhawkApi do
+  
   describe 'FRC01: Approved Variable -' do
     # WH7V1Z5584XM0XGZ7JS61C7FHW: DIGITAL FRC 01: APPROVED VARIABLE - NL EUR 5.0
     # Config: 8MJAB7C7P6NZ7YAH8P6N7W2NTL
@@ -26,7 +37,7 @@ describe BlackhawkApi do
     #  Call reverse EGift mapping the request ID from 2
     #   if reverse EGift does not respond, call Blackhawk Service
     # 5. Present EGift
-    it 'should create a gift card' do
+    xit 'should create a gift card' do
       gift_service = BlackhawkApi::GiftService.new
       amount = 5
       ref = rand.to_s[2..13]
@@ -36,6 +47,7 @@ describe BlackhawkApi do
         nil, CONFIG_ID, nil, nil)
       
       begin
+        binding.pry
         response = gift_service.generate request
         raise 'invalid response' if response == nil || response.code != 200
       rescue => e
@@ -63,18 +75,12 @@ describe BlackhawkApi do
       
       begin
         response = gift_service.generate step_2
-        raise 'invalid response' if response == nil || response.code != 200
-      rescue
+      rescue => e
         puts "Reference used: #{ref}"
-        step_2.increment_attempt
-        
-        begin
-          response = gift_service.generate step_2
-          raise 'invalid response' if response == nil || response.code != 200
-        rescue
-          step_3 = BlackhawkApi::Requests::ReverseGiftCardRequest.new()
-          response = gift_service.reverse_gift step_3
-        end
+        fail e
+      ensure
+        expect(response).not_to be(nil)
+        expect(response.http_code).to eq(200)
       end
     end
   end
@@ -188,7 +194,7 @@ describe BlackhawkApi do
     # 3. Reverse EGift
     VALID_PRODUCT_ID = '4ZQ8DP8PBNTNL7KH5ZRGYGV435'.freeze
     VALID_CONFIG_ID = '2KHHTTQ67ZMDL3CTKFL3Q563L6'.freeze
-    xit 'should reverse a generated gift card' do
+    it 'should reverse a generated gift card' do
       gift_service = BlackhawkApi::GiftService.new
       amount = 5
       ref = rand.to_s[2..13]
@@ -200,15 +206,29 @@ describe BlackhawkApi do
       begin
         response = gift_service.generate step_2
         raise 'invalid response' if response == nil || response.code != 200
-        
-        step_3 = BlackhawkApi::Requests::ReverseGiftCardRequest.new(ref)
-        
-        response = gift_service.reverse step_3
-        expect(response.code).to eq(200)
-      rescue => e
-        fail e
-      ensure
+      rescue
         puts "Reference used: #{ref}"
+        step_2.increment_attempt
+        
+        begin
+          requestId = gets.chomp
+          binding.pry
+          response = gift_service.generate step_2, requestId
+          raise 'invalid response' if response == nil || response.code != 200
+        rescue
+          step_3 = BlackhawkApi::Requests::ReverseGiftCardRequest.new(requestId)
+          response = gift_service.reverse step_3, requestId
+
+          expect(response).not_to be(nil)
+          expect(response.requested_amount).to eq(amount)
+          expect(response.transaction_response).to eq("00")
+          expect(response.description).to eq("balance.available")
+          expect(response.is_void).to eq(false)
+          expect(response.is_reversal).to eq(true)
+          expect(response.retrieval_reference_number).to eq(ref)
+          expect(response.transaction_type).to eq("DIGITAL_ACCOUNT_REQUEST")
+          expect(response.transaction_status).to eq("APPROVED")
+        end
       end
     end
    end

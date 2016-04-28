@@ -9,7 +9,7 @@ describe BlackhawkApi do
     # 3. Call read product for every productId in 2
     # 4. foreach product call Read Product Line for additional brand information
 
-    it 'should read all products' do
+    xit 'should read all products' do
       catalog_service = BlackhawkApi::CatalogService.new
       product_service = BlackhawkApi::ProductService.new
       productline_service = BlackhawkApi::ProductLineService.new

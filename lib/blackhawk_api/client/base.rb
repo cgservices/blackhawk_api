@@ -1,5 +1,6 @@
 require 'blackhawk_api/version'
 require 'httpi'
+require 'httplog'
 require 'yaml'
 require 'json'
 
