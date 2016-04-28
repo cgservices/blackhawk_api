@@ -7,7 +7,7 @@ require 'blackhawk_api/client/services/service_base'
 
 module BlackhawkApi
   # Application Service for Products.
-  class ProductService < BlackhawkService
+  class ProductService < ApplicationService
     # Initializes a new Product Service.
     # @param product_repository The data access for products.
     # @param error_handler An implementation for error handling for this service.

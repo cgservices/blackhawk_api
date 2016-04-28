@@ -14,6 +14,8 @@ group :development, :test do
   gem 'pry-remote'
   
   gem 'yard'
+  
+  gem 'colorize'
 end
 
 gemspec

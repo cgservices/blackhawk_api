@@ -4,6 +4,8 @@ require 'blackhawk_api/client/values/blackhawk_identity'
 module BlackhawkApi
   module Requests
     # Request object to reverse an egift for a given request id.
+    # For the instances of system timeouts or exceptions when your application calls a Blackhawk
+    # Digital Service, you can reverse generateEGift or voidEGift transactions.
     class ReverseGiftCardRequest < Request
       attr_reader :reversal_egift_request_id
 

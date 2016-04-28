@@ -27,5 +27,15 @@ module BlackhawkApi
       @request.body = gift_data
       @request
     end
+    
+    # This operation voids an eGift specified by the provided eGift details.
+    # The operation can only be used to void one eGift at a time.
+    # @param gift_data The EGift to void
+    # @return Returns an eGift object.
+    def self.void(gift_data, request_id, attempts = 0)
+      @request = setup_request "#{@@resource_url}/voidEGift", request_id, attempts
+      @request.body = gift_data
+      @request
+    end
   end
 end

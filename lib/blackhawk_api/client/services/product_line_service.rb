@@ -2,7 +2,7 @@ require 'blackhawk_api/client/services/service_base'
 
 module BlackhawkApi
   # Application Service for Product Lines.
-  class ProductLineService < BlackhawkService
+  class ProductLineService < ApplicationService
     # Initializes a new ProductLine Service.
     # @param productline_repository The data access for productlines.
     # @param error_handler An implementation for error handling for this service.

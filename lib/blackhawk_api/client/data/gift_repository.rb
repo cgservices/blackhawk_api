@@ -41,5 +41,13 @@ module BlackhawkApi
       req_id = request_id || rand.to_s[2..13]
       post EGiftProcessing.reverse request.to_json, req_id
     end
+    
+    # This operation voids an eGift specified by the provided eGift details.
+    # @param request The request object to void an eGift.
+    # @return Returns the HTTP response of the POST request.
+    def void(request, request_id = nil)
+      req_id = request_id || rand.to_s[2..13]
+      post EGiftProcessing.void request.to_json, req_id
+    end
   end
 end

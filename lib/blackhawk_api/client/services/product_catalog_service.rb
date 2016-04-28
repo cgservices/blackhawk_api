@@ -7,7 +7,7 @@ require 'json'
 
 module BlackhawkApi
   # Application Service for Product Catalogs.
-  class CatalogService < BlackhawkService
+  class CatalogService < ApplicationService
     # Initializes a new Product Catalog Service.
     # @param catalog_repository The data access for catalogs.
     # @param error_handler An implementation for error handling for this service.
@@ -25,9 +25,16 @@ module BlackhawkApi
       end
       Responses::ProductCatalogsResponse.new(web_response)
     end
+    
+    # def all_(request = nil)
+    #   web_response, results = perform request do
+    #     ProductCatalog.all(request)
+    #   end
+    #   Responses::ProductCatalogsResponse.new(web_response)
+    # end
 
     # This operation retrieves the version for a specified product catalog identifier.
-    # @param request
+    # @param catalog_id The identifier of the catalog.
     # @return
     def get_version(catalog_id)
       web_response = @catalogs.get_version catalog_id

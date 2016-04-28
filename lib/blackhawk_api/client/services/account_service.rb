@@ -2,7 +2,7 @@ require 'blackhawk_api/client/services/service_base'
 
 module BlackhawkApi
   # Application Service for Accounts.
-  class AccountService < BlackhawkService
+  class AccountService < ApplicationService
     def initialize(account_repository = nil, error_handler = nil)
       super(error_handler)
       @accounts = account_repository || AccountRepository.new

@@ -2,7 +2,7 @@ require 'blackhawk_api/client/services/service_base'
 
 module BlackhawkApi
   # Application Service for Gifts.
-  class GiftService < BlackhawkService
+  class GiftService < ApplicationService
     # Initializes a new Gift Service.
     # @param gift_repository The data access for gifts.
     # @param error_handler An implementation for error handling for this service.
@@ -22,7 +22,7 @@ module BlackhawkApi
     # The generate operation creates an account and wraps it in an eGift object, returning the fully initialized,
     # newly created eGift.
     # @param request
-    # @return
+    # @return Returns an eGift detail object.
     def generate(request, request_id = nil)
       web_response, results = perform request do
         @gifts.generate(request, request_id)
@@ -33,12 +33,22 @@ module BlackhawkApi
     # This operation reverses an eGift for the given product configuration
     # when a timeout occurs during egift activation.
     # @param request
-    # @return
+    # @return Returns an account transaction object.
     def reverse(request, request_id = nil)
       web_response, results = perform request do
-        @gifts.reverse request, request_id
+        @gifts.reverse(request, request_id)
       end
       Responses::AccountTransactionResponse.new(web_response)
+    end
+    
+    # This operation voids an eGift specified by the provided eGift details.
+    # @param request
+    # @return Returns an eGift detail object.
+    def void(request, request_id = nil)
+      web_response, results = perform request do
+        @gifts.void request, request_id
+      end
+      Responses::GiftDetailsResponse.new(web_response)
     end
 
     # This operation queries a list of eGift entities for the given account_id

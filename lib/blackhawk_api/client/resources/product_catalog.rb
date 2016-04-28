@@ -1,5 +1,6 @@
 require 'blackhawk_api/version'
 require 'blackhawk_api/client/base'
+require 'blackhawk_api/client/client'
 require 'httpi'
 
 module BlackhawkApi
@@ -8,6 +9,12 @@ module BlackhawkApi
   # the information about your catalog that customers need to make a purchasing decision.
   class ProductCatalog < RESTResource
     @@resource_url = 'productCatalogManagement/v1/productCatalog'
+
+    # TODO: Refactor out Repositories
+    # @@client = Client.new
+    # def self.all(request)
+    #   @@client.get self.setup_request "#{@@resource_url}s"
+    # end
 
     # This operation queries all product catalog summaries.
     # @return List of product catalog summary with the total number of product catalog summaries existing in the system.

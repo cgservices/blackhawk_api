@@ -83,6 +83,76 @@ describe BlackhawkApi do
         expect(response.http_code).to eq(200)
       end
     end
+  
+    # 1. call generate eGift
+    # 2. call void eGift
+    it 'should be able to void a generated gift card' do
+      gift_service = BlackhawkApi::GiftService.new
+      amount = 5
+      ref = rand.to_s[2..13]
+      
+      step_1 = BlackhawkApi::Requests::GenerateGiftCardRequest.new(
+        nil, nil, nil, amount, nil, nil, ref,
+        nil, VALID_CONFIG_ID, nil, nil)
+      
+      begin
+        response = gift_service.generate step_1
+        binding.pry
+        raise 'invalid response' if response == nil || response.code != 200
+      rescue
+        puts "Reference used: #{ref}"
+
+        puts "Set the request_id and egift_id from console:".red
+        request_id = gets.chomp
+        egift_id = gets.chomp
+        binding.pry
+        step_2 = BlackhawkApi::Requests::VoidGiftCardRequest.new(egift_id, ref)
+        response = gift_service.void step_2, request_id
+
+        expect(response).not_to be(nil)
+        expect(response.requested_amount).to eq(amount)
+        expect(response.transaction_response).to eq("00")
+        expect(response.description).to eq("balance.available")
+        expect(response.is_void).to eq(true)
+        expect(response.is_reversal).to eq(false)
+        expect(response.retrieval_reference_number).to eq(ref)
+        expect(response.transaction_type).to eq("DIGITAL_ACCOUNT_REQUEST")
+        expect(response.transaction_status).to eq("APPROVED")
+      end
+    end
+    
+    # 1. call generateEGift
+    # 2. void generated EGift
+    # 3. call reverse on generated EGift
+    it 'should be able to reverse a void gift card operation' do
+      gift_service = BlackhawkApi::GiftService.new
+      amount = 5
+      ref = rand.to_s[2..13]
+      step_1 = BlackhawkApi::Requests::GenerateGiftCardRequest.new(
+        nil, nil, nil, amount, nil, nil, ref,
+        nil, VALID_CONFIG_ID, nil, nil)
+    
+      begin
+        response = gift_service.generate step_1
+        raise 'invalid response' if response == nil || response.code != 200
+  
+        request_id = gets.chomp
+        egift_id = gets.chomp
+        binding.pry
+        step_2 = BlackhawkApi::Requests::VoidGiftCardRequest.new(egift_id, ref)
+        response = gift_service.void step_2, requestId
+        raise 'invalid response' if response == nil || response.code != 200
+        
+        step_3 = BlackhawkApi::Requests::ReverseGiftCardRequest.new(requestId)
+        response = gift_service.reverse step_3, requestId
+        raise 'invalid response' if response == nil || response.code != 200
+        
+        expect(response).not_to be(nil)
+      rescue => e
+        puts "Reference used: #{ref}"
+        fail e
+      end
+    end
   end
   
   describe 'FRC02: Card not Found -' do

@@ -2,7 +2,7 @@ require 'blackhawk_api/client/services/service_base'
 
 module BlackhawkApi
   # Application Service for Transactions.
-  class TransactionService < BlackhawkService
+  class TransactionService < ApplicationService
     def initialize(transaction_repository = nil, error_handler = nil)
       super(error_handler)
       @transactions = transaction_repository || TransactionRepository.new

@@ -2,7 +2,7 @@ require 'json'
 
 module BlackhawkApi
   # Base class for application services.
-  class BlackhawkService
+  class ApplicationService
     # Initializes a new ApplicationService.
     # @param error_handler An implementation for error handling for this service.
     def initialize(error_handler = nil)

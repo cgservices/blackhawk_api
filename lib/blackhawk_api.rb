@@ -56,3 +56,6 @@ require 'blackhawk_api/client/services/giftcard_service'
 require 'blackhawk_api/client/services/product_catalog_service'
 require 'blackhawk_api/client/services/product_line_service'
 require 'blackhawk_api/client/services/product_service'
+
+# Include Application Facade
+require 'blackhawk_api/client/blackhawk_client'

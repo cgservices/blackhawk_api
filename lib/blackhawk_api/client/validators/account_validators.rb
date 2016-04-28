@@ -4,7 +4,8 @@ module BlackhawkApi
   module Validators
     # Validation to correlate account transactions
     class CorrelateAccountTransactionsRequestValidator
-      include Veto.validator
+      # Obfuscate the veto validator for yard
+      send :include, Veto.validator
 
       validate :transaction_ids, presence: true
       validate :should_have_at_least_2_transactions_to_correlate
@@ -16,7 +17,8 @@ module BlackhawkApi
 
     # Validation to create accounts
     class CreateAccountRequestValidator
-      include Veto.validator
+      # Obfuscate the veto validator for yard
+      send :include, Veto.validator
 
       validate :product_id, presence: true
       validate :amount, greater_than: 0
@@ -26,7 +28,8 @@ module BlackhawkApi
 
     # Validation to create account transactions
     class CreateAccountTransactionRequestValidator
-      include Veto.validator
+      # Obfuscate the veto validator for yard
+      send :include, Veto.validator
 
       validate :account_id, presence: true
     end
