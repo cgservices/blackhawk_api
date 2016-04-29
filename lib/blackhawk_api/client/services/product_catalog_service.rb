@@ -45,7 +45,11 @@ module BlackhawkApi
     # @param catalog_id The internal identifier of the product catalog.
     # @return
     def find(catalog_id)
-      Responses::ProductCatalogDetailsResponse.new(@catalogs.find(catalog_id))
+      request = Requests::FindCatalogByIdRequest.new(catalog_id)
+      web_response, results = perform request do
+        @catalogs.find(request.catalog_id)
+      end
+      Responses::ProductCatalogDetailsResponse.new(web_response)
     end
 
     # This operation queries the name from product catalog summary information for a catalog.

@@ -11,5 +11,14 @@ module BlackhawkApi
         @catalog_ids = BlackhawkIdentityArray.new(catalog_ids)
       end
     end
+    
+    # Find catalog by id.
+    class FindCatalogByIdRequest < Request
+      attr_reader :catalog_id
+       
+      def initialize(catalog_id)
+        @catalog_id = BlackhawkIdentity.new(catalog_id)
+      end
+    end
   end
 end

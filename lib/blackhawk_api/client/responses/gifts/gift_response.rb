@@ -5,9 +5,11 @@ module BlackhawkApi
     # Response object for gift details.
     class GiftDetailsResponse < BaseResponse
       attr_reader :information
+      attr_reader :request_id
 
-      def initialize(http_response)
+      def initialize(http_response, request_id = nil)
         super(http_response.code, http_response.headers, http_response.raw_body)
+        @request_id = request_id
       end
 
       protected

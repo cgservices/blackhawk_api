@@ -24,10 +24,11 @@ module BlackhawkApi
     # @param request
     # @return Returns an eGift detail object.
     def generate(request, request_id = nil)
+      request_id ||= rand.to_s[2..13]
       web_response, results = perform request do
         @gifts.generate(request, request_id)
       end
-      Responses::GiftDetailsResponse.new(web_response)
+      Responses::GiftDetailsResponse.new(web_response, request_id)
     end
 
     # This operation reverses an eGift for the given product configuration
@@ -35,6 +36,8 @@ module BlackhawkApi
     # @param request
     # @return Returns an account transaction object.
     def reverse(request, request_id = nil)
+      request_id ||= rand.to_s[2..13]
+      
       web_response, results = perform request do
         @gifts.reverse(request, request_id)
       end
@@ -45,10 +48,12 @@ module BlackhawkApi
     # @param request
     # @return Returns an eGift detail object.
     def void(request, request_id = nil)
+      request_id ||= rand.to_s[2..13]
+      
       web_response, results = perform request do
-        @gifts.void request, request_id
+        @gifts.void(request, request_id)
       end
-      Responses::GiftDetailsResponse.new(web_response)
+      Responses::GiftDetailsResponse.new(web_response, request_id)
     end
 
     # This operation queries a list of eGift entities for the given account_id

@@ -20,6 +20,8 @@ module BlackhawkApi
     # This operation can be used instead of find_with_balance if the current balance
     # is not required.
     def find(account_id)
+      request = Requests::FindAccountRequest.new(account_id)
+      
       web_response, results = perform request do
         @accounts.find request.account_id
       end
@@ -29,6 +31,8 @@ module BlackhawkApi
     # This API operation uses an account_id to retrieve account information,
     # including the balance. Updates are reflected in the current balance.
     def find_with_balance(account_id)
+      request = Requests::FindAccountRequest.new(account_id)
+      
       web_response, results = perform request do
         @accounts.find_with_balance request.account_id
       end

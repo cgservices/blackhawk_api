@@ -11,5 +11,13 @@ module BlackhawkApi
         @product_ids = BlackhawkIdentityArray.new(ids)
       end
     end
+    
+    class FindProductByIdRequest < Request
+      attr_reader :product_id
+      
+      def initialize(id)
+        @product_id = BlackhawkIdentity.new(id)
+      end
+    end
   end
 end

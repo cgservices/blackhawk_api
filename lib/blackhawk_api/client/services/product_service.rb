@@ -20,7 +20,12 @@ module BlackhawkApi
     # @param product_id The internal identifier for the product.
     # @return Retrieves the requested product.
     def find(product_id)
-      Responses::ProductDetailsResponse.new(@products.find(product_id))
+      request = Requests::FindProductByIdRequest.new(product_id)
+      
+      web_response, results = perform request do
+        @products.find(request.product_id)
+      end
+      Responses::ProductDetailsResponse.new(web_response)
     end
 
     # Retrieve a list of product summary entities matching the given search keyword.
