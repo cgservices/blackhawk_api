@@ -5,7 +5,7 @@ module BlackhawkApi
   class TransactionService < ApplicationService
     def initialize(transaction_repository = nil, error_handler = nil)
       super(error_handler)
-      @transactions = transaction_repository || TransactionRepository.new
+      @transactions = transaction_repository || AccountTransactionRepository.new
     end
 
     # This operation creates an account transaction.
@@ -19,6 +19,8 @@ module BlackhawkApi
     # This operation retrieves full account transaction information for the
     # specified account transaction identifier.
     def find(transaction_id)
+      request = Requests::FindAccountTransactionsByIdsRequest.new([transaction_id])
+      
       web_response, results = perform request do
         @transactions.find transaction_id
       end

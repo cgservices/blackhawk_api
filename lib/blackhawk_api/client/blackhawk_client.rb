@@ -35,6 +35,32 @@ module BlackhawkApi
       product_service.find product_id      
     end
     
+    # Reads account details for a single account
+    # @param account_id The identifier of the account.
+    # @return The account details.
+    def read_account account_id
+      account_service = BlackhawkApi::AccountService.new
+      account_service.find account_id
+    end
+    
+    # Reads transaction details for a single transaction.
+    # @param transaction_id The identifier of the transaction.
+    # @return The transaction details.
+    def read_transaction transaction_id
+      transaction_service = BlackhawkApi::TransactionService.new
+      transaction_service.find transaction_id
+    end
+    
+    # Finds transactions for the specified account.
+    # @param account_id The identifier of the account.
+    # @return All transaction details for the account.
+    def read_transactions_for_account account_id
+      transaction_service = BlackhawkApi::TransactionService.new
+      request = BlackhawkApi::Requests::FindAccountTransactionsByAccountIdRequest.new(account_id)
+      
+      transaction_service.find_by_account_id request
+    end
+    
     # Generates an egift for the specified product configuration.
     # @param product_config_id The identifier for the product configuration.
     # @param amount The requested value for the egift.
@@ -59,7 +85,7 @@ module BlackhawkApi
       
       request = BlackhawkApi::Requests::ReverseGiftCardRequest.new(request_id)
       
-      gift_service.reverse request, request_id
+      gift_service.reverse request
     end
     
     # Voids a generated egift.
@@ -67,13 +93,13 @@ module BlackhawkApi
     # @param egift_id The identifier given to the generated egift.
     # @param reference The reference used during the generation process.
     # @return The EGift details
-    def void_egift request_id, egift_id, reference
+    def void_egift egift_id, reference
       gift_service = BlackhawkApi::GiftService.new
       
       request = BlackhawkApi::Requests::VoidGiftCardRequest.new(
         egift_id, reference)
       
-      gift_service.void request, request_id
+      gift_service.void request
     end
   end
 end

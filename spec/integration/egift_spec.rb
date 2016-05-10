@@ -2,18 +2,7 @@ require 'spec_helper'
 require 'logger'
 
 
-HttpLog.options[:logger]        = Logger.new($stdout)
-HttpLog.options[:severity]      = Logger::Severity::INFO
-HttpLog.options[:log_connect]   = true
-HttpLog.options[:log_request]   = true
-HttpLog.options[:log_headers]   = true
-HttpLog.options[:log_data]      = true
-HttpLog.options[:log_status]    = true
-HttpLog.options[:log_response]  = true
-HttpLog.options[:log_benchmark] = true
-
 describe BlackhawkApi do
-  
   describe 'FRC01: Approved Variable -' do
     # WH7V1Z5584XM0XGZ7JS61C7FHW: DIGITAL FRC 01: APPROVED VARIABLE - NL EUR 5.0
     # Config: 8MJAB7C7P6NZ7YAH8P6N7W2NTL
@@ -102,7 +91,7 @@ describe BlackhawkApi do
       rescue
         puts "Reference used: #{ref}"
 
-        puts "Set the request_id and egift_id from console:".red
+        puts "Set the request_id and egift_id from console:"
         request_id = gets.chomp
         egift_id = gets.chomp
         binding.pry
@@ -144,7 +133,7 @@ describe BlackhawkApi do
         raise 'invalid response' if response == nil || response.code != 200
         
         step_3 = BlackhawkApi::Requests::ReverseGiftCardRequest.new(requestId)
-        response = gift_service.reverse step_3, requestId
+        response = gift_service.reverse step_3
         raise 'invalid response' if response == nil || response.code != 200
         
         expect(response).not_to be(nil)

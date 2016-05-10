@@ -8,8 +8,25 @@ module BlackhawkApi
     # @param url The resource location provided by Blackhawk.
     # @return Returns a validated BlackhawkIdentity object.
     def self.to_identity(url)
-      value = URI(url).path.split('/').last
-      BlackhawkApi::BlackhawkIdentity.new(value)
+      if URI(url).query.nil?
+        value = URI(url).path.split('/').last.to_s
+      else
+        value = URI(url).query
+      end
+
+      BlackhawkApi::BlackhawkIdentity.new(
+        read_identity(value))
+    end
+    
+    private
+    
+    def self.read_identity(str)
+      identity_length = 26
+      if(identity_length >= str.length)
+        str.dup
+      else
+        str[-identity_length..-1]
+      end
     end
   end
 end

@@ -1,6 +1,5 @@
 require 'blackhawk_api/client/requests/base_request'
 require 'httpi'
-require 'httplog'
 require 'json'
 
 module BlackhawkApi
@@ -26,13 +25,5 @@ module BlackhawkApi
     def put(request)
       HTTPI.put request
     end
-
-    # private
-
-    # def parse_response(response)
-    #   json = JSON.parse(response.raw_body)
-    #   puts JSON.pretty_generate(json)
-    #   JSON.parse(response.raw_body, object_class: OpenStruct)
-    # end
   end
 end

@@ -7,8 +7,12 @@ module BlackhawkApi
     # This operation retrieves product information for the specified product identifier.
     # @param product_id The identifier of the product.
     # @return Returns the HTTP response of the GET request with product information.
-    def find(product_id)
-      get Product.find product_id
+    def find(product_id, &block)
+      http_request = Product.find product_id do |request|
+        request = yield request if block_given?
+        request
+      end
+      get http_request
     end
 
     # This operation returns a list of product summary information for the subset of products

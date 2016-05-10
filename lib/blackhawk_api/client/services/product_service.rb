@@ -19,11 +19,14 @@ module BlackhawkApi
     # Retrieve product information for the specified product_id.
     # @param product_id The internal identifier for the product.
     # @return Retrieves the requested product.
-    def find(product_id)
+    def find(product_id, &block)
       request = Requests::FindProductByIdRequest.new(product_id)
-      
+
       web_response, results = perform request do
-        @products.find(request.product_id)
+        @products.find(request.product_id) do |http_request|
+          http_request = yield http_request if block_given?
+          http_request
+        end
       end
       Responses::ProductDetailsResponse.new(web_response)
     end

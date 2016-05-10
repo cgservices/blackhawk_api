@@ -12,7 +12,6 @@ module BlackhawkApi
     # @param account_transaction The account transaction to be created.
     # @return The newly created Account Transaction.
     # @raise 400 - account.txn.merchantId.blank - Merchant Id involved in this transaction is blank
-    # TODO: Update errors -> https://developer.blackhawknetwork.com/documentation/apiReference/Service+-+Account+Transaction+Management/Operation+-+Create+Account+Transaction 
     def self.create(account_transaction, request_id, attempts = 0)
       @request = setup_request @@resource_url.to_s, request_id, true, attempts
       @request.body = account_transaction.to_json

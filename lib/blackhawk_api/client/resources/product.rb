@@ -13,8 +13,9 @@ module BlackhawkApi
     # @param product_id The internal identifier for the product.
     # @return Retrieves the requested product.
     # @raise 404 - attempt.to.retrieve.nonexistent.entity - Nonexistent entity
-    def self.find(product_id)
-      setup_request "#{@@resource_url}/#{product_id}"
+    def self.find(product_id, &block)
+      request = setup_request "#{@@resource_url}/#{product_id}"
+      yield request if block_given?
     end
 
     # This API retrieves a list of summary information about a subset of the products

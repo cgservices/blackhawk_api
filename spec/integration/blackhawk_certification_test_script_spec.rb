@@ -1,20 +1,10 @@
 require 'spec_helper'
 require 'pry'
 
-HttpLog.options[:logger]        = Logger.new($stdout)
-HttpLog.options[:severity]      = Logger::Severity::INFO
-HttpLog.options[:log_connect]   = false
-HttpLog.options[:log_request]   = true
-HttpLog.options[:log_headers]   = true
-HttpLog.options[:log_data]      = true
-HttpLog.options[:log_status]    = true
-HttpLog.options[:log_response]  = true
-HttpLog.options[:log_benchmark] = false
-
 describe BlackhawkApi do
-  describe 'Account Processing' do
+  context 'Account Processing' do
     VALID_ACCOUNT_ID = 'J5FZ4KAC98LALH5WC9GHA47DDC'.freeze
-    INVALID_ACCOUNT_ID = '000000AC900000000000047111'.freeze
+    INVALID_ACCOUNT_ID = '000000AC900000000000047111'.freeze    
     
     describe 'Read Account' do
       it 'should call read account with the account id from the eGift json and return account information: account number, security code, cached balance, currency and product line id' do
@@ -39,11 +29,10 @@ describe BlackhawkApi do
     end
   end
   
-  describe 'Account Transaction' do
+  context 'Account Transaction' do
     describe 'Read Account Transaction' do
       INVALID_REQUEST_ID = ''
       it 'should call Read Account Transaction and return the full account transaction for the specified Account Transaction identifier' do
-        
         pending('Account Transactions not tested yet')
         fail
       end
@@ -56,7 +45,7 @@ describe BlackhawkApi do
     end
   end
   
-  describe 'Product Catalog Management' do
+  context 'Product Catalog Management' do
     describe 'Read Product Catalog' do
       VALID_CATALOG_ID = 'R7N2G9WKC9CKHJ5FSS37T41RMH'.freeze
       INVALID_CATALOG_ID = '123456789012'.freeze
@@ -134,10 +123,11 @@ describe BlackhawkApi do
     end
   end
   
-  describe 'Product Management' do
+  context 'Product Management' do
+    VALID_PRODUCT_ID = 'WH7V1Z5584XM0XGZ7JS61C7FHW'
+    INVALID_PRODUCT_ID = '123456789012'
+    
     describe 'Read Product' do
-      VALID_PRODUCT_ID = 'WH7V1Z5584XM0XGZ7JS61C7FHW'
-      INVALID_PRODUCT_ID = '123456789012'
       it 'should read product with the product id in catalog and return valid json' do
         service = BlackhawkApi::ProductService.new
         
@@ -174,16 +164,32 @@ describe BlackhawkApi do
     end
     
     describe 'Product Management' do
-      it 'should handle Product management service unavailable with 502, 503 - Service not available or Bad Gateway' do
+      class ProductServiceTester
+        def initialize(product_service, requested_status, requested_error)
+          @service = product_service
+          @requested_status = requested_status
+          @requested_error = requested_error
+        end
         
+        def find product_id
+          @service.find product_id do |req|
+            req.headers['testing'] = 'test'
+          end
+        end
+      end
+    
+      it 'should handle Product management service unavailable with 502, 503 - Service not available or Bad Gateway' do
+        service = BlackhawkApi::ProductService.new
+        service_tester = ProductServiceTester.new(service, 502, 'Service.not.available')
+        result = service_tester.find VALID_PRODUCT_ID
         pending('BHN needed -> Simulate Service Unavailable')
         fail
       end
     end
   end
   
-  describe 'eGift Processing' do
-    describe 'generate eGift' do
+  context 'eGift Processing' do
+    describe 'Generate eGift' do
       VALID_CONFIG_ID = 'SNPZWSWTQHWYCF4THKMPFK5ZH0'.freeze
       INVALID_CONFIG_ID = '123456789012'.freeze
       OTHER_CONFIG_ID = ''.freeze
@@ -314,9 +320,9 @@ describe BlackhawkApi do
         reference = rand.to_s[2..13]
         amount = 5
         egift = client.generate_egift(VALID_CONFIG_ID, amount, reference)
-        id = BlackhawkApi::IdentityExtractor.to_identity(egift.information.entity_id)
+        egift_id = BlackhawkApi::IdentityExtractor.to_identity(egift.information.entity_id)
         
-        result = client.void_egift(egift.request_id, id, reference)
+        result = client.void_egift(egift_id, reference)
         
         expect(result.code).to eq(200)
         expect(result.information).not_to eq(nil)
@@ -334,7 +340,7 @@ describe BlackhawkApi do
         egift = client.generate_egift(VALID_CONFIG_ID, amount, reference)
         
         expect {
-          client.void_egift(egift.request_id, INVALID_EGIFT_ID, reference)
+          client.void_egift(INVALID_EGIFT_ID, reference)
         }.to raise_error(BlackhawkApi::ApiError)
       end
       
@@ -346,10 +352,10 @@ describe BlackhawkApi do
         egift = client.generate_egift(VALID_CONFIG_ID, amount, reference)
         id = BlackhawkApi::IdentityExtractor.to_identity(egift.information.entity_id)
         # Perform initial void
-        client.void_egift(egift.request_id, id, reference)
+        client.void_egift(id, reference)
         
         expect {
-          client.void_egift(egift.request_id, id, reference)
+          client.void_egift(id, reference)
         }.to raise_error(BlackhawkApi::ApiError)
       end
     end

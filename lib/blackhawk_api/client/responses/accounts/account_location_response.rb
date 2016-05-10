@@ -1,5 +1,3 @@
-require 'pry'
-
 module BlackhawkApi
   module Responses
     # Response object for account locations
@@ -13,7 +11,6 @@ module BlackhawkApi
       protected
 
       def parse(object)
-        # TODO: Check url
         @account_url = object
       end
     end
