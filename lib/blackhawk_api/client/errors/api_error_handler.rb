@@ -7,8 +7,13 @@ module BlackhawkApi
     # @raise ApiError instance with the result code and description message.
     def _inspect(response, result)
       return if response.code == 200
-
-      raise ApiError.new(response.code, result.errorCode, result.message)
+      
+      if result.kind_of?(Array)
+        error = ApiError.new(response.code, result.first.errorCode, result.first.message) 
+      else
+        error = ApiError.new(response.code, result.errorCode, result.message)
+      end
+      raise error
     end
   end
 end
