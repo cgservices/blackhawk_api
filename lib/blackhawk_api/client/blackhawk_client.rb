@@ -74,7 +74,7 @@ module BlackhawkApi
         nil, product_config_id, nil, nil
       )
 
-      gift_service.generate request
+      gift_service.generate request, reference
     end
 
     # Reverses a generated egift or a voided egift.

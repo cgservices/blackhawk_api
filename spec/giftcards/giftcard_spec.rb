@@ -29,10 +29,10 @@ describe BlackhawkApi do
         request = BlackhawkApi::Requests::GenerateGiftCardRequest.new(
           nil, nil, nil, amount, nil, nil, nil, ref,
           nil, CONFIG_ID, nil, nil)
-        
+
         # Act
         response = sut.generate request
-        
+
         # Assert
         expect(response).not_to eq(nil)
       end

@@ -1,5 +1,5 @@
 module BlackhawkApi
-  # Represents an error that has occurred in the BlackHawk API. 
+  # Represents an error that has occurred in the BlackHawk API.
   class ApiError < RuntimeError
     attr_reader :http_code,
                 :error_code,
@@ -14,7 +14,7 @@ module BlackhawkApi
       @error_code = error
       @description = description
     end
-    
+
     # Returns a string representation of this error.
     def to_s
       "Error #{@http_code}: #{@error_code} - #{@description}"

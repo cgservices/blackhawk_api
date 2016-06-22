@@ -27,7 +27,7 @@ module BlackhawkApi
 
     def inspected(response)
       return response if @handler.nil?
-      
+
       result = JSON.parse(response.raw_body, object_class: OpenStruct)
       @handler._inspect(response, result)
       [response, result]

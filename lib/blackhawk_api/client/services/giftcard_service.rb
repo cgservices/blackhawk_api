@@ -37,19 +37,18 @@ module BlackhawkApi
     # @return Returns an account transaction object.
     def reverse(request, request_id = nil)
       request_id ||= generate_request_id
-      
+
       web_response, results = perform request do
         @gifts.reverse(request, request_id)
       end
       Responses::AccountTransactionResponse.new(web_response)
     end
-    
+
     # This operation voids an eGift specified by the provided eGift details.
     # @param request
     # @return Returns an eGift detail object.
     def void(request, request_id = nil)
       request_id ||= generate_request_id
-      
       web_response, results = perform request do
         @gifts.void(request, request_id)
       end
@@ -75,9 +74,9 @@ module BlackhawkApi
       end
       Responses::GiftListResponse.new(web_response)
     end
-    
+
     private
-    
+
     def generate_request_id
       rand.to_s[2..13]
     end
