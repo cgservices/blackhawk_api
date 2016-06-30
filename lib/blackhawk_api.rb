@@ -59,3 +59,22 @@ require 'blackhawk_api/client/services/product_service'
 
 # Include Application Facade
 require 'blackhawk_api/client/blackhawk_client'
+
+# Configuration settings for BlackhawkApi
+module BlackhawkApi
+  # Config class for rails projects
+  class Config
+    attr_accessor :proxysettings,
+                  :certificate,
+                  :resourcelocation,
+                  :identifiers
+  end
+
+  def self.config
+    @@config ||= Config.new
+  end
+
+  def self.configure
+    yield config
+  end
+end
