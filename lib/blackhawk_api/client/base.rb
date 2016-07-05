@@ -43,7 +43,7 @@ module BlackhawkApi
       @request.auth.ssl.cert_file = @@config['certificate']['cert']
       @request.auth.ssl.verify_mode = :peer
       @request.auth.ssl.ssl_version = :TLSv1_2
-      
+
       @request.headers["requestorId"] = @@config['identifiers']['requestor_id']
       @request.headers['contractId'] = @@config['identifiers']['contract_id'].to_s
     end

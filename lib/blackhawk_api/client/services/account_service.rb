@@ -21,7 +21,7 @@ module BlackhawkApi
     # is not required.
     def find(account_id)
       request = Requests::FindAccountRequest.new(account_id)
-      
+
       web_response, results = perform request do
         @accounts.find request.account_id
       end
@@ -32,7 +32,7 @@ module BlackhawkApi
     # including the balance. Updates are reflected in the current balance.
     def find_with_balance(account_id)
       request = Requests::FindAccountRequest.new(account_id)
-      
+
       web_response, results = perform request do
         @accounts.find_with_balance request.account_id
       end
