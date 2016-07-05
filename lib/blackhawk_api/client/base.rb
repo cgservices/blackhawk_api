@@ -12,11 +12,15 @@ require 'blackhawk_api/client/errors/api_error'
 module BlackhawkApi
   # Base class for rest resources.
   class RESTResource
-    @@config = YAML.load(File.open('./config/bhn_config.certification.yml'))
+    # @@config = BlackhawkApi.config # YAML.load(File.open('./config/bhn_config.certification.yml'))
     @@error_handler = ApiErrorHandler.new
 
+    def self.config
+      BlackhawkApi.config || YAML.load(File.open('./config/bhn_config.certification.yml')).with_indifferent_access
+    end
+
     def self.setup_request(uri, request_id = nil, idempotent = false, attempts = 0)
-      uri = "#{@@config['resourcelocation']['base_url']}/#{uri}"
+      uri = "#{config.resourcelocation[:base_url]}/#{uri}"
       @request = Request.new(uri)
       setup_authentication
       setup_idempotency(request_id, attempts) if idempotent
@@ -39,13 +43,13 @@ module BlackhawkApi
     end
 
     def self.setup_authentication
-      @request.auth.ssl.cert_key_file = @@config['certificate']['key']
-      @request.auth.ssl.cert_file = @@config['certificate']['cert']
+      @request.auth.ssl.cert_key_file = config.certificate[:key]
+      @request.auth.ssl.cert_file = config.certificate[:cert]
       @request.auth.ssl.verify_mode = :peer
       @request.auth.ssl.ssl_version = :TLSv1_2
 
-      @request.headers["requestorId"] = @@config['identifiers']['requestor_id']
-      @request.headers['contractId'] = @@config['identifiers']['contract_id'].to_s
+      @request.headers["requestorId"] = config.identifiers[:requestor_id]
+      @request.headers['contractId'] = config.identifiers[:contract_id].to_s
     end
 
     def self.setup_idempotency(request_id, attempts)
