@@ -7,7 +7,6 @@ module BlackhawkApi
     # For the instances of system timeouts or exceptions when your application calls a Blackhawk
     # Digital Service, you can reverse generateEGift or voidEGift transactions.
     class ReverseGiftCardRequest < Request
-      attr_reader :reversal_egift_request_id
 
       # Creates a new request object.
       def initialize(original_request_id)

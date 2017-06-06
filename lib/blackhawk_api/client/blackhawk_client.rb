@@ -89,15 +89,12 @@ module BlackhawkApi
     end
 
     # Voids a generated egift.
-    # @param request_id The identifier used during the initial request.
     # @param egift_id The identifier given to the generated egift.
-    # @param reference The reference used during the generation process.
     # @return The EGift details
-    def void_egift egift_id, reference
+    def void_egift egift_id
       gift_service = BlackhawkApi::GiftService.new
 
-      request = BlackhawkApi::Requests::VoidGiftCardRequest.new(
-        egift_id, reference)
+      request = BlackhawkApi::Requests::VoidGiftCardRequest.new egift_id
 
       gift_service.void request
     end

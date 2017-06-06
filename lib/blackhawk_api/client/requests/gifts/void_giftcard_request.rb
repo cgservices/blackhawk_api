@@ -8,7 +8,7 @@ module BlackhawkApi
     # eGift or when an eGift is being used fraudulently.
     class VoidGiftCardRequest < Request
       attr_reader :egift_id, :retrieval_reference_number, :correlation_id
-      
+
       # Creates a new request object.
       def initialize(egift_id, retrieval_reference_number, correlation_id = nil)
         @egift_id = egift_id
@@ -16,14 +16,14 @@ module BlackhawkApi
         @correlation_id = correlation_id unless correlation_id.nil?
       end
 
-      # Formats the request data in JSON format.    
+      # Formats the request data in JSON format.
       def to_json
         json_object = {}
 
         json_object[:eGiftId] = @egift_id
         json_object[:retrievalReferenceNumber] = @retrieval_reference_number
         json_object[:correlationId] = @correlation_id unless @correlation_id.nil?
-        
+
         JSON.generate(json_object)
       end
     end
