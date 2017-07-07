@@ -1,7 +1,4 @@
-require 'blackhawk_api/version'
 require 'blackhawk_api/client/errors/api_error'
-require 'blackhawk_api/client/base'
-require 'blackhawk_api/client/services/service_base'
 require 'blackhawk_api/client/responses/product_responses'
 require 'json'
 
@@ -20,14 +17,14 @@ module BlackhawkApi
     # @param request
     # @return
     def all(request = nil)
-      web_response, results = perform request do
+      web_response, _results = perform request do
         @catalogs.all(request)
       end
       Responses::ProductCatalogsResponse.new(web_response)
     end
-    
+
     # def all_(request = nil)
-    #   web_response, results = perform request do
+    #   web_response, _results = perform request do
     #     ProductCatalog.all(request)
     #   end
     #   Responses::ProductCatalogsResponse.new(web_response)
@@ -46,7 +43,7 @@ module BlackhawkApi
     # @return
     def find(catalog_id)
       request = Requests::FindCatalogByIdRequest.new(catalog_id)
-      web_response, results = perform request do
+      web_response, _results = perform request do
         @catalogs.find(request.catalog_id)
       end
       Responses::ProductCatalogDetailsResponse.new(web_response)
@@ -56,7 +53,7 @@ module BlackhawkApi
     # @param request
     # @return
     def find_by_name(request)
-      web_response, results = perform request do
+      web_response, _results = perform request do
         @catalogs.find_by_name(request)
       end
       Responses::ProductCatalogsResponse.new(web_response)
@@ -66,7 +63,7 @@ module BlackhawkApi
     # @param request
     # @return
     def find_by_ids(request)
-      web_response, results = perform request do
+      web_response, _results = perform request do
         @catalogs.find_by_ids(request)
       end
       Responses::ProductCatalogsResponse.new(web_response)
@@ -76,7 +73,7 @@ module BlackhawkApi
     # @param request
     # @return
     def find_product_catalogs_for_product(request)
-      web_response, results = perform request do
+      web_response, _results = perform request do
         @catalogs.find_product_catalogs_for_product(request)
       end
       Responses::ProductCatalogsResponse.new(web_response)

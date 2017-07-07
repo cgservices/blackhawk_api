@@ -1,5 +1,3 @@
-require 'blackhawk_api/version'
-
 # Include error values
 require 'blackhawk_api/client/errors/api_error'
 require 'blackhawk_api/client/errors/connection_error'
@@ -31,8 +29,8 @@ require 'blackhawk_api/client/responses/gift_responses'
 require 'blackhawk_api/client/responses/product_responses'
 
 # Include REST Resources
-require 'blackhawk_api/client/base'
-require 'blackhawk_api/client/resources/account_processing'
+require 'blackhawk_api/client/rest_resource'
+require 'blackhawk_api/client/resources/account_processing_information'
 require 'blackhawk_api/client/resources/account_transaction'
 require 'blackhawk_api/client/resources/egift_management'
 require 'blackhawk_api/client/resources/egift_processing'
@@ -50,7 +48,7 @@ require 'blackhawk_api/client/data/product_catalog_repository'
 require 'blackhawk_api/client/data/productline_repository'
 
 # Include Application Services
-require 'blackhawk_api/client/services/service_base'
+require 'blackhawk_api/client/services/application_service'
 require 'blackhawk_api/client/services/account_service'
 require 'blackhawk_api/client/services/account_transaction_service'
 require 'blackhawk_api/client/services/giftcard_service'
@@ -72,7 +70,7 @@ module BlackhawkApi
   end
 
   def self.config
-    @@config ||= Config.new
+    @config ||= Config.new
   end
 
   def self.configure

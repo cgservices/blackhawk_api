@@ -1,4 +1,3 @@
-require 'blackhawk_api/version'
 require 'httpi'
 require 'json'
 
@@ -10,17 +9,17 @@ module BlackhawkApi
     # Creates a new Request object for the specified url.
     # @param url The url to create a request object for.
     # @return Returns a new request.
-    def self.create(url)
+    def create(url)
       request = new(url)
       request
     end
 
     # Skips the amount of items given.
     # @param amount Skips this amount of items.
-    # @return Returns the request with a modified QueryString. 
+    # @return Returns the request with a modified QueryString.
     def skip(amount)
       parsed = CGI.parse(query) rescue {}
-      self.query = { first: amount }.merge(parsed)
+      @query = { first: amount }.merge(parsed)
       self
     end
 
@@ -29,7 +28,7 @@ module BlackhawkApi
     # @return Returns the request with a modified QueryString.
     def take(count)
       parsed = CGI.parse(query) rescue {}
-      self.query = { maximum: count }.merge(parsed)
+      @query = { maximum: count }.merge(parsed)
       self
     end
 
@@ -39,7 +38,7 @@ module BlackhawkApi
     # @return Returns the request with a modified QueryString.
     def orderby(sortkey, ascending = true)
       parsed = CGI.parse(query) rescue {}
-      self.query = { sortKey: sortkey, ascending: ascending }
+      @query = { sortKey: sortkey, ascending: ascending }
                   .merge(parsed)
       self
     end

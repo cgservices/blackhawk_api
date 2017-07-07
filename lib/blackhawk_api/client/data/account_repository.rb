@@ -8,7 +8,7 @@ module BlackhawkApi
     # @param request The request object with account processing information.
     # @return Returns the HTTP response of the POST request.
     def create(request)
-      post AccountProcessingInformation.create(
+      post AccountProcessingInformation.new.create(
         request.product_id,
         request.amount,
         request.currency,
@@ -24,21 +24,21 @@ module BlackhawkApi
     # @param account_id The identification number of the account.
     # @return Returns the HTTP response of the GET request.
     def find(account_id)
-      get AccountProcessingInformation.find account_id
+      get AccountProcessingInformation.new.find(account_id)
     end
 
     # This operation retrieves account information including balance information for the specified account ID.
     # @param account_id The identification number of the account.
     # @return Returns the HTTP response of the GET request.
     def find_with_balance(account_id)
-      get AccountProcessingInformation.find_with_balance account_id
+      get AccountProcessingInformation.new.find_with_balance account_id
     end
 
     # This operation queries an account by using a combination of account number, product line ID and account type.
     # @param request The request object with account number, product line and account type to perform a lookup.
     # @return Returns the HTTP response of the GET request.
     def lookup(request)
-      get AccountProcessingInformation.lookup(
+      get AccountProcessingInformation.new.lookup(
         request.account_number,
         request.product_line_id,
         request.account_type)

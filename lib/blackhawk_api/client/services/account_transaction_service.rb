@@ -1,5 +1,3 @@
-require 'blackhawk_api/client/services/service_base'
-
 module BlackhawkApi
   # Application Service for Transactions.
   class TransactionService < ApplicationService
@@ -20,7 +18,7 @@ module BlackhawkApi
     # specified account transaction identifier.
     def find(transaction_id)
       request = Requests::FindAccountTransactionsByIdsRequest.new([transaction_id])
-      
+
       web_response, results = perform request do
         @transactions.find transaction_id
       end

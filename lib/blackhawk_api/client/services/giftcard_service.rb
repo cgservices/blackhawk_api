@@ -1,5 +1,3 @@
-require 'blackhawk_api/client/services/service_base'
-
 module BlackhawkApi
   # Application Service for Gifts.
   class GiftService < ApplicationService
@@ -25,7 +23,7 @@ module BlackhawkApi
     # @return Returns an eGift detail object.
     def generate(request, request_id = nil)
       request_id ||= generate_request_id
-      web_response, results = perform request do
+      web_response, _results = perform request do
         @gifts.generate(request, request_id)
       end
       Responses::GiftDetailsResponse.new(web_response, request_id)
@@ -38,7 +36,7 @@ module BlackhawkApi
     def reverse(request, request_id = nil)
       request_id ||= generate_request_id
 
-      web_response, results = perform request do
+      web_response, _results = perform request do
         @gifts.reverse(request, request_id)
       end
       Responses::AccountTransactionResponse.new(web_response)
@@ -49,7 +47,7 @@ module BlackhawkApi
     # @return Returns an eGift detail object.
     def void(request, request_id = nil)
       request_id ||= generate_request_id
-      web_response, results = perform request do
+      web_response, _results = perform request do
         @gifts.void(request, request_id)
       end
       Responses::GiftDetailsResponse.new(web_response, request_id)
@@ -59,7 +57,7 @@ module BlackhawkApi
     # @param request
     # @return
     def find_by_account_id(request)
-      web_response, results = perform request do
+      web_response, _results = perform request do
         @gifts.find_by_account_id request.account_id
       end
       GiftListResponse.new(web_response)
@@ -69,7 +67,7 @@ module BlackhawkApi
     # @param request
     # @return
     def find_by_egift_ids(request)
-      web_response, results = perform request do
+      web_response, _results = perform request do
         @gifts.find_by_gift_ids request.gift_ids
       end
       Responses::GiftListResponse.new(web_response)

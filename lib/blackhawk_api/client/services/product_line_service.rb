@@ -1,5 +1,3 @@
-require 'blackhawk_api/client/services/service_base'
-
 module BlackhawkApi
   # Application Service for Product Lines.
   class ProductLineService < ApplicationService
@@ -24,7 +22,7 @@ module BlackhawkApi
     # @param request
     # @return
     def find_summaries_by_brand(request)
-      web_response, results = perform request do
+      web_response, _results = perform request do
         @productlines.find_summaries_by_brand request
       end
       Responses::ProductLinesResponse.new(web_response)
@@ -34,7 +32,7 @@ module BlackhawkApi
     # @param request
     # @return
     def find_summaries_by_ids(request)
-      web_response, results = perform request do
+      web_response, _results = perform request do
         @productlines.find_summaries_by_ids request
       end
       Responses::ProductLinesResponse.new(web_response)

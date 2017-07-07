@@ -1,5 +1,3 @@
-require 'blackhawk_api/client/base'
-
 module BlackhawkApi
   module Responses
     # Response object to retrieve the catalog version

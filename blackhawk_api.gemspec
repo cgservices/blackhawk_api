@@ -1,11 +1,10 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'blackhawk_api/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "blackhawk_api"
-  spec.version       = BlackhawkApi::VERSION
+  spec.version       = '0.1.2'
   spec.authors       = ["Michael Siroen"]
   spec.email         = ["msiroen@cg.nl"]
 
@@ -45,12 +44,12 @@ Gem::Specification.new do |spec|
   # Static Code Analyzer
   spec.add_development_dependency "rubocop"
   spec.add_development_dependency "rubocop-checkstyle_formatter"
-  
+
   # Debugging
   spec.add_development_dependency "pry"
   spec.add_development_dependency "pry-remote"
   spec.add_development_dependency "pry-nav"
-  
+
   spec.add_dependency 'rubyntlm', '~> 0.3.2'
   spec.add_dependency "httpi", '~> 2.4.1'
   spec.add_development_dependency 'httplog'

@@ -1,9 +1,6 @@
-require 'blackhawk_api/version'
-require 'blackhawk_api/client/base'
 require 'blackhawk_api/client/errors/api_error'
 require 'blackhawk_api/client/responses/product_responses'
 require 'json'
-require 'blackhawk_api/client/services/service_base'
 
 module BlackhawkApi
   # Application Service for Products.
@@ -22,7 +19,7 @@ module BlackhawkApi
     def find(product_id, &block)
       request = Requests::FindProductByIdRequest.new(product_id)
 
-      web_response, results = perform request do
+      web_response, _results = perform request do
         @products.find(request.product_id) do |http_request|
           http_request = yield http_request if block_given?
           http_request
@@ -36,7 +33,7 @@ module BlackhawkApi
     # @return Retrieves a list of matching product summary entities and the total count returned
     #  from the query and the request elements specified in the request.
     def find_by_keyword(request)
-      web_response, results = perform request do
+      web_response, _results = perform request do
         @products.find_by_keyword(request)
       end
       Responses::ProductResponse.new(web_response)
@@ -48,7 +45,7 @@ module BlackhawkApi
     # @return Retrieves a list of product summary entities and the total number of entities
     #  existing in the system matching the given provisioning type.
     def find_by_provisioning_type(request, index, size)
-      web_response, results = perform request do
+      web_response, _results = perform request do
         return @products.find_by_provisioning_type(request, index, size)
       end
       Responses::ProductResponse.new(web_response)
@@ -59,7 +56,7 @@ module BlackhawkApi
     # @return Retrieves a list of matching product summary entities and the total number of entities
     # existing in the system matching the given product line ID.
     def find_by_productline(request)
-      web_response, results = perform request do
+      web_response, _results = perform request do
         @products.find_by_productline(request)
       end
       Responses::ProductResponse.new(web_response)
@@ -70,7 +67,7 @@ module BlackhawkApi
     # @return Retrieves a list of matching product summary entities and the total number of entities
     #  existing in the system matching the given product IDs.
     def find_by_ids(request)
-      web_response, results = perform request do
+      web_response, _results = perform request do
         @products.find_by_ids(request)
       end
       Responses::ProductResponse.new(web_response)
@@ -81,7 +78,7 @@ module BlackhawkApi
     # @return Retrieves a list of product summary entities and the total number of entities existing
     # in the sustem matching the given configuration ID.
     def find_by_configuration(request)
-      web_response, results = perform request do
+      web_response, _results = perform request do
         @products.find_by_configuration(request)
       end
       Responses::ProductResponse.new(web_response)

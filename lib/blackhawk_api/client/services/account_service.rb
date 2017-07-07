@@ -1,4 +1,4 @@
-require 'blackhawk_api/client/services/service_base'
+require 'blackhawk_api/client/services/application_service'
 
 module BlackhawkApi
   # Application Service for Accounts.
@@ -10,7 +10,7 @@ module BlackhawkApi
 
     # This operation is used to get an account number for the given product and amount.
     def create(request)
-      web_response, results = perform request do
+      web_response, _results = perform request do
         @accounts.create request
       end
       Responses::AccountCreatedResponse.new(web_response)
@@ -22,7 +22,7 @@ module BlackhawkApi
     def find(account_id)
       request = Requests::FindAccountRequest.new(account_id)
 
-      web_response, results = perform request do
+      web_response, _results = perform request do
         @accounts.find request.account_id
       end
       Responses::AccountDetailsResponse.new(web_response)
@@ -33,7 +33,7 @@ module BlackhawkApi
     def find_with_balance(account_id)
       request = Requests::FindAccountRequest.new(account_id)
 
-      web_response, results = perform request do
+      web_response, _results = perform request do
         @accounts.find_with_balance request.account_id
       end
       Responses::AccountDetailsResponse.new(web_response)
@@ -43,7 +43,7 @@ module BlackhawkApi
     # an optional PIN, ProductLineID and Account Type.
     # If the account is not found it returns no content.
     def lookup(request)
-      web_response, results = perform request do
+      web_response, _results = perform request do
         @accounts.lookup request
       end
       Responses::AccountLocationResponse.new(web_response)
