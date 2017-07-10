@@ -45,6 +45,7 @@ require 'blackhawk_api/client/resources/product'
 require 'blackhawk_api/client/resources/product_line'
 require 'blackhawk_api/client/resources/product_catalog'
 require 'blackhawk_api/client/http_client'
+require 'blackhawk_api/client/request_handler'
 
 # Include Application Facade
 require 'blackhawk_api/client/blackhawk_client'

@@ -1,6 +1,5 @@
 require 'spec_helper'
 require 'blackhawk_api/client/helpers/identity_extractor'
-require 'pry'
 
 describe BlackhawkApi do
   describe 'Read Products' do
@@ -52,8 +51,8 @@ describe BlackhawkApi do
       result = JSON.parse(products.raw_body, object_class: OpenStruct)
       expect(result.results.count).to be(result.total)
     end
-    
-     describe 'Product Management' do
+
+    describe 'Product Management' do
       VALID_PRODUCT_ID = 'WH7V1Z5584XM0XGZ7JS61C7FHW'
 
       class ServiceTester
@@ -62,7 +61,7 @@ describe BlackhawkApi do
           @requested_status = requested_status
           @requested_error = requested_error
         end
-        
+
         def find product_id
           @service.find product_id do |request|
             request.headers['requestedStatusCode'] = @requested_status
@@ -71,11 +70,11 @@ describe BlackhawkApi do
           end
         end
       end
-    
+
       it 'should handle Product management service unavailable with 502, 503 - Service not available or Bad Gateway' do
         service = BlackhawkApi::ProductService.new
         service_tester = ServiceTester.new(service, '500', 'Internal Server Error')
-        
+
         expect { service_tester.find VALID_PRODUCT_ID }.to raise_error
       end
     end

@@ -1,6 +1,7 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'httpi'
-require 'pry'\
+require 'json'
+require 'pry'
 
 HTTPI.log = false
 
