@@ -9,6 +9,10 @@ module BlackhawkApi
   class AccountProcessingInformation < RESTResource
     @@resource_url = 'accountProcessing/v1'
 
+    def initialize(config)
+      super(config)
+    end
+
     # This operation is used to get an account number for the given product and amount.
     def create(product_id, amount, currency, transaction_time, reference_number,
                     store_number, terminal_number, base_transaction_id, message_reason_code)

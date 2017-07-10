@@ -4,6 +4,10 @@ module BlackhawkApi
   class ProductLine < RESTResource
     @@resource_url = 'productManagement/v1/productLine'
 
+    def initialize(config)
+      super(config)
+    end
+
     # This API retrieves product line information for the specified product line ID.
     # @param productline_id The internal identifier for the product line.
     # @return Retrieves the requested product line.

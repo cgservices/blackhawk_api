@@ -1,64 +1,38 @@
 module BlackhawkApi
   # Facade to enable easy access to the Blackhawk API.
   class BlackhawkClient
-    # Reads all products for all available catalogs.
-    # @return An array with catalogs, each with an array of products for that catalog.
-    def read_catalogs
-      catalog_service = BlackhawkApi::CatalogService.new
-      product_service = BlackhawkApi::ProductService.new
-      available_catalogs = []
+    include HttpClient
+    include RequestHandler
 
-      catalogs = catalog_service.all BlackhawkApi::Requests::GetAllCatalogsRequest.new
-      catalogs.results.each do |c|
-        catalog_details = []
-        catalog = catalog_service.find c.entity_id
-        ids = []
-        catalog.details.product_urls.each do |url|
-          ids << BlackhawkApi::IdentityExtractor.to_identity(url).to_s
-        end
-
-        ids.each do |id|
-          product = product_service.find id
-          catalog_details << product
-        end
-
-        available_catalogs << catalog_details
-      end
-      available_catalogs
+    def initialize(config)
+      @config = config
     end
 
     # Reads product details for a single product.
     # @param product_id The identifier of the product.
     # @return The product details.
-    def read_product product_id
-      product_service = BlackhawkApi::ProductService.new
-      product_service.find product_id
+    def read_product(product_id)
+      request = Requests::FindProductByIdRequest.new(product_id)
+
+      web_response, _results = perform request do
+        http_request = Product.new(@config).find(request.product_id)
+        get http_request
+      end
+
+      Responses::ProductDetailsResponse.new(web_response)
     end
 
     # Reads account details for a single account
     # @param account_id The identifier of the account.
     # @return The account details.
-    def read_account account_id
-      account_service = BlackhawkApi::AccountService.new
-      account_service.find account_id
-    end
+    def read_account(account_id)
+      request = Requests::FindAccountRequest.new(account_id)
 
-    # Reads transaction details for a single transaction.
-    # @param transaction_id The identifier of the transaction.
-    # @return The transaction details.
-    def read_transaction transaction_id
-      transaction_service = BlackhawkApi::TransactionService.new
-      transaction_service.find transaction_id
-    end
+      web_response, _results = perform request do
+        get AccountProcessingInformation.new(@config).find(request.account_id)
+      end
 
-    # Finds transactions for the specified account.
-    # @param account_id The identifier of the account.
-    # @return All transaction details for the account.
-    def read_transactions_for_account account_id
-      transaction_service = BlackhawkApi::TransactionService.new
-      request = BlackhawkApi::Requests::FindAccountTransactionsByAccountIdRequest.new(account_id)
-
-      transaction_service.find_by_account_id request
+      Responses::AccountDetailsResponse.new(web_response)
     end
 
     # Generates an egift for the specified product configuration.
@@ -66,40 +40,47 @@ module BlackhawkApi
     # @param amount The requested value for the egift.
     # @param reference The reference to perform transaction based operations on this egift.
     # @return The EGift details.
-    def generate_egift product_config_id, amount, reference
-      gift_service = BlackhawkApi::GiftService.new
-
+    def generate_egift(product_config_id, amount, reference)
       request = BlackhawkApi::Requests::GenerateGiftCardRequest.new(
         nil, nil, nil, amount, nil, nil, reference,
         nil, product_config_id, nil, nil
       )
 
-      gift_service.generate request, reference
+      reference ||= generate_request_id
+      web_response, _results = perform request do
+        post EGiftProcessing.new(@config).generate(request.to_json, reference)
+      end
+
+      Responses::GiftDetailsResponse.new(web_response, reference)
     end
 
     # Reverses a generated egift or a voided egift.
     # @param request_id The identifier used during the initial request.
     # @return The account transaction details.
-    def reverse_egift request_id
-      gift_service = BlackhawkApi::GiftService.new
-
+    def reverse_egift(request_id)
       request = BlackhawkApi::Requests::ReverseGiftCardRequest.new(request_id)
+      request_id ||= generate_request_id
 
-      gift_service.reverse request
+      web_response, _results = perform request do
+        post EGiftProcessing.new(@config).reverse(request.to_json, request_id)
+      end
+
+      Responses::AccountTransactionResponse.new(web_response)
     end
 
     # Voids a generated egift.
-    # @param request_id The identifier used during the initial request.
     # @param egift_id The identifier given to the generated egift.
     # @param reference The reference used during the generation process.
     # @return The EGift details
-    def void_egift egift_id, reference
-      gift_service = BlackhawkApi::GiftService.new
+    def void_egift(egift_id, reference)
+      request = BlackhawkApi::Requests::VoidGiftCardRequest.new(egift_id, reference)
+      request_id ||= generate_request_id
 
-      request = BlackhawkApi::Requests::VoidGiftCardRequest.new(
-        egift_id, reference)
+      web_response, _results = perform request do
+        post EGiftProcessing.new(@config).void(request.to_json, request_id)
+      end
 
-      gift_service.void request
+      Responses::GiftDetailsResponse.new(web_response, request_id)
     end
   end
 end

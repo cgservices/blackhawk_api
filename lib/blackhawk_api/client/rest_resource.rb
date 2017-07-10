@@ -1,16 +1,13 @@
-require 'httpi'
-require 'yaml'
-require 'json'
-require 'openssl'
-require 'base64'
 require 'blackhawk_api/client/requests/base_request'
 require 'blackhawk_api/client/errors/api_error'
 
 module BlackhawkApi
   # Base class for rest resources.
   class RESTResource
-    def config
-      BlackhawkApi.config || YAML.load(File.open('./config/bhn_config.certification.yml')).with_indifferent_access
+    attr_reader :config
+
+    def initialize(config)
+      @config = config
     end
 
     def setup_request(uri, request_id = nil, idempotent = false, attempts = 0)

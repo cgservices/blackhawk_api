@@ -1,3 +1,10 @@
+require 'httpi'
+require 'yaml'
+require 'json'
+require 'openssl'
+require 'base64'
+require 'uri'
+
 # Include error values
 require 'blackhawk_api/client/errors/api_error'
 require 'blackhawk_api/client/errors/connection_error'
@@ -37,43 +44,7 @@ require 'blackhawk_api/client/resources/egift_processing'
 require 'blackhawk_api/client/resources/product'
 require 'blackhawk_api/client/resources/product_line'
 require 'blackhawk_api/client/resources/product_catalog'
-
-# Include Repositories
-require 'blackhawk_api/client/client'
-require 'blackhawk_api/client/data/account_repository'
-require 'blackhawk_api/client/data/account_transaction_repository'
-require 'blackhawk_api/client/data/gift_repository'
-require 'blackhawk_api/client/data/product_repository'
-require 'blackhawk_api/client/data/product_catalog_repository'
-require 'blackhawk_api/client/data/productline_repository'
-
-# Include Application Services
-require 'blackhawk_api/client/services/application_service'
-require 'blackhawk_api/client/services/account_service'
-require 'blackhawk_api/client/services/account_transaction_service'
-require 'blackhawk_api/client/services/giftcard_service'
-require 'blackhawk_api/client/services/product_catalog_service'
-require 'blackhawk_api/client/services/product_line_service'
-require 'blackhawk_api/client/services/product_service'
+require 'blackhawk_api/client/http_client'
 
 # Include Application Facade
 require 'blackhawk_api/client/blackhawk_client'
-
-# Configuration settings for BlackhawkApi
-module BlackhawkApi
-  # Config class for rails projects
-  class Config
-    attr_accessor :proxysettings,
-                  :certificate,
-                  :resourcelocation,
-                  :identifiers
-  end
-
-  def self.config
-    @config ||= Config.new
-  end
-
-  def self.configure
-    yield config
-  end
-end

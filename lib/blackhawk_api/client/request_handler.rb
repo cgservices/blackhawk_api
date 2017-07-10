@@ -1,16 +1,5 @@
-require 'json'
-
 module BlackhawkApi
-  # Base class for application services.
-  class ApplicationService
-    # Initializes a new ApplicationService.
-    # @param error_handler An implementation for error handling for this service.
-    def initialize(error_handler = nil)
-      @handler = error_handler || ApiErrorHandler.new
-    end
-
-    protected
-
+  module RequestHandler
     def validate(request)
       validator_class_name = request.class.name.split('::').last + 'Validator'
       validator ||= Object.const_get('BlackhawkApi')
@@ -26,10 +15,8 @@ module BlackhawkApi
     end
 
     def inspected(response)
-      return response if @handler.nil?
-
       result = JSON.parse(response.raw_body, object_class: OpenStruct)
-      @handler._inspect(response, result)
+      ApiErrorHandler.new._inspect(response, result)
       [response, result]
     end
 
@@ -38,6 +25,10 @@ module BlackhawkApi
 
       response = yield
       inspected response
+    end
+
+    def generate_request_id
+      rand.to_s[2..13]
     end
   end
 end

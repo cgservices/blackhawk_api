@@ -4,7 +4,7 @@ require 'json'
 
 module BlackhawkApi
   # Basic HTTP client.
-  class Client
+  module HttpClient
     # performs a GET request.
     # @param request A request object with headers, parameters etc.
     # @return Returns the raw response.

@@ -4,6 +4,10 @@ module BlackhawkApi
   class EGiftManagement < RESTResource
     @@resource_url = 'eGiftManagement/v1/eGifts'
 
+    def initialize(config)
+      super(config)
+    end
+
     # This operation retrieves complete information about an eGift for a specified eGift identifier.
     # @param egift_id The internal identifier of the eGift.
     # @return The requested eGift.

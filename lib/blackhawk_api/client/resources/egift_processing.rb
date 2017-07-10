@@ -4,6 +4,10 @@ module BlackhawkApi
   class EGiftProcessing < RESTResource
     @@resource_url = 'eGiftProcessing/v1'
 
+    def initialize(config)
+      super(config)
+    end
+
     # This operation generates an eGift for any given product configuration. The generate operation
     #  creates an account and wraps it in an eGift object, returning the fully initialized, newly created eGift.
     # @param gift_data The EGift to generate.

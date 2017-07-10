@@ -4,6 +4,10 @@ module BlackhawkApi
     @@correlation_url = 'accountTxnManagement/v1'
     @@resource_url = 'accountTxnManagement/v1/accountTransaction'
 
+    def initialize(config)
+      super(config)
+    end
+
     # This operation creates an account transaction
     # @param account_transaction The account transaction to be created.
     # @return The newly created Account Transaction.

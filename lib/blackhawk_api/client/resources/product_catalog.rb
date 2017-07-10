@@ -5,6 +5,10 @@ module BlackhawkApi
   class ProductCatalog < RESTResource
     @@resource_url = 'productCatalogManagement/v1/productCatalog'
 
+    def initialize(config)
+      super(config)
+    end
+
     # This operation queries all product catalog summaries.
     # @return List of product catalog summary with the total number of product catalog summaries existing in the system.
     def all(request)
