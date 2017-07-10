@@ -5,6 +5,7 @@ describe BlackhawkApi::BlackhawkClient do
   let(:config) { JSON.parse(config_json, object_class: OpenStruct) }
   let(:base_url) { 'https://api.certification.blackhawknetwork.com' }
   let(:product_id) { 'VGQ4ZMS0X1JHZ7LAXQVGRT8QZ9' }
+  let(:product_config_id) { '8MJAB7C7P6NZ7YAH8P6N7W2NTL' }
 
   subject { described_class.new(config) }
 
@@ -15,8 +16,32 @@ describe BlackhawkApi::BlackhawkClient do
   end
 
   describe '#read_product' do
-    it 'returns product details from the blackhawk API' do
+    it 'returns product details from the blackhawk API successfully' do
       expect(subject.read_product(product_id).code).to eq 200
+    end
+  end
+
+  describe '#read_account' do
+    it 'returns account details from the blackhawk API successfully' do
+      expect(subject.read_account('J5FZ4KAC98LALH5WC9GHA47DDC').code).to eq 200
+    end
+  end
+
+  describe '#generate_egift' do
+    it 'generates a EGift successfully' do
+      expect(subject.generate_egift(product_config_id, 5, rand.to_s[2..13]).code).to eq 200
+    end
+  end
+
+  describe '#reverse_egift' do
+    it 'reverses a EGift successfully' do
+      # expect(subject.reverse_egift(request_id).code).to eq 200
+    end
+  end
+
+  describe '#void_egift' do
+    it 'voids a EGift successfully' do
+      # expect(subject.void_egift(egift_id, reference).code).to eq 200
     end
   end
 end
