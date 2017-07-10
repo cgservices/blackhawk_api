@@ -1,13 +1,12 @@
 require 'spec_helper'
-require 'logger'
-
 
 describe BlackhawkApi do
+  let(:product_id) { 'WH7V1Z5584XM0XGZ7JS61C7FHW' }
+  let(:config_id) { '8MJAB7C7P6NZ7YAH8P6N7W2NTL' }
+
   describe 'FRC01: Approved Variable -' do
     # WH7V1Z5584XM0XGZ7JS61C7FHW: DIGITAL FRC 01: APPROVED VARIABLE - NL EUR 5.0
     # Config: 8MJAB7C7P6NZ7YAH8P6N7W2NTL
-    PRODUCT_ID = 'WH7V1Z5584XM0XGZ7JS61C7FHW'.freeze
-    CONFIG_ID = '8MJAB7C7P6NZ7YAH8P6N7W2NTL'.freeze
 
     # 1. Select product
     # 2. Call generateEGift
@@ -33,7 +32,7 @@ describe BlackhawkApi do
 
       request = BlackhawkApi::Requests::GenerateGiftCardRequest.new(
         nil, nil, nil, amount, nil, nil, ref,
-        nil, CONFIG_ID, nil, nil)
+        nil, config_id, nil, nil)
 
       begin
         response = gift_service.generate request
@@ -145,7 +144,8 @@ describe BlackhawkApi do
   describe 'FRC02: Card not Found -' do
     # 7Y77APSD5Q52FVQAYCXN45SLZF: DIGITAL FRC 02: 409 CARD NOT FOUND - NL EUR 5.0
     # Config: SG49BRMV9W0PV3J1NQLG8NKQ2A
-    CONFIG_ID = 'SG49BRMV9W0PV3J1NQLG8NKQ2A'.freeze
+    let(:config_id) { 'SG49BRMV9W0PV3J1NQLG8NKQ2A' }
+
     xit 'should not fulfill the transaction of the giftcard' do
       gift_service = BlackhawkApi::GiftService.new
       amount = 5
@@ -153,7 +153,7 @@ describe BlackhawkApi do
 
       step_2 = BlackhawkApi::Requests::GenerateGiftCardRequest.new(
         nil, nil, nil, amount, nil, nil, ref,
-        nil, CONFIG_ID, nil, nil)
+        nil, config_id, nil, nil)
 
       expect { gift_service.generate step_2 }.to raise_error { | error |
         expect(error.http_code).to eq(409)
@@ -165,7 +165,8 @@ describe BlackhawkApi do
   describe 'FRC03: General Decline -' do
     # SBGW7WWZG4WAHL66AYA72DXYJ4: DIGITAL FRC 03: GENERAL DECLINE - NL EUR 5.0
     # Config: WZZ1YZP1VJQRL4PWFKT0NZPKA5
-    CONFIG_ID = 'WZZ1YZP1VJQRL4PWFKT0NZPKA5'.freeze
+    let(:config_id) { 'WZZ1YZP1VJQRL4PWFKT0NZPKA5' }
+
     xit 'should decline the giftcard' do
       gift_service = BlackhawkApi::GiftService.new
       amount = 5
@@ -173,7 +174,7 @@ describe BlackhawkApi do
 
       step_2 = BlackhawkApi::Requests::GenerateGiftCardRequest.new(
         nil, nil, nil, amount, nil, nil, ref,
-        nil, CONFIG_ID, nil, nil)
+        nil, config_id, nil, nil)
 
       expect { gift_service.generate step_2 }.to raise_error { | error |
         expect(error.http_code).to eq(409)
@@ -185,7 +186,8 @@ describe BlackhawkApi do
   describe 'FRC04: Invalid Amount -' do
     # RLQGPFDZ4M4WZFF311L5YDZR5L: DIGITAL FRC 04: INVALID AMOUNT - NL EUR 5.0
     # Config: PZF9A147MCQV49PD6MWHMZ1109
-    CONFIG_ID = 'PZF9A147MCQV49PD6MWHMZ1109'.freeze
+    let(:config_id)  { 'PZF9A147MCQV49PD6MWHMZ1109' }
+
     xit 'should decline the giftcard' do
       gift_service = BlackhawkApi::GiftService.new
       amount = 5
@@ -193,7 +195,7 @@ describe BlackhawkApi do
 
       step_2 = BlackhawkApi::Requests::GenerateGiftCardRequest.new(
         nil, nil, nil, amount, nil, nil, ref,
-        nil, CONFIG_ID, nil, nil)
+        nil, config_id, nil, nil)
 
       expect { gift_service.generate step_2 }.to raise_error { | error |
         expect(error.http_code).to eq(409)
@@ -205,7 +207,8 @@ describe BlackhawkApi do
   describe 'FRC05: Invalid merchant -' do
     # SKSX3BHA3MSMSDDH6AV2WVLLGL: DIGITAL FRC 05: INVALID MERCHANT - NL EUR 5.0
     # Config: BH6TGXSBZQGPSLFSGD463JM7A0
-    CONFIG_ID = 'BH6TGXSBZQGPSLFSGD463JM7A0'.freeze
+    let(:config_id)  { 'BH6TGXSBZQGPSLFSGD463JM7A0' }
+
     xit 'should decline the giftcard' do
       gift_service = BlackhawkApi::GiftService.new
       amount = 5
@@ -213,7 +216,7 @@ describe BlackhawkApi do
 
       request = BlackhawkApi::Requests::GenerateGiftCardRequest.new(
         nil, nil, nil, amount, nil, nil, ref,
-        nil, CONFIG_ID, nil, nil)
+        nil, config_id, nil, nil)
 
       expect { gift_service.generate request }.to raise_error { | error |
         expect(error.http_code).to eq(409)
@@ -225,7 +228,7 @@ describe BlackhawkApi do
   describe 'FRC06: Inventory Unavailable -' do
     # L18HD78M1JAWX3MTP18QZYATA6: DIGITAL FRC 06: INVENTORY UNAVAILABLE - NL EUR 5.0
     # Config: RVLSWRY63S63BTR2MY151ZSK0Q
-    CONFIG_ID = 'RVLSWRY63S63BTR2MY151ZSK0Q'.freeze
+    let(:config_id)  { 'RVLSWRY63S63BTR2MY151ZSK0Q' }
     xit 'should decline the giftcard' do
       gift_service = BlackhawkApi::GiftService.new
       amount = 5
@@ -233,7 +236,7 @@ describe BlackhawkApi do
 
       request = BlackhawkApi::Requests::GenerateGiftCardRequest.new(
         nil, nil, nil, amount, nil, nil, ref,
-        nil, CONFIG_ID, nil, nil)
+        nil, config_id, nil, nil)
 
       expect { gift_service.generate request }.to raise_error { | error |
         expect(error.http_code).to eq(409)
