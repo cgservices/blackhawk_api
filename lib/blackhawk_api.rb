@@ -38,7 +38,6 @@ require 'blackhawk_api/client/responses/product_responses'
 # Include REST Resources
 require 'blackhawk_api/client/rest_resource'
 require 'blackhawk_api/client/resources/account_processing_information'
-require 'blackhawk_api/client/resources/account_transaction'
 require 'blackhawk_api/client/resources/egift_management'
 require 'blackhawk_api/client/resources/egift_processing'
 require 'blackhawk_api/client/resources/product'

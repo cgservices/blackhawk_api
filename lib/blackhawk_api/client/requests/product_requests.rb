@@ -1,7 +1,1 @@
-require 'blackhawk_api/client/requests/products/find_product_by_configuration_request'
 require 'blackhawk_api/client/requests/products/find_products_by_ids_request'
-require 'blackhawk_api/client/requests/products/find_product_by_keyword_request'
-require 'blackhawk_api/client/requests/products/find_product_by_product_line_request'
-require 'blackhawk_api/client/requests/products/find_product_by_provisioning_type_request'
-require 'blackhawk_api/client/requests/products/find_product_lines_by_brand_request'
-require 'blackhawk_api/client/requests/products/find_product_lines_by_ids_request'
