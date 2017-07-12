@@ -8,7 +8,7 @@ module BlackhawkApi
     # Initializes a new identity value.
     # @param identity A string representation of the identity value.
     def initialize(identity)
-      @id = identity
+      self.id = identity
     end
 
     # Returns the string representation of this identity value.
