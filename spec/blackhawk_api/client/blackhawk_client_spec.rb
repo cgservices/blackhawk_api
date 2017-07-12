@@ -26,8 +26,20 @@ describe BlackhawkApi::BlackhawkClient do
   end
 
   describe '#generate_egift' do
-    it 'generates an egift' do
+    it 'returns a GiftDetailsResponse object' do
       expect(subject.generate_egift('1', 5, nil)).to be_a BlackhawkApi::Responses::GiftDetailsResponse
+    end
+  end
+
+  describe '#reverse_egift' do
+    it 'returns a AccountTransactionResponse object' do
+      expect(subject.reverse_egift(nil)).to be_a BlackhawkApi::Responses::AccountTransactionResponse
+    end
+  end
+
+  describe '#void_egift' do
+    it 'returns a GiftDetailsResponse object' do
+      expect(subject.void_egift(1, nil)).to be_a BlackhawkApi::Responses::GiftDetailsResponse
     end
   end
 end
