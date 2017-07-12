@@ -161,13 +161,5 @@ describe BlackhawkApi do
       # Assert
       expect(result).not_to eq(nil)
     end
-
-    it 'should be threadsafe' do
-      BlackhawkApi::BlackhawkClient.new
-      config1 = BlackhawkApi.config
-      BlackhawkApi::BlackhawkClient.new
-      config2 = BlackhawkApi.config
-      expect(config1).not_to eq config2
-    end
   end
 end
