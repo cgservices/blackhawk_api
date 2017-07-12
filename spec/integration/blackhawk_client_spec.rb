@@ -6,6 +6,7 @@ describe BlackhawkApi::BlackhawkClient do
   let(:base_url) { 'https://api.certification.blackhawknetwork.com' }
   let(:product_id) { 'VGQ4ZMS0X1JHZ7LAXQVGRT8QZ9' }
   let(:product_config_id) { '8MJAB7C7P6NZ7YAH8P6N7W2NTL' }
+  let(:request_id) { '635346958583' }
 
   subject { described_class.new(config) }
 
@@ -35,13 +36,20 @@ describe BlackhawkApi::BlackhawkClient do
 
   describe '#reverse_egift' do
     it 'reverses a EGift successfully' do
-      # expect(subject.reverse_egift(request_id).code).to eq 200
+      expect(subject.reverse_egift(request_id).code).to eq 200
     end
   end
 
   describe '#void_egift' do
+    before do
+      @reference = rand.to_s[2..13]
+      egift_response = subject.generate_egift(product_config_id, 5, @reference)
+      @egift_id = BlackhawkApi::IdentityExtractor.to_identity(
+        egift_response.information.entity_id).to_s
+    end
+
     it 'voids a EGift successfully' do
-      # expect(subject.void_egift(egift_id, reference).code).to eq 200
+      expect(subject.void_egift(@egift_id, @reference).code).to eq 200
     end
   end
 end
