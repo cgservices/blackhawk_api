@@ -11,7 +11,7 @@ describe BlackhawkApi::BlackhawkClient do
   subject { described_class.new(config) }
 
   before do
-    allow(config).to receive(:resourcelocation).and_return({ base_url: base_url })
+    allow(config).to receive(:resourcelocation).and_return(base_url: base_url)
     allow(config).to receive(:identifiers).and_return(config.merchants.mobiletopup_uk.identifiers)
     allow(config).to receive(:certificate).and_return(config.countries.uk)
   end
@@ -41,8 +41,22 @@ describe BlackhawkApi::BlackhawkClient do
   end
 
   describe '#generate_egift' do
+    let(:generated_egift) { subject.generate_egift(product_config_id, 5, nil) }
+
     it 'generates a EGift successfully' do
-      expect(subject.generate_egift(product_config_id, 5, rand.to_s[2..13]).code).to eq 200
+      expect(generated_egift.code).to eq 200
+    end
+
+    it 'the amount is valid' do
+      expect(generated_egift.information.gift_amount).to eq 5
+    end
+
+    it 'the status is activated' do
+      expect(generated_egift.information.status).to eq 'ACTIVATED'
+    end
+
+    it 'the product id is correct' do
+      expect(generated_egift.information.product_configuration_id).to eq product_config_id
     end
   end
 
