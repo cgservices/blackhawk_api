@@ -6,6 +6,8 @@ describe BlackhawkApi::BlackhawkClient do
   let(:base_url) { 'https://api.certification.blackhawknetwork.com' }
   let(:product_id) { 'VGQ4ZMS0X1JHZ7LAXQVGRT8QZ9' }
   let(:product_config_id) { '8MJAB7C7P6NZ7YAH8P6N7W2NTL' }
+  let(:productline_id) { 'FY9GWP49A84S6HKMFXHQ76HDCD' }
+  let(:catalog_id) { 'R7N2G9WKC9CKHJ5FSS37T41RMH' }
   let(:request_id) { '635346958583' }
 
   subject { described_class.new(config) }
@@ -34,9 +36,21 @@ describe BlackhawkApi::BlackhawkClient do
     end
   end
 
+  describe '#read_catalog' do
+    it 'returns catalog from the blackhawk API successfully' do
+      expect(subject.read_catalog(catalog_id).code).to eq 200
+    end
+  end
+
   describe '#read_product' do
     it 'returns product details from the blackhawk API successfully' do
       expect(subject.read_product(product_id).code).to eq 200
+    end
+  end
+
+  describe '#read_productline' do
+    it 'returns product line from the blackhawk API successfully' do
+      expect(subject.read_productline(productline_id).code).to eq 200
     end
   end
 
