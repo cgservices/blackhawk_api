@@ -1,5 +1,4 @@
 require 'blackhawk_api/client/values/blackhawk_identity'
-require 'uri'
 
 module BlackhawkApi
   # Extracts the identity of a Blackhawk object from a resource location.
@@ -17,9 +16,9 @@ module BlackhawkApi
       BlackhawkApi::BlackhawkIdentity.new(
         read_identity(value))
     end
-    
+
     private
-    
+
     def self.read_identity(str)
       identity_length = 26
       if(identity_length >= str.length)

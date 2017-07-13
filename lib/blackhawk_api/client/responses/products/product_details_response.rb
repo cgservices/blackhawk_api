@@ -1,4 +1,3 @@
-require 'blackhawk_api/client/base'
 require 'blackhawk_api/client/entities/product_details'
 require 'blackhawk_api/client/entities/product_summary'
 

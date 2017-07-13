@@ -1,13 +1,8 @@
 /.bundle/
-/.yardoc
-/Gemfile.lock
-/_yardoc/
 /coverage/
 /doc/
 /pkg/
 /spec/reports/
 /tmp/
-/config/config.ini
-/config/bhn_config.sandbox.yml
-/config/bhn_config.certification.yml
-/config/certificates/
+/config/**
+.DS_Store
