@@ -1,0 +1,16 @@
+---
+:sync_country_once: true
+:base_url: https://api.certification.blackhawknetwork.com
+:countries:
+  :nl:
+    :cert: './config/certificates/bhn/development/nl/certificate.pem'
+    :key: './config/certificates/bhn/development/nl/private.key'
+  :uk:
+    :cert: './config/certificates/bhn/development/nl/certificate.pem'
+    :key: './config/certificates/bhn/development/nl/private.key'
+:merchants:
+  :mobiletopup_uk:
+    :countries: [nl]
+    :identifiers:
+      :contract_id: 60300004328
+      :requestor_id: MC9D6J0ZTH7JN3VJ1DRB0VKJSM

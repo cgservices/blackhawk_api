@@ -1,4 +1,5 @@
 require 'blackhawk_api/client/entities/product_line_details'
+require 'blackhawk_api/client/entities/product_line_summary'
 
 module BlackhawkApi
   module Responses
