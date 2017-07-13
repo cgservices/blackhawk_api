@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe BlackhawkApi::BlackhawkClient do
-  let(:config_json) { YAML.load(File.open('./config/bhn_config.certification.yml')).to_json }
+  let(:config_json) { YAML.load(File.open('./config/config-sample.yml')).to_json }
   let(:config) { JSON.parse(config_json, object_class: OpenStruct) }
   let(:base_url) { 'https://api.certification.blackhawknetwork.com' }
   let(:product_id) { 'VGQ4ZMS0X1JHZ7LAXQVGRT8QZ9' }
