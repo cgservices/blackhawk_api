@@ -4,5 +4,5 @@
 /pkg/
 /spec/reports/
 /tmp/
-/config/**
+/config/certificates/**
 .DS_Store
