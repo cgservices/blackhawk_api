@@ -11,7 +11,7 @@ module BlackhawkApi
 
     # This operation queries all product catalog summaries.
     # @return List of product catalog summary with the total number of product catalog summaries existing in the system.
-    def all(request)
+    def all
       setup_request "#{@@resource_url}s"
     end
 

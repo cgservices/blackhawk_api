@@ -8,23 +8,36 @@ module BlackhawkApi
       @config = config
     end
 
-    # Reads product details for a single product.
-    # @param product_id The identifier of the product.
-    # @return The product details.
+    def read_product_catalogs
+      result = get(ProductCatalog.new(@config).all)
+      Responses::ProductCatalogsResponse.new(result)
+    end
+
+    def read_catalog(catalog_id)
+      request = Requests::FindCatalogByIdRequest.new(catalog_id)
+
+      web_response, _results = perform request do
+        get ProductCatalog.new(@config).find(request.catalog_id)
+      end
+
+      Responses::ProductCatalogDetailsResponse.new(web_response)
+    end
+
+    def read_productline(productline_id)
+      result = get(ProductLine.new(@config).find(productline_id))
+      Responses::ProductLineDetailsResponse.new(result)
+    end
+
     def read_product(product_id)
       request = Requests::FindProductByIdRequest.new(product_id)
 
       web_response, _results = perform request do
-        http_request = Product.new(@config).find(request.product_id)
-        get http_request
+        get Product.new(@config).find(request.product_id)
       end
 
       Responses::ProductDetailsResponse.new(web_response)
     end
 
-    # Reads account details for a single account
-    # @param account_id The identifier of the account.
-    # @return The account details.
     def read_account(account_id)
       request = Requests::FindAccountRequest.new(account_id)
 
@@ -35,11 +48,6 @@ module BlackhawkApi
       Responses::AccountDetailsResponse.new(web_response)
     end
 
-    # Generates an egift for the specified product configuration.
-    # @param product_config_id The identifier for the product configuration.
-    # @param amount The requested value for the egift.
-    # @param reference The reference to perform transaction based operations on this egift.
-    # @return The EGift details.
     def generate_egift(product_config_id, amount, reference)
       request = BlackhawkApi::Requests::GenerateGiftCardRequest.new(
         nil, nil, nil, amount, nil, nil, reference,
@@ -54,9 +62,6 @@ module BlackhawkApi
       Responses::GiftDetailsResponse.new(web_response, reference)
     end
 
-    # Reverses a generated egift or a voided egift.
-    # @param request_id The identifier used during the initial request.
-    # @return The account transaction details.
     def reverse_egift(request_id)
       request = BlackhawkApi::Requests::ReverseGiftCardRequest.new(request_id)
       request_id ||= generate_request_id
@@ -68,10 +73,6 @@ module BlackhawkApi
       Responses::AccountTransactionResponse.new(web_response)
     end
 
-    # Voids a generated egift.
-    # @param egift_id The identifier given to the generated egift.
-    # @param reference The reference used during the generation process.
-    # @return The EGift details
     def void_egift(egift_id, reference)
       request = BlackhawkApi::Requests::VoidGiftCardRequest.new(egift_id, reference)
       request_id ||= generate_request_id

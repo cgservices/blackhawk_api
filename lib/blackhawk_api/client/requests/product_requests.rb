@@ -1,1 +1,2 @@
+require 'blackhawk_api/client/requests/products/find_product_by_provisioning_type_request'
 require 'blackhawk_api/client/requests/products/find_products_by_ids_request'

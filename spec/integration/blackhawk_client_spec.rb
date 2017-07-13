@@ -28,6 +28,12 @@ describe BlackhawkApi::BlackhawkClient do
     end
   end
 
+  describe '#read_product_catalogs' do
+    it 'returns product catalogs from the blackhawk API successfully' do
+      expect(subject.read_product_catalogs.code).to eq 200
+    end
+  end
+
   describe '#read_product' do
     it 'returns product details from the blackhawk API successfully' do
       expect(subject.read_product(product_id).code).to eq 200

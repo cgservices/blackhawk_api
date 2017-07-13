@@ -4,13 +4,34 @@ describe BlackhawkApi::BlackhawkClient do
   subject { described_class.new(Struct.new(nil)) }
 
   let(:response) { HTTPI::Response.new(200, {}, response_body) }
-  let(:response_body) { { summary: {} }.to_json }
+  let(:response_body) { { summary: {}, results: {} }.to_json }
 
   before do
     allow(subject).to receive(:get).and_return response
     allow(subject).to receive(:post).and_return response
     allow_any_instance_of(BlackhawkApi::RESTResource).to receive(:setup_request).and_return(BlackhawkApi::Request.new('http://www.test.com'))
     allow(BlackhawkApi::ProductDetails).to receive(:new)
+    allow(BlackhawkApi::ProductLineDetails).to receive(:new)
+    allow(BlackhawkApi::ProductCatalogSummary).to receive(:new)
+    allow(BlackhawkApi::ProductCatalogDetails).to receive(:new)
+  end
+
+  describe '#read_product_catalogs' do
+    it 'returns a product catalogs response object' do
+      expect(subject.read_product_catalogs).to be_a BlackhawkApi::Responses::ProductCatalogsResponse
+    end
+  end
+
+  describe '#read_catalog' do
+    it 'returns a product catalogs response object' do
+      expect(subject.read_catalog('1')).to be_a BlackhawkApi::Responses::ProductCatalogDetailsResponse
+    end
+  end
+
+  describe '#read_productline' do
+    it 'returns a product catalogs response object' do
+      expect(subject.read_productline('1')).to be_a BlackhawkApi::Responses::ProductLineDetailsResponse
+    end
   end
 
   describe '#read_product' do
