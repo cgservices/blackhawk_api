@@ -1,5 +1,3 @@
-require 'blackhawk_api/version'
-
 module BlackhawkApi
   # Base class for responses
   class BaseResponse

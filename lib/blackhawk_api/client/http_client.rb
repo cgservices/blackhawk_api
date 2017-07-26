@@ -4,13 +4,12 @@ require 'json'
 
 module BlackhawkApi
   # Basic HTTP client.
-  class Client
+  module HttpClient
     # performs a GET request.
     # @param request A request object with headers, parameters etc.
     # @return Returns the raw response.
     def get(request)
       do_request(:get, request)
-#      HTTPI.get request
     end
 
     # Performs a POST request.
@@ -18,7 +17,6 @@ module BlackhawkApi
     # @return Returns the parsed response.
     def post(request)
       do_request(:post, request)
-#      HTTPI.post request
     end
 
     # Performs a PUT request.
@@ -26,7 +24,6 @@ module BlackhawkApi
     # @return Returns the parsed response.
     def put(request)
       do_request(:put, request)
-#      HTTPI.put request
     end
 
     private
