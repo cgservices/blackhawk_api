@@ -47,6 +47,8 @@ module BlackhawkApi
       @request.auth.ssl.cert_file = config.certificate[:cert]
       @request.auth.ssl.verify_mode = :peer
       @request.auth.ssl.ssl_version = :TLSv1_2
+      @request.open_timeout = 30 # seconds
+      @request.read_timeout = 30 # seconds
 
       @request.headers["requestorId"] = config.identifiers[:requestor_id]
       @request.headers['contractId'] = config.identifiers[:contract_id].to_s
