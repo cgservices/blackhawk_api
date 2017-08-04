@@ -1,5 +1,7 @@
 module BlackhawkApi
   module RequestHandler
+    attr_reader :last_request_id
+
     def validate(request)
       validator_class_name = request.class.name.split('::').last + 'Validator'
       validator ||= Object.const_get('BlackhawkApi')
@@ -28,7 +30,7 @@ module BlackhawkApi
     end
 
     def generate_request_id
-      rand.to_s[2..13]
+      @last_request_id = rand.to_s[2..13]
     end
   end
 end
