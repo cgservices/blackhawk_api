@@ -27,7 +27,11 @@ module BlackhawkApi
 
       response = yield
 
-      log(JSON.generate(code: response.code, headers: response.headers, body: response.raw_body))
+      log(JSON.generate(
+        code: response.code,
+        headers: response.headers,
+        body: response.raw_body.force_encoding("UTF-8")
+      ))
       inspected response
     end
 

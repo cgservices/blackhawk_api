@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    blackhawk_api (1.0.3)
+    blackhawk_api (1.0.4)
       httpi (~> 2.4.1)
       rubyntlm (~> 0.3.2)
       veto
