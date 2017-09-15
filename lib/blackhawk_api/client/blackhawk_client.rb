@@ -83,5 +83,15 @@ module BlackhawkApi
 
       Responses::GiftDetailsResponse.new(web_response, request_id)
     end
+
+    def log(value)
+      log_rule = "Blackhawk API Logger: #{value}"
+
+      if defined?(Rails) == 'constant'
+        Rails.logger.info(log_rule)
+      else
+        STDOUT << log_rule unless ENV['RACK_ENV'] == 'test'
+      end
+    end
   end
 end

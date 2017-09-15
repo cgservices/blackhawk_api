@@ -26,6 +26,8 @@ module BlackhawkApi
       return unless validate request
 
       response = yield
+
+      log(JSON.generate(code: response.code, headers: response.headers, body: response.raw_body))
       inspected response
     end
 
