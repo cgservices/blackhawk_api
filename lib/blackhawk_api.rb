@@ -12,7 +12,7 @@ require 'blackhawk_api/client/errors/api_error_handler'
 
 # Include value objects
 require 'blackhawk_api/client/values/enumerations'
-require 'blackhawk_api/client/values/blackhawk_identity'
+   require 'blackhawk_api/client/values/blackhawk_identity'
 require 'blackhawk_api/client/values/blackhawk_identity_array'
 
 # Include helper methods

@@ -33,3 +33,5 @@ push git commits and tags, and push the `.gem` file to [rubygems.org](https://ru
 
 In order to run the integration tests, it is required to comment out the last line from .rspec (it excludes spec/integration/... specs by default). Also,
 it is required to put certificate.pem + private.key into the config directory (see ./config/config-sample.yml)
+
+
